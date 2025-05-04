@@ -7,7 +7,7 @@ import PathName from "@/components/globle/PathName";
 
 const SettingPage = () => {
   const router = useRouter();
-  const { isLoggedIn, student } = useSelector((state) => state.student);
+  const { isLoggedIn, employee } = useSelector((state) => state.employee);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,21 +16,21 @@ const SettingPage = () => {
 
   useEffect(() => {
     if (mounted && !isLoggedIn) {
-      router.push("/student/auth/login");
+      router.push("/employee/auth/login");
     }
   }, [isLoggedIn, mounted]);
 
-  if (!mounted || !student) return null;
+  if (!mounted || !employee) return null;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <Sidebar sidebarFor={"student"} />
+      <Sidebar sidebarFor={"employee"} />
 
       <main className="ml-64 flex-1 p-8">
-        <PathName />
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            Welcome, {student?.firstname}
+        <div className="flex justify-between items-start flex-col mb-8">
+          <PathName />
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text flex items-center">
+            Welcome, {employee?.firstname}
           </h1>
         </div>
 

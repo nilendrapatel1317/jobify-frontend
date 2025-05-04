@@ -2,15 +2,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import Sidebar from "@/components/globle/Sidebar";
-import { registerStudent } from "@/services/studentService";
+import { registerEmployee } from "@/services/employeeService";
 import Link from "next/link";
 import { toast } from "react-toastify";
 
-const RegisterStudentPage = () => {
+const RegisterEmployeePage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isLoggedIn } = useSelector((state) => state.student);
+  const { isLoggedIn } = useSelector((state) => state.employee);
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -18,17 +17,18 @@ const RegisterStudentPage = () => {
     contact: "",
     city: "",
     gender: "",
+    organizationName: "",
     email: "",
     password: ""
   });
 
   const [errors, setErrors] = useState({});
-  console.log(isLoggedIn);
+
   useEffect(() => {
     if (isLoggedIn) {
-      router.push("/student/dashboard");
+      router.push("/employee/dashboard");
     } else {
-      router.push("/student/auth/register");
+      router.push("/employee/auth/register");
     }
   }, [isLoggedIn]);
 
@@ -41,13 +41,12 @@ const RegisterStudentPage = () => {
     e.preventDefault();
     setErrors({});
     try {
-      const response = await registerStudent(formData);
+      const response = await registerEmployee(formData);
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      
-      router.push("/student/auth/login");
+      router.push("/employee/auth/login");
     } catch (error) {
       const backendErrors = error.response?.data?.data || {};
       const fieldErrors = {};
@@ -73,7 +72,7 @@ const RegisterStudentPage = () => {
         </Link>
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center w-full">
-            Register as Student
+            Register as Employee
           </h1>
         </div>
 
@@ -88,6 +87,11 @@ const RegisterStudentPage = () => {
               { label: "Last Name", name: "lastname", type: "text" },
               { label: "Contact", name: "contact", type: "text" },
               { label: "City", name: "city", type: "text" },
+              {
+                label: "Organization Name",
+                name: "organizationName",
+                type: "text"
+              },
               { label: "Email", name: "email", type: "email" },
               { label: "Password", name: "password", type: "password" }
             ].map(({ label, name, type }) => (
@@ -105,28 +109,27 @@ const RegisterStudentPage = () => {
                 )}
               </div>
             ))}
-          </div>
-
-          <div>
-            <label className="block font-medium mb-1">Gender</label>
-            <div className="flex gap-6">
-              {["Male", "Female", "Others"].map((option) => (
-                <label key={option} className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value={option}
-                    checked={formData.gender === option}
-                    onChange={handleChange}
-                    className="accent-purple-500"
-                  />
-                  {option}
-                </label>
-              ))}
+            <div className="w-80">
+              <label className="block font-medium mb-1">Gender</label>
+              <div className="flex gap-6 py-2">
+                {["Male", "Female", "Others"].map((option) => (
+                  <label key={option} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value={option}
+                      checked={formData.gender === option}
+                      onChange={handleChange}
+                      className="accent-purple-500"
+                    />
+                    {option}
+                  </label>
+                ))}
+              </div>
+              {errors.gender && (
+                <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
+              )}
             </div>
-            {errors.gender && (
-              <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
-            )}
           </div>
 
           <div className="flex justify-between mt-10">
@@ -138,7 +141,7 @@ const RegisterStudentPage = () => {
             </button>
             <div className="flex items-center gap-2">
               <p>Already have an account ?</p>
-              <Link href={"/student/auth/login"} className="text-md font-bold">
+              <Link href={"/employee/auth/login"} className="text-md font-bold">
                 Login
               </Link>
             </div>
@@ -149,4 +152,4 @@ const RegisterStudentPage = () => {
   );
 };
 
-export default RegisterStudentPage;
+export default RegisterEmployeePage;

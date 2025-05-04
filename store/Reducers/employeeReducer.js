@@ -1,7 +1,7 @@
 const initialState = {
-  student:
-    typeof window !== "undefined" && localStorage.getItem("student")
-      ? JSON.parse(localStorage.getItem("student"))
+  employee:
+    typeof window !== "undefined" && localStorage.getItem("employee")
+      ? JSON.parse(localStorage.getItem("employee"))
       : null,
   isLoggedIn:
     typeof window !== "undefined" &&
@@ -9,35 +9,35 @@ const initialState = {
   error: null
 };
 
-const studentReducer = (state = initialState, action) => {
+const employeeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "STUDENT_LOGIN_SUCCESS":
-    case "STUDENT_UPDATE_SUCCESS":
+    case "EMPLOYEE_LOGIN_SUCCESS":
+    case "EMPLOYEE_UPDATE_SUCCESS":
       if (typeof window !== "undefined") {
-        localStorage.setItem("student", JSON.stringify(action.payload));
+        localStorage.setItem("employee", JSON.stringify(action.payload));
         localStorage.setItem("isLoggedIn", "true");
       }
       return {
         ...state,
-        student: action.payload,
+        employee: action.payload,
         isLoggedIn: true,
         error: null
       };
 
-    case "STUDENT_LOGIN_FAILURE":
-    case "STUDENT_UPDATE_FAILURE":
+    case "EMPLOYEE_LOGIN_FAILURE":
+    case "EMPLOYEE_UPDATE_FAILURE":
       return {
         ...state,
         error: action.payload
       };
 
-    case "STUDENT_LOGOUT":
+    case "EMPLOYEE_LOGOUT":
       if (typeof window !== "undefined") {
-        localStorage.removeItem("student");
+        localStorage.removeItem("employee");
         localStorage.removeItem("isLoggedIn");
       }
       return {
-        student: null,
+        employee: null,
         isLoggedIn: false,
         error: null
       };
@@ -47,4 +47,4 @@ const studentReducer = (state = initialState, action) => {
   }
 };
 
-export default studentReducer;
+export default employeeReducer;

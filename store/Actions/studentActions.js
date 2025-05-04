@@ -27,15 +27,3 @@ export const updateStudentProfile = (id, formData) => async (dispatch) => {
   }
 };
 
-export const registerStudentAction = (formData) => async (dispatch) => {
-  try {
-    const res = await registerStudent(formData);
-    dispatch({ type: "STUDENT_REGISTER_SUCCESS", payload: res.data.data });
-  } catch (error) {
-    dispatch({
-      type: "STUDENT_REGISTER_FAILURE",
-      payload: error.response?.data?.data || { message: error.message }
-    });
-    throw error;
-  }
-};

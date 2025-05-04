@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
+import PathName from "@/components/globle/PathName";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const DashboardPage = () => {
       <Sidebar sidebarFor={"student"} />
 
       <main className="ml-64 flex-1 p-8">
+        <PathName />
         <div className="relative w-full rounded-xl shadow-md mb-20">
           {/* Banner Placeholder */}
           <div className="h-48 bg-gradient-to-r from-blue-600 to-purple-600"></div>
@@ -51,7 +53,9 @@ const DashboardPage = () => {
           <div className="absolute top-4 right-4">
             <button
               className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-600 hover:to-blue-600 border border-white text-white font-semibold py-2 px-6 rounded-lg shadow-md"
-              onClick={() => router.push(`/student/profile/edit/${student?.id}`)}
+              onClick={() =>
+                router.push(`/student/profile/edit/${student?.id}`)
+              }
             >
               Edit Profile
             </button>
@@ -61,16 +65,28 @@ const DashboardPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold mb-2">Contact Information</h3>
-            <p><strong>ID:</strong> {student?.id}</p>
-            <p><strong>Contact:</strong> {student?.contact}</p>
-            <p><strong>City:</strong> {student?.city}</p>
-            <p><strong>Gender:</strong> {student?.gender}</p>
+            <p>
+              <strong>ID:</strong> {student?.id}
+            </p>
+            <p>
+              <strong>Contact:</strong> {student?.contact}
+            </p>
+            <p>
+              <strong>City:</strong> {student?.city}
+            </p>
+            <p>
+              <strong>Gender:</strong> {student?.gender}
+            </p>
           </div>
 
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold mb-2">Applications</h3>
-            <p><strong>Internships Applied:</strong> {internshipCount}</p>
-            <p><strong>Jobs Applied:</strong> {jobCount}</p>
+            <p>
+              <strong>Internships Applied:</strong> {internshipCount}
+            </p>
+            <p>
+              <strong>Jobs Applied:</strong> {jobCount}
+            </p>
           </div>
 
           <div className="bg-white rounded-xl shadow-lg p-6">
@@ -84,10 +100,11 @@ const DashboardPage = () => {
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h3 className="text-lg font-semibold mb-3">About Me</h3>
           <p className="text-gray-700">
-            Hello! I'm a dedicated student eager to learn and grow in the tech industry.
-            Passionate about web development, Java, and creating impactful applications.
-            Always curious and ready to take on challenges. This section will be updated
-            soon with more about my journey and aspirations.
+            Hello! I'm a dedicated student eager to learn and grow in the tech
+            industry. Passionate about web development, Java, and creating
+            impactful applications. Always curious and ready to take on
+            challenges. This section will be updated soon with more about my
+            journey and aspirations.
           </p>
         </div>
       </main>

@@ -1,8 +1,9 @@
 "use client";
+import { logoutEmployee } from "@/services/employeeService";
+import { logoutStudent } from "@/services/studentService";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutStudent } from "@/services/studentService";
 import { toast } from "react-toastify";
 
 const Sidebar = (props) => {
@@ -12,21 +13,39 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const { employee } = useSelector((state) => state.employee);
   const { student } = useSelector((state) => state.student);
 
   const handleLogout = async () => {
-    const response = await logoutStudent(student?.id);
-    toast.success(response.data.msg, {
-      position: "bottom-right",
-      autoClose: 2000
-    });
-    dispatch({ type: "STUDENT_LOGOUT" });
+    if (sidebarFor === "employee") {
+      const response = await logoutEmployee(employee?.id);
+      toast.success(response.data.msg, {
+        position: "bottom-right",
+        autoClose: 2000
+      });
+      dispatch({ type: "EMPLOYEE_LOGOUT" });
+      router.push("/login");
+    } else {
+      const response = await logoutStudent(student?.id);
+      toast.success(response.data.msg, {
+        position: "bottom-right",
+        autoClose: 2000
+      });
+      dispatch({ type: "STUDENT_LOGOUT" });
+      router.push("/login");
+    }
   };
 
   return (
     <div className="w-64 h-screen fixed top-0 left-0 bg-gray-800 text-white p-6 flex flex-col justify-between">
       <div className="flex flex-col gap-4">
-        <h2 className="text-2xl font-bold mb-4">Jobify Portal</h2>
+        <h2 className="text-2xl font-bold mb-4 capitalize">
+          Jobify Portal <br />
+          <span className="text-lg">
+            {" "}
+            for <span className="uppercase text-lg text-red-500">{sidebarFor}</span>
+          </span>
+        </h2>
         <Link
           href={`/${sidebarFor}/dashboard`}
           className="hover:bg-gray-700 p-2 rounded"
@@ -45,12 +64,14 @@ const Sidebar = (props) => {
         >
           Jobs
         </Link>
-        <Link
-          href={`/${sidebarFor}/resume`}
-          className="hover:bg-gray-700 p-2 rounded"
-        >
-          Resume
-        </Link>
+        {sidebarFor == "student" && (
+          <Link
+            href={`/${sidebarFor}/resume`}
+            className="hover:bg-gray-700 p-2 rounded"
+          >
+            Resume
+          </Link>
+        )}
         <Link
           href={`/${sidebarFor}/profile`}
           className="hover:bg-gray-700 p-2 rounded"
@@ -71,9 +92,15 @@ const Sidebar = (props) => {
         >
           Logout
         </button>
-        <h1 className="px-2 text-xl font-bold">
-          {student?.firstname + " " + student?.lastname}
-        </h1>
+        {sidebarFor == "employee" ? (
+          <h1 className="px-2 text-xl font-bold">
+            {employee?.firstname + " " + employee?.lastname}
+          </h1>
+        ) : (
+          <h1 className="px-2 text-xl font-bold">
+            {student?.firstname + " " + student?.lastname}
+          </h1>
+        )}
       </div>
     </div>
   );

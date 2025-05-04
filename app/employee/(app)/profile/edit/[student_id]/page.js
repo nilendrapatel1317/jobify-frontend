@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
-import { updateStudent } from "@/services/studentService";
 import { toast } from "react-toastify";
+import { updateEmployee } from "@/services/employeeService";
 import PathName from "@/components/globle/PathName";
 
-const EditStudentPage = () => {
+const EditEmployeePage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { isLoggedIn, student } = useSelector((state) => state.student);
+  const { isLoggedIn, employee } = useSelector((state) => state.employee);
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     firstname: "",
@@ -25,24 +25,25 @@ const EditStudentPage = () => {
 
   useEffect(() => {
     setMounted(true);
-    if (student) {
+    if (employee) {
       setFormData({
-        firstname: student.firstname || "",
-        lastname: student.lastname || "",
-        contact: student.contact || "",
-        city: student.city || "",
-        gender: student.gender || ""
+        firstname: employee.firstname || "",
+        lastname: employee.lastname || "",
+        contact: employee.contact || "",
+        city: employee.city || "",
+        gender: employee.gender || "",
+        organizationName: employee.organizationName || ""
       });
     }
-  }, [student]);
+  }, [employee]);
 
   useEffect(() => {
     if (mounted && !isLoggedIn) {
-      router.push("/student/auth/login");
+      router.push("/employee/auth/login");
     }
   }, [isLoggedIn, mounted]);
 
-  if (!mounted || !student) return null;
+  if (!mounted || !employee) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,16 +54,19 @@ const EditStudentPage = () => {
     e.preventDefault();
     setErrors({});
     try {
-      const response = await updateStudent(student.id, formData);
-      dispatch({ type: "STUDENT_UPDATE_SUCCESS", payload: response.data.data });
+      const response = await updateEmployee(employee.id, formData);
+      dispatch({
+        type: "EMPLOYEE_UPDATE_SUCCESS",
+        payload: response.data.data
+      });
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/student/profile"); // or refresh page
+      router.push("/employee/profile"); // or refresh page
     } catch (error) {
       if (error.response && error.response.data && error.response.data.data) {
-        dispatch({ type: "STUDENT_UPDATE_FAILURE", payload: error.message });
+        dispatch({ type: "EMPLOYEE_UPDATE_FAILURE", payload: error.message });
         toast.error(error.response.data.msg, {
           position: "bottom-right",
           autoClose: 2000
@@ -83,10 +87,10 @@ const EditStudentPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <Sidebar sidebarFor="student" />
+      <Sidebar sidebarFor="employee" />
 
       <main className="ml-64 flex-1 p-10">
-        <PathName />
+      <PathName />
         <div className="flex justify-center items-center mb-8">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
             Edit Your Profile
@@ -111,6 +115,7 @@ const EditStudentPage = () => {
                 <p className="text-red-500 text-sm mt-1">{errors.firstname}</p>
               )}
             </div>
+
             <div>
               <label className="block font-medium mb-1">Last Name</label>
               <input
@@ -124,6 +129,7 @@ const EditStudentPage = () => {
                 <p className="text-red-500 text-sm mt-1">{errors.lastname}</p>
               )}
             </div>
+
             <div>
               <label className="block font-medium mb-1">Contact</label>
               <input
@@ -137,12 +143,27 @@ const EditStudentPage = () => {
                 <p className="text-red-500 text-sm mt-1">{errors.contact}</p>
               )}
             </div>
+
             <div>
               <label className="block font-medium mb-1">City</label>
               <input
                 type="text"
                 name="city"
                 value={formData.city}
+                onChange={handleChange}
+                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.city && (
+                <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+              )}
+            </div>
+            
+            <div>
+              <label className="block font-medium mb-1">Organization Name</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.organizationName}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
@@ -188,4 +209,4 @@ const EditStudentPage = () => {
   );
 };
 
-export default EditStudentPage;
+export default EditEmployeePage;
