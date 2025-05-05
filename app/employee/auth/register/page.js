@@ -48,12 +48,12 @@ const RegisterEmployeePage = () => {
       });
       router.push("/employee/auth/login");
     } catch (error) {
-      const backendErrors = error.response?.data?.data || {};
-      const fieldErrors = {};
       toast.error(error.response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
+      const backendErrors = error.response?.data?.data || {};
+      const fieldErrors = {};
       for (const key in backendErrors) {
         fieldErrors[key] = backendErrors[key];
       }

@@ -15,10 +15,10 @@ const LoginPage = () => {
 
 
   useEffect(() => {
-    if (isStudentLoggedIn) {
-      router.push("/student/dashboard");
-    } else {
+    if (!isStudentLoggedIn) {
       router.push("/student/auth/login");
+    } else {
+      router.push("/student/dashboard");
     }
   }, [isStudentLoggedIn]);
 
