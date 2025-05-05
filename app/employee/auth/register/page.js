@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const RegisterEmployeePage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isLoggedIn } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -25,12 +25,12 @@ const RegisterEmployeePage = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
     } else {
       router.push("/employee/auth/register");
     }
-  }, [isLoggedIn]);
+  }, [isEmployeeLoggedIn]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

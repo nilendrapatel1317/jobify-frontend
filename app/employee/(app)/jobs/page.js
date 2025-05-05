@@ -7,7 +7,7 @@ import PathName from "@/components/globle/PathName";
 
 const JobsPage = () => {
   const router = useRouter();
-  const { isLoggedIn, employee } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -15,10 +15,10 @@ const JobsPage = () => {
   }, []);
 
   useEffect(() => {
-    if (mounted && !isLoggedIn) {
+    if (mounted && !isEmployeeLoggedIn) {
       router.push("/employee/auth/login");
     }
-  }, [isLoggedIn, mounted]);
+  }, [isEmployeeLoggedIn, mounted]);
 
   if (!mounted || !employee) return null;
 

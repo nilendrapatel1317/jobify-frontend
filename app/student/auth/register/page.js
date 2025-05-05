@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const RegisterStudentPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isLoggedIn } = useSelector((state) => state.student);
+  const { isStudentLoggedIn } = useSelector((state) => state.student);
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -23,14 +23,13 @@ const RegisterStudentPage = () => {
   });
 
   const [errors, setErrors] = useState({});
-  console.log(isLoggedIn);
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isStudentLoggedIn) {
       router.push("/student/dashboard");
     } else {
       router.push("/student/auth/register");
     }
-  }, [isLoggedIn]);
+  }, [isStudentLoggedIn]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const page = () => {
 
   const router = useRouter();
-  const { isLoggedIn, student } = useSelector((state) => state.student);
+  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -14,13 +14,13 @@ const page = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isStudentLoggedIn) {
       router.push("/student/dashboard");
     }
     else{
       router.push("/student/auth/login");
     }
-  }, [isLoggedIn, mounted]);
+  }, [isStudentLoggedIn, mounted]);
 
   if (!mounted || !student) return null;
 

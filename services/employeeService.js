@@ -16,3 +16,11 @@ export const deleteEmployee = (id) => api.delete(`/employee/delete/${id}`);
 export const loginEmployee = (credentials) => api.post('/employee/login', credentials);
 
 export const logoutEmployee = (id) => api.get(`/employee/logout/${id}`);
+
+// Change Password
+export const changePasswordEmployee = (id, { currentPassword, newPassword }) => {
+  return api.post(
+    `/employee/changepassword/${id}?currentPassword=${currentPassword}`,
+    { password: newPassword }
+  );
+};

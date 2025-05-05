@@ -3,9 +3,9 @@ const initialState = {
     typeof window !== "undefined" && localStorage.getItem("student")
       ? JSON.parse(localStorage.getItem("student"))
       : null,
-  isLoggedIn:
+  isStudentLoggedIn:
     typeof window !== "undefined" &&
-    localStorage.getItem("isLoggedIn") === "true",
+    localStorage.getItem("isStudentLoggedIn") === "true",
   error: null
 };
 
@@ -15,12 +15,12 @@ const studentReducer = (state = initialState, action) => {
     case "STUDENT_UPDATE_SUCCESS":
       if (typeof window !== "undefined") {
         localStorage.setItem("student", JSON.stringify(action.payload));
-        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("isStudentLoggedIn", "true");
       }
       return {
         ...state,
         student: action.payload,
-        isLoggedIn: true,
+        isStudentLoggedIn: true,
         error: null
       };
 
@@ -32,13 +32,14 @@ const studentReducer = (state = initialState, action) => {
       };
 
     case "STUDENT_LOGOUT":
+    case "STUDENT_DELETED":
       if (typeof window !== "undefined") {
         localStorage.removeItem("student");
-        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("isStudentLoggedIn");
       }
       return {
         student: null,
-        isLoggedIn: false,
+        isStudentLoggedIn: false,
         error: null
       };
 

@@ -19,7 +19,7 @@ const dummyJobs = [
 
 const DashboardPage = () => {
   const router = useRouter();
-  const { isLoggedIn, employee } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const DashboardPage = () => {
   }, []);
 
   useEffect(() => {
-    if (mounted && !isLoggedIn) {
+    if (mounted && !isEmployeeLoggedIn) {
       router.push("/employee/auth/login");
     }
-  }, [isLoggedIn, mounted]);
+  }, [isEmployeeLoggedIn, mounted]);
 
   if (!mounted || !employee) return null;
 

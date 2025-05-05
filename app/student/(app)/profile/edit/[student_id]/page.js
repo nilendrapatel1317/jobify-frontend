@@ -11,7 +11,7 @@ const EditStudentPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { isLoggedIn, student } = useSelector((state) => state.student);
+  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     firstname: "",
@@ -37,10 +37,10 @@ const EditStudentPage = () => {
   }, [student]);
 
   useEffect(() => {
-    if (mounted && !isLoggedIn) {
+    if (mounted && !isStudentLoggedIn) {
       router.push("/student/auth/login");
     }
-  }, [isLoggedIn, mounted]);
+  }, [isStudentLoggedIn, mounted]);
 
   if (!mounted || !student) return null;
 

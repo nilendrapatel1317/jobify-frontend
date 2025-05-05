@@ -9,17 +9,17 @@ import { loginEmployee } from "@/services/employeeService";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isLoggedIn, error } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn, error } = useSelector((state) => state.employee);
 
   const [form, setForm] = useState({ email: "", password: "" });
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
     } else {
       router.push("/employee/auth/login");
     }
-  }, [isLoggedIn]);
+  }, [isEmployeeLoggedIn]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,7 +36,6 @@ const LoginPage = () => {
       });
       router.push("/employee/dashboard");
     } catch (error) {
-      console.log(error)
       toast.error(error.response.data.msg, {
         position: "bottom-right",
         autoClose: 2000

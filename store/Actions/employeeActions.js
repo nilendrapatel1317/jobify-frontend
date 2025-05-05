@@ -15,11 +15,15 @@ export const logout = () => (dispatch) => {
   dispatch({ type: 'EMPLOYEE_LOGOUT' });
 };
 
+// DELETE
+export const deleteProfile = () => (dispatch) => {
+  dispatch({ type: 'EMPLOYEE_DELETE' });
+};
+
 // UPDATE PROFILE
 export const updateEmployeeProfile = (id, formData) => async (dispatch) => {
   try {
     const res = await updateEmployee(id, formData);
-    console.log(res)
     dispatch({ type: 'EMPLOYEE_UPDATE_SUCCESS', payload: res.data });
   } catch (error) {
     dispatch({ type: 'EMPLOYEE_UPDATE_FAILURE', payload: error.message });

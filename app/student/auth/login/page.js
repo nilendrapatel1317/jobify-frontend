@@ -9,17 +9,18 @@ import { toast } from "react-toastify";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isLoggedIn, error } = useSelector((state) => state.student);
+  const { isStudentLoggedIn, error } = useSelector((state) => state.student);
 
   const [form, setForm] = useState({ email: "", password: "" });
 
+
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isStudentLoggedIn) {
       router.push("/student/dashboard");
     } else {
       router.push("/student/auth/login");
     }
-  }, [isLoggedIn]);
+  }, [isStudentLoggedIn]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

@@ -3,9 +3,9 @@ const initialState = {
     typeof window !== "undefined" && localStorage.getItem("employee")
       ? JSON.parse(localStorage.getItem("employee"))
       : null,
-  isLoggedIn:
+  isEmployeeLoggedIn:
     typeof window !== "undefined" &&
-    localStorage.getItem("isLoggedIn") === "true",
+    localStorage.getItem("isEmployeeLoggedIn") === "true",
   error: null
 };
 
@@ -15,12 +15,12 @@ const employeeReducer = (state = initialState, action) => {
     case "EMPLOYEE_UPDATE_SUCCESS":
       if (typeof window !== "undefined") {
         localStorage.setItem("employee", JSON.stringify(action.payload));
-        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("isEmployeeLoggedIn", "true");
       }
       return {
         ...state,
         employee: action.payload,
-        isLoggedIn: true,
+        isEmployeeLoggedIn: true,
         error: null
       };
 
@@ -32,13 +32,14 @@ const employeeReducer = (state = initialState, action) => {
       };
 
     case "EMPLOYEE_LOGOUT":
+    case "EMPLOYEE_DELETE":
       if (typeof window !== "undefined") {
         localStorage.removeItem("employee");
-        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("isEmployeeLoggedIn");
       }
       return {
         employee: null,
-        isLoggedIn: false,
+        isEmployeeLoggedIn: false,
         error: null
       };
 

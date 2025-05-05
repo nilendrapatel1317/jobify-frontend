@@ -4,10 +4,13 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
+import Link from "next/link";
+import { Edit, Lock } from "lucide-react";
+import DeleteEmpProfileButton from "@/components/Employee/DeleteEmpProfileButton";
 
 const SettingPage = () => {
   const router = useRouter();
-  const { isLoggedIn, employee } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -15,10 +18,10 @@ const SettingPage = () => {
   }, []);
 
   useEffect(() => {
-    if (mounted && !isLoggedIn) {
+    if (mounted && !isEmployeeLoggedIn) {
       router.push("/employee/auth/login");
     }
-  }, [isLoggedIn, mounted]);
+  }, [isEmployeeLoggedIn, mounted]);
 
   if (!mounted || !employee) return null;
 
@@ -34,8 +37,24 @@ const SettingPage = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <h1 className="text-2xl text-red-500">Setting Page</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-7xl">
+          <Link
+            className="flex items-center justify-center gap-5 bg-yellow-500  text-white text-2xl py-20 rounded-xl shadow-md"
+            href={`/employee/profile/edit/${employee.id}`}
+          >
+            <Edit className="w-8 h-8" />
+            Edit Profile
+          </Link>
+
+          <Link
+            className="flex items-center justify-center gap-5 bg-blue-500  text-white text-2xl py-20 rounded-xl shadow-md"
+            href="/employee/settings/password"
+          >
+            <Lock className="w-8 h-8" />
+            Change Password
+          </Link>
+
+          <DeleteEmpProfileButton />
         </div>
       </main>
     </div>

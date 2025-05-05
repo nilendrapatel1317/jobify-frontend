@@ -11,14 +11,15 @@ const EditEmployeePage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { isLoggedIn, employee } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
     contact: "",
     city: "",
-    gender: ""
+    gender: "",
+    organizationName:""
   });
 
   const [errors, setErrors] = useState({});
@@ -38,10 +39,10 @@ const EditEmployeePage = () => {
   }, [employee]);
 
   useEffect(() => {
-    if (mounted && !isLoggedIn) {
+    if (mounted && !isEmployeeLoggedIn) {
       router.push("/employee/auth/login");
     }
-  }, [isLoggedIn, mounted]);
+  }, [isEmployeeLoggedIn, mounted]);
 
   if (!mounted || !employee) return null;
 
@@ -162,13 +163,13 @@ const EditEmployeePage = () => {
               <label className="block font-medium mb-1">Organization Name</label>
               <input
                 type="text"
-                name="city"
+                name="organizationName"
                 value={formData.organizationName}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
               {errors.city && (
-                <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+                <p className="text-red-500 text-sm mt-1">{errors.organizationName}</p>
               )}
             </div>
           </div>
