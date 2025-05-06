@@ -19,7 +19,7 @@ const SettingPage = () => {
 
   useEffect(() => {
     if (mounted && !isStudentLoggedIn) {
-      router.push("/student/auth/login");
+      router.push("/");
     }
   }, [isStudentLoggedIn, mounted]);
 

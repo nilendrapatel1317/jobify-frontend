@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
+import RenderInternshipCards from "@/components/Internship/RenderInternshipCards";
 
 const dummyInternships = [
   { id: 1, title: "Frontend Intern at ABC Corp" },
@@ -28,7 +29,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (mounted && !isStudentLoggedIn) {
-      router.push("/student/auth/login");
+      router.push("/");
     }
   }, [isStudentLoggedIn, mounted]);
 
@@ -52,7 +53,7 @@ const DashboardPage = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div className="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl">Applied Internships</h2>
             <p className="text-3xl font-bold">{internshipCount}</p>
@@ -72,27 +73,11 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Available Internships</h2>
-          {/* <div className="space-y-4">
-            {dummyInternships.map((intern) => (
-              <div
-                key={intern.id}
-                className="bg-white p-4 rounded shadow border"
-              >
-                <h3 className="text-lg font-semibold">{intern.title}</h3>
-                <button className="mt-2 px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
-                  Apply
-                </button>
-              </div>
-            ))}
-          </div> */}
-
-          <p>Not Available</p>
+        <section className="mb-10">
+          <RenderInternshipCards from="student" />
         </section>
 
         <section>
-          <h2 className="text-2xl font-semibold mb-4">Available Jobs</h2>
           {/* <div className="space-y-4">
             {dummyJobs.map((job) => (
               <div key={job.id} className="bg-white p-4 rounded shadow border">

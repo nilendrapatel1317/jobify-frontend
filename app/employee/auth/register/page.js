@@ -46,7 +46,7 @@ const RegisterEmployeePage = () => {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/");
+      router.push("/employee/auth/login");
     } catch (error) {
       toast.error(error.response.data.msg, {
         position: "bottom-right",

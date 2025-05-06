@@ -16,7 +16,7 @@ const ResumePage = () => {
 
   useEffect(() => {
     if (mounted && !isStudentLoggedIn) {
-      router.push("/student/auth/login");
+      router.push("/");
     }
   }, [isStudentLoggedIn, mounted]);
 
@@ -30,7 +30,7 @@ const ResumePage = () => {
         <PathName />
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            Welcome, {student?.firstname}
+            Your Resume
           </h1>
         </div>
 

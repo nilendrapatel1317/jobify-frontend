@@ -19,7 +19,7 @@ const SettingPage = () => {
 
   useEffect(() => {
     if (mounted && !isEmployeeLoggedIn) {
-      router.push("/employee/auth/login");
+      router.push("/");
     }
   }, [isEmployeeLoggedIn, mounted]);
 
@@ -33,7 +33,7 @@ const SettingPage = () => {
         <div className="flex justify-between items-start flex-col mb-8">
           <PathName />
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text flex items-center">
-            Welcome, {employee?.firstname}
+            Employee Setting 
           </h1>
         </div>
 

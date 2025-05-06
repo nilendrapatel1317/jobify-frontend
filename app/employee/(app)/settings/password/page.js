@@ -6,6 +6,7 @@ import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
 import { toast } from "react-toastify";
 import { changePasswordEmployee } from "@/services/employeeService";
+import Link from "next/link";
 
 const EmpChangePassword = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,9 @@ const EmpChangePassword = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
+  const { isEmployeeLoggedIn, employee } = useSelector(
+    (state) => state.employee
+  );
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -25,9 +28,8 @@ const EmpChangePassword = () => {
 
   useEffect(() => {
     if (mounted && !isEmployeeLoggedIn) {
-      router.push("/employee/auth/login");
-    }
-    else{
+      router.push("/");
+    } else {
       router.push("/employee/settings/password");
     }
   }, [isEmployeeLoggedIn, mounted]);
@@ -89,7 +91,9 @@ const EmpChangePassword = () => {
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             {errors.currentPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.currentPassword}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.currentPassword}
+              </p>
             )}
           </div>
 
@@ -107,13 +111,21 @@ const EmpChangePassword = () => {
             )}
           </div>
 
-          <div className="flex justify-end mt-10">
+          <div className="flex justify-end mt-10 gap-3">
             <button
               type="submit"
               className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
             >
               Change Password
             </button>
+            <Link href={"/employee/settings"}>
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+              >
+                Cancel
+              </button>
+            </Link>
           </div>
         </form>
       </main>

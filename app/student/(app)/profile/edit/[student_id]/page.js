@@ -6,6 +6,7 @@ import Sidebar from "@/components/globle/Sidebar";
 import { updateStudent } from "@/services/studentService";
 import { toast } from "react-toastify";
 import PathName from "@/components/globle/PathName";
+import Link from "next/link";
 
 const EditStudentPage = () => {
   const router = useRouter();
@@ -38,7 +39,7 @@ const EditStudentPage = () => {
 
   useEffect(() => {
     if (mounted && !isStudentLoggedIn) {
-      router.push("/student/auth/login");
+      router.push("/");
     }
   }, [isStudentLoggedIn, mounted]);
 
@@ -174,13 +175,21 @@ const EditStudentPage = () => {
             )}
           </div>
 
-          <div className="flex justify-end mt-10">
+          <div className="flex justify-end mt-10 gap-3">
             <button
               type="submit"
               className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
             >
               Update Profile
             </button>
+            <Link href={"/student/profile"}>
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+              >
+                Cancel
+              </button>
+            </Link>
           </div>
         </form>
       </main>

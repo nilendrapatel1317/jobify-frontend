@@ -18,7 +18,7 @@ const page = () => {
       router.push("/employee/dashboard");
     }
     else{
-      router.push("/employee/auth/login");
+      router.push("/");
     }
   }, [isEmployeeLoggedIn, mounted]);
 

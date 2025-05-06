@@ -36,7 +36,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (mounted && !isEmployeeLoggedIn) {
-      router.push("/employee/auth/login");
+      router.push("/");
     }
   }, [mounted, isEmployeeLoggedIn]);
 

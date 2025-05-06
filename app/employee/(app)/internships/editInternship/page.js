@@ -63,7 +63,7 @@ const page = () => {
 
   useEffect(() => {
     if (!isEmployeeLoggedIn) {
-      router.push("/employee/auth/login");
+      router.push("/");
     }
   }, [isEmployeeLoggedIn, mounted]);
 

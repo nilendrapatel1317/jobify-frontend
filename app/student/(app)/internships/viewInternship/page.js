@@ -7,17 +7,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
-import { Terminal } from "lucide-react";
+import { ShieldCheck, Terminal } from "lucide-react";
 
-const InternshipForm = () => {
+const page = () => {
   const searchParams = useSearchParams();
   const internshipId = searchParams.get("internshipId");
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isEmployeeLoggedIn, employee } = useSelector(
-    (state) => state.employee
-  );
+  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
+  
 
   const [mounted, setMounted] = useState(false);
   const [internships, setInternships] = useState([]);
@@ -28,10 +27,10 @@ const InternshipForm = () => {
   }, []);
 
   useEffect(() => {
-    if (mounted && !isEmployeeLoggedIn) {
+    if (mounted && !isStudentLoggedIn) {
       router.push("/");
     }
-  }, [mounted, isEmployeeLoggedIn]);
+  }, [mounted, isStudentLoggedIn]);
 
   useEffect(() => {
     const fetchAllInternships = async () => {
@@ -59,34 +58,28 @@ const InternshipForm = () => {
       }
     };
 
-    if (mounted && employee?.id) {
+    if (mounted && student?.id) {
       fetchAllInternships();
     }
-  }, [mounted, employee]);
+  }, [mounted, student]);
 
   if (!mounted) return null;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <Sidebar sidebarFor="employee" />
+      <Sidebar sidebarFor="student" />
       <main className="ml-64 flex-1 p-10">
         <PathName />
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            {internshipId} Internship Detail
+            Internship Detail
           </h1>
           <div className="flex gap-3">
             <Link
-              className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white font-semibold"
-              href={`/employee/internships/editInternship?internshipId=${internshipId}`}
+              className="bg-blue-500 px-4 py-2 rounded text-white font-semibold"
+              href={`#`}
             >
-              Edit
-            </Link>
-            <Link
-              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white font-semibold"
-              href={`/employee/internships/deleteInternship?internshipId=${internshipId}`}
-            >
-              Delete
+              Apply Now
             </Link>
           </div>
         </div>
@@ -100,15 +93,15 @@ const InternshipForm = () => {
             {internships.map((internship) => (
               <div key={internship.id}>
                 <div className="flex justify-between items-start">
-                  <h2 className="text-3xl font-bold text-purple-700 flex items-top gap-2">
-                    <Terminal className="text-black w-10 h-10"/> {internship.profile}
+                  <h2 className="text-3xl font-bold text-purple-700 flex items-center gap-2">
+                    <ShieldCheck className="w-8 h-8"/> {internship.profile}
                   </h2>
                   <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
                     <strong>{internship.internshipType}</strong>
                   </p>
                 </div>
 
-                <div className="text-gray-700 space-y-2 flex flex-wrap justify-between mt-10">
+                <div className="text-gray-700 text-lg space-y-2 flex flex-wrap justify-between mt-10">
                   <p>
                     <strong>Openings:</strong> {internship.openings}
                   </p>
@@ -132,9 +125,9 @@ const InternshipForm = () => {
                   </p>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between ">
                   <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
                       Skills Required
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
@@ -145,7 +138,7 @@ const InternshipForm = () => {
                   </div>
 
                   <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
                       Your Responsibility
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
@@ -156,7 +149,7 @@ const InternshipForm = () => {
                   </div>
 
                   <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
                       Selection Process
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
@@ -167,7 +160,7 @@ const InternshipForm = () => {
                   </div>
                   
                   <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
                       Perks
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
@@ -179,7 +172,7 @@ const InternshipForm = () => {
                 </div>
 
                 <div className="mt-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-1">
                     All Students
                   </h3>
                   {Array.isArray(internship.students) &&
@@ -207,4 +200,4 @@ const InternshipForm = () => {
   );
 };
 
-export default InternshipForm;
+export default page;

@@ -45,7 +45,6 @@ const RegisterStudentPage = () => {
         position: "bottom-right",
         autoClose: 2000
       });
-      
       router.push("/student/auth/login");
     } catch (error) {
       const backendErrors = error.response?.data?.data || {};
