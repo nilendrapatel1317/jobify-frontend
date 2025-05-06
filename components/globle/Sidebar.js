@@ -46,35 +46,54 @@ const Sidebar = (props) => {
     <div className="w-64 h-screen fixed top-0 left-0 bg-gray-800 text-white p-6 flex flex-col justify-between">
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-bold mb-4 capitalize">
-          Jobify Portal <br />
-          <span className="text-lg">
-            {" "}
-            for <span className="uppercase text-lg text-red-500">{sidebarFor}</span>
-          </span>
+          <span className="uppercase text-2xl text-red-500">Jobify</span>
+          <br/>
+          <span className="text-lg capitalize">{sidebarFor} Portal</span>
         </h2>
-        <Link href={`/${sidebarFor}/dashboard`} className="hover:bg-gray-700 p-2 rounded">
+        <Link
+          href={`/${sidebarFor}/dashboard`}
+          className="hover:bg-gray-700 p-2 rounded"
+        >
           Dashboard
         </Link>
-        <Link href={`/${sidebarFor}/internships`} className="hover:bg-gray-700 p-2 rounded">
+        <Link
+          href={`/${sidebarFor}/internships`}
+          className="hover:bg-gray-700 p-2 rounded"
+        >
           Internships
         </Link>
-        <Link href={`/${sidebarFor}/jobs`} className="hover:bg-gray-700 p-2 rounded">
+        <Link
+          href={`/${sidebarFor}/jobs`}
+          className="hover:bg-gray-700 p-2 rounded"
+        >
           Jobs
         </Link>
         {sidebarFor === "student" && (
-          <Link href={`/${sidebarFor}/resume`} className="hover:bg-gray-700 p-2 rounded">
+          <Link
+            href={`/${sidebarFor}/resume`}
+            className="hover:bg-gray-700 p-2 rounded"
+          >
             Resume
           </Link>
         )}
-        <Link href={`/${sidebarFor}/profile`} className="hover:bg-gray-700 p-2 rounded">
+        <Link
+          href={`/${sidebarFor}/profile`}
+          className="hover:bg-gray-700 p-2 rounded"
+        >
           Profile
         </Link>
-        <Link href={`/${sidebarFor}/settings`} className="hover:bg-gray-700 p-2 rounded">
+        <Link
+          href={`/${sidebarFor}/settings`}
+          className="hover:bg-gray-700 p-2 rounded"
+        >
           Settings
         </Link>
       </div>
       <div className="flex flex-col gap-4 items-start">
-        <button onClick={handleLogout} className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2">
+        <button
+          onClick={handleLogout}
+          className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2"
+        >
           Logout
         </button>
         {hydrated && (

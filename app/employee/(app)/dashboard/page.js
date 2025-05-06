@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
 import { getAllInternships } from "@/services/internshipService";
+import Link from "next/link";
 
 const dummyInternships = [
   { id: 1, title: "Frontend Intern at ABC Corp" },
@@ -85,22 +86,24 @@ const DashboardPage = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl">Total Internships Created</h2>
-            <p className="text-3xl font-bold">{internships.length}</p>
-          </div>
-          <div className="bg-green-500 text-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl">Total Jobs Created</h2>
-            <p className="text-3xl font-bold">0</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-3xl">
+          <Link href={"/employee/internships"}>
+            <div className="bg-blue-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
+              <h2>Total Internships Added</h2>
+              <p className="font-bold">{internships.length}</p>
+            </div>
+          </Link>
+          <div className="bg-green-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
+            <h2>Total Jobs Added</h2>
+            <p className="font-bold">0</p>
           </div>
         </div>
 
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">
             Internships created by You
           </h2>
-          {/* <div className="space-y-4">
+          <div className="space-y-4">
             {dummyInternships.map((intern) => (
               <div
                 key={intern.id}
@@ -112,14 +115,14 @@ const DashboardPage = () => {
                 </button>
               </div>
             ))}
-          </div> */}
+          </div>
 
           <p>Not Available</p>
-        </section>
+        </section> */}
 
-        <section>
+        {/* <section>
           <h2 className="text-2xl font-semibold mb-4">Jobs created by you</h2>
-          {/* <div className="space-y-4">
+          <div className="space-y-4">
             {dummyJobs.map((job) => (
               <div key={job.id} className="bg-white p-4 rounded shadow border">
                 <h3 className="text-lg font-semibold">{job.title}</h3>
@@ -128,9 +131,9 @@ const DashboardPage = () => {
                 </button>
               </div>
             ))}
-          </div> */}
+          </div>
           <p>Not Available</p>
-        </section>
+        </section> */}
       </main>
     </div>
   );

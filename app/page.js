@@ -30,7 +30,7 @@ const Page = () => {
   }, []);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-white to-purple-100 p-6">
-      <div className="bg-white shadow-2xl rounded-2xl p-10 max-w-3xl w-full text-center mb-12">
+      <div className="rounded-2xl p-10 max-w-3xl w-full text-center mb-12">
         <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
           Jobify Portal
         </h1>
@@ -38,8 +38,9 @@ const Page = () => {
           Find a way to achieve your goal 🚀
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           <div className="flex flex-col gap-4">
+          <h1 className="text-lg">For Student</h1>
             <Link
               href="/student/auth/login"
               className="bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold transition"
@@ -55,6 +56,7 @@ const Page = () => {
           </div>
 
           <div className="flex flex-col gap-4">
+          <h1 className="text-lg">For Employee</h1>
             <Link
               href="/employee/auth/login"
               className="bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg text-lg font-semibold transition"
@@ -101,9 +103,9 @@ const Page = () => {
                   </p>
                 </div>
                 <div className="flex justify-between mt-4">
-                  <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition">
+                  {/* <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition">
                     Apply
-                  </button>
+                  </button> */}
                   <Link
                     href={"#"}
                     className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition"

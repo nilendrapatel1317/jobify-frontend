@@ -25,7 +25,7 @@ const RegisterEmployeePage = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (!isEmployeeLoggedIn) {
+    if (isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
     } else {
       router.push("/employee/auth/register");
@@ -46,7 +46,7 @@ const RegisterEmployeePage = () => {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/employee/auth/login");
+      router.push("/");
     } catch (error) {
       toast.error(error.response.data.msg, {
         position: "bottom-right",
