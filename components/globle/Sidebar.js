@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { logoutEmployee } from "@/services/employeeService";
 import { logoutStudent } from "@/services/studentService";
 import Link from "next/link";
@@ -8,13 +9,18 @@ import { toast } from "react-toastify";
 
 const Sidebar = (props) => {
   const sidebarFor = props.sidebarFor;
-
-  // For Logout
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { employee } = useSelector((state) => state.employee);
   const { student } = useSelector((state) => state.student);
+
+  const [hydrated, setHydrated] = useState(false);
+
+  // Fix hydration mismatch
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const handleLogout = async () => {
     if (sidebarFor === "employee") {
@@ -46,59 +52,36 @@ const Sidebar = (props) => {
             for <span className="uppercase text-lg text-red-500">{sidebarFor}</span>
           </span>
         </h2>
-        <Link
-          href={`/${sidebarFor}/dashboard`}
-          className="hover:bg-gray-700 p-2 rounded"
-        >
+        <Link href={`/${sidebarFor}/dashboard`} className="hover:bg-gray-700 p-2 rounded">
           Dashboard
         </Link>
-        <Link
-          href={`/${sidebarFor}/internships`}
-          className="hover:bg-gray-700 p-2 rounded"
-        >
+        <Link href={`/${sidebarFor}/internships`} className="hover:bg-gray-700 p-2 rounded">
           Internships
         </Link>
-        <Link
-          href={`/${sidebarFor}/jobs`}
-          className="hover:bg-gray-700 p-2 rounded"
-        >
+        <Link href={`/${sidebarFor}/jobs`} className="hover:bg-gray-700 p-2 rounded">
           Jobs
         </Link>
-        {sidebarFor == "student" && (
-          <Link
-            href={`/${sidebarFor}/resume`}
-            className="hover:bg-gray-700 p-2 rounded"
-          >
+        {sidebarFor === "student" && (
+          <Link href={`/${sidebarFor}/resume`} className="hover:bg-gray-700 p-2 rounded">
             Resume
           </Link>
         )}
-        <Link
-          href={`/${sidebarFor}/profile`}
-          className="hover:bg-gray-700 p-2 rounded"
-        >
+        <Link href={`/${sidebarFor}/profile`} className="hover:bg-gray-700 p-2 rounded">
           Profile
         </Link>
-        <Link
-          href={`/${sidebarFor}/settings`}
-          className="hover:bg-gray-700 p-2 rounded"
-        >
+        <Link href={`/${sidebarFor}/settings`} className="hover:bg-gray-700 p-2 rounded">
           Settings
         </Link>
       </div>
       <div className="flex flex-col gap-4 items-start">
-        <button
-          onClick={handleLogout}
-          className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2"
-        >
+        <button onClick={handleLogout} className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2">
           Logout
         </button>
-        {sidebarFor == "employee" ? (
+        {hydrated && (
           <h1 className="px-2 text-xl font-bold">
-            {employee?.firstname + " " + employee?.lastname}
-          </h1>
-        ) : (
-          <h1 className="px-2 text-xl font-bold">
-            {student?.firstname + " " + student?.lastname}
+            {sidebarFor === "employee"
+              ? `${employee?.firstname ?? ""} ${employee?.lastname ?? ""}`
+              : `${student?.firstname ?? ""} ${student?.lastname ?? ""}`}
           </h1>
         )}
       </div>

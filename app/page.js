@@ -42,14 +42,14 @@ const page = () => {
               Employee Register
             </Link>
           </div>
-          <div className="flex flex-col gap-4">
+          {/* <div className="flex flex-col gap-4">
             <Link
               href="/internship"
               className="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-lg font-semibold transition"
             >
               Internship
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

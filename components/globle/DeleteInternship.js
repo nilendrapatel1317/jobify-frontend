@@ -1,10 +1,16 @@
 "use client";
 import React from "react";
-import { deleteInternship } from "@/services/internshipService";
+import {
+  deleteInternship,
+  getAllInternships
+} from "@/services/internshipService";
 import { useRouter } from "next/navigation";
+import { fetchAllInternships } from "@/store/Actions/internshipActions";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const DeleteInternship = ({ internshipId }) => {
-  console.log(internshipId)
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -15,11 +21,22 @@ const DeleteInternship = ({ internshipId }) => {
 
     try {
       await deleteInternship(internshipId);
-      alert("Internship deleted successfully!");
-      router.push("/employee/internships");
+      const response = await getAllInternships();
+      dispatch({
+        type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
+        payload: response.data.data
+      });
+      toast.success(response.data.msg, {
+        position: "bottom-right",
+        autoClose: 2000
+      });
+      router.refresh();
     } catch (error) {
       console.error("Error deleting internship:", error);
-      alert("Failed to delete internship.");
+      toast.error(error.response?.data?.msg || "Failed to delete internship.", {
+        position: "bottom-right",
+        autoClose: 2000
+      });
     }
   };
 

@@ -24,6 +24,18 @@ const internshipReducer = (state = initialState, action) => {
         error: action.payload
       };
 
+    case "INTERNSHIP_DELETED_SUCCESS":
+      const updatedInternships = state.internship.filter(
+        (internship) => internship.id !== action.payload
+      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem("internship", JSON.stringify(updatedInternships));
+      }
+      return {
+        ...state,
+        internship: updatedInternships
+      };
+
     default:
       return state;
   }

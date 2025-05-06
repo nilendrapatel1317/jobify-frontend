@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
-import DeleteInternship from "@/components/globle/DeleteInternship";
 
 const InternshipForm = () => {
   const router = useRouter();
@@ -86,102 +85,61 @@ const InternshipForm = () => {
         ) : internships.length === 0 ? (
           <p className="text-center text-red-500">No internships found.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {internships.map((internship) => (
-              <div
-                key={internship.id}
-                className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
-              >
-                <div className="flex justify-between">
-                  <h2 className="text-xl font-semibold text-purple-700 mb-2">
-                    {internship.profile}
-                  </h2>
-
-                  <p className="text-sm text-gray-600 mb-1">
-                    <strong>ID:</strong> {internship.id}
-                  </p>
-                </div>
-
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Type:</strong> {internship.internshipType}
-                </p>
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Duration:</strong> {internship.duration}
-                </p>
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Openings:</strong> {internship.openings}
-                </p>
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Stipend:</strong>{" "}
-                  {internship.stipendStatus === "UNPAID"
-                    ? "Unpaid"
-                    : `₹${internship.stipendAmount}`}
-                </p>
-                <div className="mt-3">
-                  <p className="font-medium text-gray-700">Skills Required:</p>
-                  <ul className="list-disc list-inside text-sm text-gray-600">
-                    {internship.skills?.map((skill, index) => (
-                      <li key={index}>{skill}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-3">
-                  <p className="font-medium text-gray-700">
-                    Your Responsibility:
-                  </p>
-                  <ul className="list-disc list-inside text-sm text-gray-600">
-                    {internship.responsibility?.map((resp, index) => (
-                      <li key={index}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-3">
-                  <p className="font-medium text-gray-700">
-                    Selection Process:
-                  </p>
-                  <ul className="list-disc list-inside text-sm text-gray-600">
-                    {internship.assesments?.map((ass, index) => (
-                      <li key={index}>{ass}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-3">
-                  <p className="font-medium text-gray-700">Perks:</p>
-                  <ul className="list-disc list-inside text-sm text-gray-600">
-                    {internship.perks?.map((perk, index) => (
-                      <li key={index}>{perk}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-3">
-                  <p className="font-medium text-gray-700">All Students:</p>
-                  {Array.isArray(internship.students) &&
-                  internship.students.length > 0 ? (
-                    <ul className="list-disc list-inside text-sm text-gray-600">
-                      {internship.students.map((student, index) => (
-                        <li key={index}>
-                          {student?.firstname || "NoFirst"}{" "}
-                          {student?.lastname || "NoLast"}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-sm text-gray-500 italic">
-                      No students have applied yet.
-                    </p>
-                  )}
-                </div>
-                <div className="mt-5 flex gap-5 items-center">
-                  <Link
-                    className="bg-yellow-500 px-3 py-2 rounded text-white"
-                    href={`/employee/internships/editInternship?internshipId=${internship.id}`}
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white rounded-lg shadow-md">
+              <thead>
+                <tr className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+                  <th className="py-3 px-2 text-left">ID</th>
+                  <th className="py-3 px-2 text-left">Profile</th>
+                  <th className="py-3 px-2 text-left">Openings</th>
+                  <th className="py-3 px-2 text-left">From Date</th>
+                  <th className="py-3 px-2 text-left">To Date</th>
+                  <th className="py-3 px-2 text-left">Stipend Amount</th>
+                  <th className="py-3 px-2 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {internships.map((internship) => (
+                  <tr
+                    key={internship.id}
+                    className="border-t hover:bg-gray-50 transition"
                   >
-                    Edit
-                  </Link>
-                  <DeleteInternship internshipId={internship.id} />
-                </div>
-              </div>
-            ))}
+                    <td className="py-2 px-2">{internship.id}</td>
+                    <td className="py-2 px-2">{internship.profile}</td>
+                    <td className="py-2 px-2">{internship.openings}</td>
+                    <td className="py-2 px-2">
+                      {internship.fromDate || "N/A"}
+                    </td>
+                    <td className="py-2 px-2">{internship.toDate || "N/A"}</td>
+                    <td className="py-2 px-2">
+                      {internship.stipendStatus === "UNPAID"
+                        ? "Unpaid"
+                        : `₹${internship.stipendAmount}`}
+                    </td>
+                    <td className="py-2 px-2 space-x-2 text-center">
+                      <Link
+                        href={`/employee/internships/editInternship?internshipId=${internship.id}`}
+                        className="bg-yellow-500 text-white px-3 py-1 rounded"
+                      >
+                        Edit
+                      </Link>
+                      <Link
+                        href={`/employee/internships/deleteInternship?internshipId=${internship.id}`}
+                        className="bg-red-500 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </Link>
+                      <Link
+                        href={`/employee/internships/viewInternship?internshipId=${internship.id}`}
+                        className="bg-blue-500 text-white px-3 py-1 rounded"
+                      >
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </main>
