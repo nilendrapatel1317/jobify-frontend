@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
+import { getAllInternships } from "@/services/internshipService";
 
 const dummyInternships = [
   { id: 1, title: "Frontend Intern at ABC Corp" },
@@ -19,8 +20,14 @@ const dummyJobs = [
 
 const DashboardPage = () => {
   const router = useRouter();
-  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
+  const dispatch = useDispatch();
+  const { isEmployeeLoggedIn, employee } = useSelector(
+    (state) => state.employee
+  );
+
   const [mounted, setMounted] = useState(false);
+  const [internships, setInternships] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setMounted(true);
@@ -30,15 +37,41 @@ const DashboardPage = () => {
     if (mounted && !isEmployeeLoggedIn) {
       router.push("/employee/auth/login");
     }
-  }, [isEmployeeLoggedIn, mounted]);
+  }, [mounted, isEmployeeLoggedIn]);
 
-  if (!mounted || !employee) return null;
+  useEffect(() => {
+    const fetchAllInternships = async () => {
+      try {
+        const response = await getAllInternships();
+        dispatch({
+          type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
+          payload: response.data.data
+        });
+        const allInternships = response.data.data || [];
 
-  const internshipCount = Array.isArray(employee.internships)
-    ? employee.internships.length
-    : 0;
-  const jobCount = Array.isArray(employee.jobs) ? employee.jobs.length : 0;
-  const hasResume = employee.resume !== null;
+        const filteredInternships = allInternships.filter(
+          (internship) => internship.employee?.id === employee?.id
+        );
+
+        setInternships(filteredInternships);
+        setLoading(false);
+      } catch (error) {
+        dispatch({
+          type: "ALL_INTERNSHIPS_FETCHED_FAILED",
+          payload: error.message
+        });
+        console.error("Error fetching internships:", error);
+        setLoading(false);
+      }
+    };
+
+    if (mounted && employee?.id) {
+      fetchAllInternships();
+    }
+  }, [mounted, employee]);
+
+  // Avoid hydration mismatch by only rendering after mounted
+  if (!mounted) return null;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
@@ -55,11 +88,11 @@ const DashboardPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl">Total Internships Created</h2>
-            <p className="text-3xl font-bold">{internshipCount}</p>
+            <p className="text-3xl font-bold">{internships.length}</p>
           </div>
           <div className="bg-green-500 text-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl">Total Jobs Created</h2>
-            <p className="text-3xl font-bold">{jobCount}</p>
+            <p className="text-3xl font-bold">0</p>
           </div>
         </div>
 

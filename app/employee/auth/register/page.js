@@ -25,7 +25,7 @@ const RegisterEmployeePage = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (isEmployeeLoggedIn) {
+    if (!isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
     } else {
       router.push("/employee/auth/register");

@@ -29,6 +29,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await loginEmployee(form);
+      const res = await loginEmployee(form);
       dispatch({ type: "EMPLOYEE_LOGIN_SUCCESS", payload: response.data.data });
       toast.success(response.data.msg, {
         position: "bottom-right",
