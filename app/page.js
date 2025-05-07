@@ -148,7 +148,7 @@ const Page = () => {
         </div>
       </header>
 
-      {/* Main Top */}
+      {/* Main Top  */}
       <section className="text-center py-16 px-6">
         <h2 className="text-5xl font-extrabold text-gray-800">Jobify Portal</h2>
         <p className="mt-4 text-xl text-gray-600">
