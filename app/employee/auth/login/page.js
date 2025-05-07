@@ -10,16 +10,19 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isEmployeeLoggedIn, error } = useSelector((state) => state.employee);
+  const { isStudentLoggedIn } = useSelector((state) => state.student);
 
   const [form, setForm] = useState({ email: "", password: "" });
 
   useEffect(() => {
     if (isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
+    } else if (isStudentLoggedIn) {
+      router.push("/");
     } else {
       router.push("/employee/auth/login");
     }
-  }, [isEmployeeLoggedIn]);
+  }, [isEmployeeLoggedIn, isStudentLoggedIn]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

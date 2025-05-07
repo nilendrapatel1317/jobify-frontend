@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 // import { getAllJobs } from "@/services/jobService"; // Assuming similar API exists
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RenderInternshipCards from "@/components/Internship/RenderInternshipCards";
 
 const Page = () => {
@@ -13,6 +13,16 @@ const Page = () => {
   const [jobs, setJobs] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
+  const { isEmployeeLoggedIn, employee } = useSelector(
+    (state) => state.employee
+  );
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -34,68 +44,107 @@ const Page = () => {
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 shadow-md bg-white/10">
         <div className="flex items-center space-x-3 ">
-          <img
+          <Link href={"/"}>
+            {/* <img
             src="https://imgs.search.brave.com/nG1XXrjBGwj_rWKgiJkqEsDlf4PbjUpJ0kzu9eRx4Ag/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvRnJl/ZVBob3Rvcy9GcmVl/LVBob3RvLTc0MHg0/OTItMTc0NDkxNTMz/My5qcGc"
             alt="Logo"
             className="h-8 w-8 rounded-full"
-          />
-          <h1 className="text-2xl font-bold text-gray-800">Jobify Portal</h1>
+          /> */}
+            <h1 className="text-2xl font-bold text-gray-800">Jobify Portal</h1>
+          </Link>
         </div>
         <div className="flex space-x-4 relative">
-          <div className="relative">
-            <button
-              onClick={() => {
-                setShowLogin(!showLogin);
-                setShowRegister(false);
-              }}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-            >
-              Login
-            </button>
-            {showLogin && (
-              <div className="absolute right-0 mt-4 w-48 bg-black/5 shadow-lg rounded-lg">
-                <Link
-                  href="/student/auth/login"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
-                  Login as Student
-                </Link>
-                <Link
-                  href="/employee/auth/login"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
-                  Login as Employee
-                </Link>
+          {mounted &&
+          ((isEmployeeLoggedIn && employee) ||
+            (isStudentLoggedIn && student)) ? (
+            <div className="flex items-center space-x-2">
+              <img
+                src="https://imgs.search.brave.com/nG1XXrjBGwj_rWKgiJkqEsDlf4PbjUpJ0kzu9eRx4Ag/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvRnJl/ZVBob3Rvcy9GcmVl/LVBob3RvLTc0MHg0/OTItMTc0NDkxNTMz/My5qcGc"
+                alt="Logo"
+                className="h-7 w-7 rounded-full"
+              />
+              <div>
+                <h1 className="text-xl font-bold text-gray-800 mt-3">
+                  {isEmployeeLoggedIn
+                    ? `${employee?.firstname || ""} ${employee?.lastname || ""}`
+                    : `${student?.firstname || ""} ${student?.lastname || ""}`}
+                </h1>
+
+                <div className="flex items-center justify-center">
+                  <p className="text-[10px] text-center leading-2 text-green-500 bg-gray-200 py-1 px-1 w-fit rounded-full">
+                    {isEmployeeLoggedIn ? "Employee" : "Student"}
+                  </p>
+                </div>
               </div>
-            )}
-          </div>
-          <div className="relative">
-            <button
-              onClick={() => {
-                setShowRegister(!showRegister);
-                setShowLogin(false);
-              }}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
-            >
-              Register
-            </button>
-            {showRegister && (
-              <div className="absolute right-0 mt-4 w-56 bg-black/5 shadow-lg rounded-lg">
-                <Link
-                  href="/student/auth/register"
-                  className="block px-4 py-2 hover:bg-gray-100"
+              <Link
+                href={
+                  isEmployeeLoggedIn
+                    ? "/employee/dashboard"
+                    : "/student/dashboard"
+                }
+                className="bg-blue-500 text-white px-2 py-1 rounded ms-3"
+              >
+                Dashboard
+              </Link>
+            </div>
+          ) : (
+            <>
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowLogin(!showLogin);
+                    setShowRegister(false);
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                 >
-                  Register as Student
-                </Link>
-                <Link
-                  href="/employee/auth/register"
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
-                  Register as Employee
-                </Link>
+                  Login
+                </button>
+                {showLogin && (
+                  <div className="absolute right-0 mt-4 w-48 bg-black/5 shadow-lg rounded-lg">
+                    <Link
+                      href="/student/auth/login"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Login as Student
+                    </Link>
+                    <Link
+                      href="/employee/auth/login"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Login as Employee
+                    </Link>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowRegister(!showRegister);
+                    setShowLogin(false);
+                  }}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+                >
+                  Register
+                </button>
+                {showRegister && (
+                  <div className="absolute right-0 mt-4 w-56 bg-black/5 shadow-lg rounded-lg">
+                    <Link
+                      href="/student/auth/register"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Register as Student
+                    </Link>
+                    <Link
+                      href="/employee/auth/register"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Register as Employee
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </header>
 
@@ -109,7 +158,7 @@ const Page = () => {
 
       {/* Main Middle - Internships */}
       <div className="px-40">
-        <RenderInternshipCards from="home"/>
+        {mounted && !isEmployeeLoggedIn && <RenderInternshipCards from="home" />}
       </div>
 
       {/* Main Bottom - Jobs */}

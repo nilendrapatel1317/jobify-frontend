@@ -108,7 +108,7 @@ const InternshipForm = () => {
                   </p>
                 </div>
 
-                <div className="text-gray-700 space-y-2 flex flex-wrap justify-between mt-10">
+                <div className="text-gray-700 text-lg space-y-2 flex flex-wrap justify-between mt-10">
                   <p>
                     <strong>Openings:</strong> {internship.openings}
                   </p>

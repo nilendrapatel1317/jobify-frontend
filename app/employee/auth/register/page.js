@@ -10,6 +10,7 @@ const RegisterEmployeePage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
+  const { isStudentLoggedIn } = useSelector((state) => state.student);
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -24,13 +25,15 @@ const RegisterEmployeePage = () => {
 
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
+   useEffect(() => {
     if (isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
+    } else if (isStudentLoggedIn) {
+      router.push("/");
     } else {
       router.push("/employee/auth/register");
     }
-  }, [isEmployeeLoggedIn]);
+  }, [isEmployeeLoggedIn, isStudentLoggedIn]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

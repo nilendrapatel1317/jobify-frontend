@@ -10,13 +10,15 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isStudentLoggedIn, error } = useSelector((state) => state.student);
+  const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
 
   const [form, setForm] = useState({ email: "", password: "" });
-
 
   useEffect(() => {
     if (isStudentLoggedIn) {
       router.push("/student/dashboard");
+    } else if (isEmployeeLoggedIn) {
+      router.push("/");
     } else {
       router.push("/student/auth/login");
     }

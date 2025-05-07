@@ -88,7 +88,7 @@ const DashboardPage = () => {
               </div>
             ))}
           </div> */}
-          <p>Not Available</p>
+          <p>Jobs Not Available</p>
         </section>
       </main>
     </div>

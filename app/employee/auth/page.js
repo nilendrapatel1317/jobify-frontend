@@ -7,6 +7,7 @@ const page = () => {
 
   const router = useRouter();
   const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
+  const { isStudentLoggedIn  } = useSelector((state) => state.student);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,11 +17,13 @@ const page = () => {
   useEffect(() => {
     if (isEmployeeLoggedIn) {
       router.push("/employee/dashboard");
+    } else if(isStudentLoggedIn){
+      router.push("/")
     }
     else{
       router.push("/employee/auth/login");
     }
-  }, [isEmployeeLoggedIn, mounted]);
+  }, [isEmployeeLoggedIn,isStudentLoggedIn, mounted]);
 
   if (!mounted || !employee) return null;
 

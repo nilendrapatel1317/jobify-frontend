@@ -11,7 +11,7 @@ const RegisterStudentPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isStudentLoggedIn } = useSelector((state) => state.student);
-
+  const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -26,6 +26,8 @@ const RegisterStudentPage = () => {
   useEffect(() => {
     if (isStudentLoggedIn) {
       router.push("/student/dashboard");
+    } else if (isEmployeeLoggedIn) {
+      router.push("/");
     } else {
       router.push("/student/auth/register");
     }

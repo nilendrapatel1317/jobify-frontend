@@ -46,8 +46,10 @@ const Sidebar = (props) => {
     <div className="w-64 h-screen fixed top-0 left-0 bg-gray-800 text-white p-6 flex flex-col justify-between">
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-bold mb-4 capitalize">
-          <span className="uppercase text-2xl text-red-500">Jobify</span>
-          <br/>
+          <Link href={"/"}>
+            <span className="uppercase text-2xl text-red-500">Jobify</span>
+          </Link>
+          <br />
           <span className="text-lg capitalize">{sidebarFor} Portal</span>
         </h2>
         <Link
