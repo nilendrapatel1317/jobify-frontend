@@ -7,6 +7,17 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
+// ✅ Import Lucide icons
+import {
+  LayoutDashboard,
+  Briefcase,
+  ClipboardList,
+  FileText,
+  User,
+  Settings,
+  LogOut
+} from "lucide-react";
+
 const Sidebar = (props) => {
   const sidebarFor = props.sidebarFor;
   const dispatch = useDispatch();
@@ -54,56 +65,66 @@ const Sidebar = (props) => {
         </h2>
         <Link
           href={`/${sidebarFor}/dashboard`}
-          className="hover:bg-gray-700 p-2 rounded"
+          className="hover:bg-gray-700 p-2 rounded flex text-xl items-center gap-2"
         >
-          Dashboard
+          <LayoutDashboard className="w-6 h-6" /> Dashboard
         </Link>
         <Link
           href={`/${sidebarFor}/internships`}
-          className="hover:bg-gray-700 p-2 rounded"
+          className="hover:bg-gray-700 p-2 rounded flex text-xl items-center gap-2"
         >
-          Internships
+          <Briefcase className="w-6 h-6" /> Internships
         </Link>
         <Link
           href={`/${sidebarFor}/jobs`}
-          className="hover:bg-gray-700 p-2 rounded"
+          className="hover:bg-gray-700 p-2 rounded flex text-xl items-center gap-2"
         >
-          Jobs
+          <ClipboardList className="w-6 h-6" /> Jobs
         </Link>
         {sidebarFor === "student" && (
           <Link
             href={`/${sidebarFor}/resume`}
-            className="hover:bg-gray-700 p-2 rounded"
+            className="hover:bg-gray-700 p-2 rounded flex text-xl items-center gap-2"
           >
-            Resume
+            <FileText className="w-6 h-6" /> Resume
           </Link>
         )}
         <Link
           href={`/${sidebarFor}/profile`}
-          className="hover:bg-gray-700 p-2 rounded"
+          className="hover:bg-gray-700 p-2 rounded flex text-xl items-center gap-2"
         >
-          Profile
+          <User className="w-6 h-6" /> Profile
         </Link>
         <Link
           href={`/${sidebarFor}/settings`}
-          className="hover:bg-gray-700 p-2 rounded"
+          className="hover:bg-gray-700 p-2 rounded flex text-xl items-center gap-2"
         >
-          Settings
+          <Settings className="w-6 h-6" /> Settings
         </Link>
       </div>
-      <div className="flex flex-col gap-4 items-start">
+      <div className="flex flex-col gap-4 items-start ">
         <button
           onClick={handleLogout}
-          className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2"
+          className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2 flex items-center gap-2 mb-3"
         >
-          Logout
+          <LogOut className="w-6 h-6" /> Logout
         </button>
         {hydrated && (
-          <h1 className="px-2 text-xl font-bold">
-            {sidebarFor === "employee"
-              ? `${employee?.firstname ?? ""} ${employee?.lastname ?? ""}`
-              : `${student?.firstname ?? ""} ${student?.lastname ?? ""}`}
-          </h1>
+          <div>
+            <div className="flex items-center space-x-2">
+              <img
+                src="https://imgs.search.brave.com/nG1XXrjBGwj_rWKgiJkqEsDlf4PbjUpJ0kzu9eRx4Ag/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvRnJl/ZVBob3Rvcy9GcmVl/LVBob3RvLTc0MHg0/OTItMTc0NDkxNTMz/My5qcGc"
+                alt="Logo"
+                className="h-7 w-7 rounded-full"
+              />
+
+              <h1 className="px-2 text-xl font-bold">
+                {sidebarFor === "employee"
+                  ? `${employee?.firstname ?? ""} ${employee?.lastname ?? ""}`
+                  : `${student?.firstname ?? ""} ${student?.lastname ?? ""}`}
+              </h1>
+            </div>
+          </div>
         )}
       </div>
     </div>

@@ -33,7 +33,7 @@ const SettingPage = () => {
         <PathName />
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text flex items-center gap-3">
-            Welcome, {student?.firstname}
+            Settings
           </h1>
         </div>
 

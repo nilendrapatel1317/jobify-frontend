@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
 import RenderInternshipCards from "@/components/Internship/RenderInternshipCards";
+import Link from "next/link";
 
 const dummyInternships = [
   { id: 1, title: "Frontend Intern at ABC Corp" },
@@ -20,7 +21,13 @@ const dummyJobs = [
 
 const DashboardPage = () => {
   const router = useRouter();
-  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
+  const { isStudentLoggedIn, student } = useSelector((state) => state?.student);
+  const { internship } = useSelector((state) => state?.internship);
+
+  const internshipCount =
+    internship?.filter((i) => i?.students?.some((s) => s?.id === student?.id))
+      ?.length || 0;
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -35,9 +42,6 @@ const DashboardPage = () => {
 
   if (!mounted || !student) return null;
 
-  const internshipCount = Array.isArray(student.internships)
-    ? student.internships.length
-    : 0;
   const jobCount = Array.isArray(student.jobs) ? student.jobs.length : 0;
   const hasResume = student.resume !== null;
 
@@ -54,14 +58,24 @@ const DashboardPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <div className="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl">Applied Internships</h2>
-            <p className="text-3xl font-bold">{internshipCount}</p>
-          </div>
-          <div className="bg-green-500 text-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl">Applied Jobs</h2>
-            <p className="text-3xl font-bold">{jobCount}</p>
-          </div>
+          <Link
+            href={"/student/internships/appliedIntern"}
+            className="bg-blue-500 text-white p-6 rounded-lg shadow-lg text-center"
+          >
+            <div className="space-y-4">
+              <h2 className="text-2xl">Applied Internships</h2>
+              <p className="text-3xl font-bold">{internshipCount}</p>
+            </div>
+          </Link>
+          <Link
+            href={"/student/internships/appliedIntern"}
+            className="bg-green-500 text-white p-6 rounded-lg shadow-lg text-center"
+          >
+            <div className="space-y-4">
+              <h2 className="text-2xl">Applied Jobs</h2>
+              <p className="text-3xl font-bold">{jobCount}</p>
+            </div>
+          </Link>
           <div className="bg-yellow-400 text-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl">Resume</h2>
             <button

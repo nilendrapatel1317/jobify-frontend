@@ -30,7 +30,7 @@ const JobsPage = () => {
         <PathName />
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            Welcome, {student?.firstname}
+            Available Jobs List
           </h1>
         </div>
 

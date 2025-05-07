@@ -7,7 +7,6 @@ function safeParse(json) {
   }
 }
 const internshipRaw = typeof window !== "undefined" ? localStorage.getItem("internship") : null;
-console.log("hello " + internshipRaw)
 const initialState = {
   internship:safeParse(internshipRaw),
   error: null

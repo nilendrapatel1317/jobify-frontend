@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
 import { ShieldCheck, Terminal } from "lucide-react";
+import ApplyInternButton from "@/components/Internship/ApplyInternButton";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -42,6 +43,7 @@ const page = () => {
         });
 
         const allInternships = response.data.data || [];
+
         const filteredInternships = allInternships.filter(
           (internship) => internship?.id === internshipId
         );
@@ -75,12 +77,7 @@ const page = () => {
             Internship Detail
           </h1>
           <div className="flex gap-3">
-            <Link
-              className="bg-blue-500 px-4 py-2 rounded text-white font-semibold"
-              href={`#`}
-            >
-              Apply Now
-            </Link>
+            <ApplyInternButton internshipId={internshipId} />
           </div>
         </div>
 
@@ -101,7 +98,7 @@ const page = () => {
                   </p>
                 </div>
 
-                <div className="text-gray-700 text-lg space-y-2 flex flex-wrap justify-between mt-10">
+                <div className="text-gray-700 text-lg space-y-10 grid grid-cols-1 sm:grid-cols-4 justify-between mt-10">
                   <p>
                     <strong>Openings:</strong> {internship.openings}
                   </p>
@@ -112,13 +109,13 @@ const page = () => {
                     <strong>To:</strong> {internship.toDate}
                   </p>
                   <p>
-                    <strong>Duration:</strong> {internship.duration}
+                    <strong>Duration:</strong> {internship.duration} {internship.duration > 1 ? "Months" : "Month"}
                   </p>
                   <p>
-                    <strong>stipend Status:</strong> {internship.stipendStatus}
+                    <strong>Stipend Status:</strong> {internship.stipendStatus}
                   </p>
                   <p>
-                    <strong>Stipend:</strong>{" "}
+                    <strong>Stipend Amount:</strong>{" "}
                     {internship.stipendStatus === "UNPAID"
                       ? "Unpaid"
                       : `₹${internship.stipendAmount}`}
@@ -169,27 +166,6 @@ const page = () => {
                       ))}
                     </ul>
                   </div>
-                </div>
-
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-1">
-                    All Students
-                  </h3>
-                  {Array.isArray(internship.students) &&
-                  internship.students.length > 0 ? (
-                    <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {internship.students.map((student, index) => (
-                        <li key={index}>
-                          {student?.firstname || "NoFirst"}{" "}
-                          {student?.lastname || "NoLast"}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-sm text-gray-500 italic">
-                      No students have applied yet.
-                    </p>
-                  )}
                 </div>
               </div>
             ))}

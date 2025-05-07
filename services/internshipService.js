@@ -13,3 +13,19 @@ export const updateInternship = (id, updatedData) =>
 
 // Delete a Internship
 export const deleteInternship = (id) => api.delete(`/internship/${id}`);
+
+// Apply Internship
+export const applyInternship = (internshipId, studentId) => {
+  return api.post(`/internship/apply`, {
+    internshipId,
+    studentId
+  });
+};
+
+// Withdraw Internship
+export const withdrawInternship = (internshipId, studentId) => {
+  return api.post(`/internship/withdraw`, {
+    internshipId,
+    studentId
+  });
+};
