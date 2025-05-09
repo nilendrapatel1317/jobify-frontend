@@ -32,6 +32,8 @@ const page = () => {
   );
   const [mounted, setMounted] = useState(false);
 
+  console.log(employee?.organizationName)
+
   const [formData, setFormData] = useState({
     employee: { id: employee?.id },
     profile: "",
@@ -135,6 +137,7 @@ const page = () => {
                 value={formData.profile}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                placeholder="Enter Job Profile"
               />
               {errors.profile && (
                 <p className="text-red-500 text-sm mt-1">{errors.profile}</p>
@@ -193,6 +196,7 @@ const page = () => {
                 value={formData.experience}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                placeholder="Enter required experence"
               />
               {errors.experience && (
                 <p className="text-red-500 text-sm mt-1">{errors.experience}</p>
@@ -207,6 +211,7 @@ const page = () => {
                 value={formData.location}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                placeholder="Enter job location"
               />
               {errors.location && (
                 <p className="text-red-500 text-sm mt-1">{errors.location}</p>
@@ -216,47 +221,6 @@ const page = () => {
 
           <div className="flex flex-wrap justify-between gap-5">
             <div>
-              {renderSelectField("Skills", "skills", predefinedOptions.skills)}
-              {errors.skills && (
-                <p className="text-red-500 text-sm mt-1">{errors.skills}</p>
-              )}
-            </div>
-
-            <div>
-              {" "}
-              {renderSelectField(
-                "Responsibility",
-                "responsibility",
-                predefinedOptions.responsibility
-              )}
-              {errors.responsibility && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.responsibility}
-                </p>
-              )}
-            </div>
-
-            <div>
-              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
-              {errors.perks && (
-                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
-              )}
-            </div>
-
-            <div>
-              {renderSelectField(
-                "Assesments",
-                "assessments",
-                predefinedOptions.assessments
-              )}
-              {errors.assessments && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.assessments}
-                </p>
-              )}
-            </div>
-
-            <div>
               <label className="block font-medium mb-1">Job Type</label>
               <select
                 name="jobType"
@@ -265,7 +229,7 @@ const page = () => {
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70 "
               >
                 <option value="">Select Job Type</option>
-                {["Full_Time","Part_Time"].map((type) => (
+                {["Full_Time", "Part_Time"].map((type) => (
                   <option key={type} value={type}>
                     {type.replace("_", " ")}
                   </option>
@@ -297,6 +261,47 @@ const page = () => {
               {errors.salaryStatus && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.salaryStatus}
+                </p>
+              )}
+            </div>
+
+            <div>
+              {renderSelectField("Skills", "skills", predefinedOptions.skills)}
+              {errors.skills && (
+                <p className="text-red-500 text-sm mt-1">{errors.skills}</p>
+              )}
+            </div>
+
+            <div>
+              {" "}
+              {renderSelectField(
+                "Responsibility",
+                "responsibility",
+                predefinedOptions.responsibility
+              )}
+              {errors.responsibility && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.responsibility}
+                </p>
+              )}
+            </div>
+
+            <div>
+              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
+              {errors.perks && (
+                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
+              )}
+            </div>
+
+            <div>
+              {renderSelectField(
+                "Hiring Process",
+                "assessments",
+                predefinedOptions.assessments
+              )}
+              {errors.assessments && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.assessments}
                 </p>
               )}
             </div>

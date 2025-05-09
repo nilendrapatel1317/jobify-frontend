@@ -7,17 +7,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
-import { ShieldCheck, Terminal } from "lucide-react";
+import { ShieldCheck, Terminal, Users } from "lucide-react";
 import ApplyInternButton from "@/components/Internship/ApplyInternButton";
 
 const page = () => {
   const searchParams = useSearchParams();
   const internshipId = searchParams.get("internshipId");
+  const [applicantsCount, setApplicantsCount] = useState(0);
 
   const router = useRouter();
   const dispatch = useDispatch();
   const { isStudentLoggedIn, student } = useSelector((state) => state.student);
-  
 
   const [mounted, setMounted] = useState(false);
   const [internships, setInternships] = useState([]);
@@ -49,6 +49,9 @@ const page = () => {
         );
 
         setInternships(filteredInternships);
+        if (filteredInternships.length > 0) {
+          setApplicantsCount(filteredInternships[0].students?.length || 0);
+        }
         setLoading(false);
       } catch (error) {
         dispatch({
@@ -77,7 +80,10 @@ const page = () => {
             Internship Detail
           </h1>
           <div className="flex gap-3">
-            <ApplyInternButton internshipId={internshipId} />
+            <ApplyInternButton
+              currInternship={internships[0]}
+              onApply={(count) => setApplicantsCount(count)}
+            />
           </div>
         </div>
 
@@ -91,7 +97,7 @@ const page = () => {
               <div key={internship.id}>
                 <div className="flex justify-between items-start">
                   <h2 className="text-3xl font-bold text-purple-700 flex items-center gap-2">
-                    <ShieldCheck className="w-8 h-8"/> {internship.profile}
+                    <ShieldCheck className="w-8 h-8" /> {internship.profile}
                   </h2>
                   <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
                     <strong>{internship.internshipType}</strong>
@@ -109,7 +115,8 @@ const page = () => {
                     <strong>To:</strong> {internship.toDate}
                   </p>
                   <p>
-                    <strong>Duration:</strong> {internship.duration} {internship.duration > 1 ? "Months" : "Month"}
+                    <strong>Duration:</strong> {internship.duration}{" "}
+                    {internship.duration > 1 ? "Months" : "Month"}
                   </p>
                   <p>
                     <strong>Stipend Status:</strong> {internship.stipendStatus}
@@ -155,7 +162,7 @@ const page = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="mt-6">
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">
                       Perks
@@ -166,6 +173,16 @@ const page = () => {
                       ))}
                     </ul>
                   </div>
+                </div>
+
+                <div className="mt-10 flex gap-2 ">
+                  <Users className="w-5 h-5 text-gray-500" />
+                  {/* <p className="text-md text-gray-500">
+                    {internship.students.length} applicants
+                  </p> */}
+                  <p className="text-md text-gray-500">
+                    {applicantsCount} applicants
+                  </p>
                 </div>
               </div>
             ))}

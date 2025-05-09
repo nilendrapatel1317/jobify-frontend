@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Sidebar from "@/components/globle/Sidebar";
 import { toast } from "react-toastify";
-import {
-  createInternship,
-  updateInternship
-} from "@/services/internshipService";
+import { createJob, updateJob } from "@/services/jobService";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import PathName from "@/components/globle/PathName";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { assessmentsList, perksList, responsibilityList, skillsList } from "@/utils/contents";
+import {
+  assessmentsList,
+  perksList,
+  responsibilityList,
+  skillsList
+} from "@/utils/contents";
 
 const predefinedOptions = {
   skills: skillsList,
@@ -25,31 +27,32 @@ const predefinedOptions = {
 const page = () => {
   const [errors, setErrors] = useState({});
   const searchParams = useSearchParams();
-  const internshipId = searchParams.get("internshipId");
+  const jobId = searchParams.get("jobId");
 
   const router = useRouter();
   const { isEmployeeLoggedIn, employee } = useSelector(
     (state) => state.employee
   );
-  const { internship } = useSelector((state) => state.internship);
-  const selectedInternship = internship?.find((i) => i.id === internshipId);
+  const { job } = useSelector((state) => state.job);
+  const selectedJob = job?.find((i) => i.id === jobId);
 
-  console.log(internship);
+  console.log(job);
 
   const [mounted, setMounted] = useState(false);
 
   const [formData, setFormData] = useState({
     employee: { id: employee?.id },
     profile: "",
-    skills: [],
-    internshipType: "",
+    companyName: employee?.organizationName,
+    jobType: "",
     openings: 0,
-    fromDate: "",
-    toDate: "",
-    duration: "",
+    startDate: "",
+    experience: "",
+    location: "",
+    salaryStatus: "",
+    salary: 0,
+    skills: [],
     responsibility: [],
-    stipendStatus: "",
-    stipendAmount: 0,
     perks: [],
     assessments: []
   });
@@ -65,24 +68,25 @@ const page = () => {
   }, [isEmployeeLoggedIn, mounted]);
 
   useEffect(() => {
-    if (selectedInternship) {
+    if (selectedJob) {
       setFormData({
         employee: { id: employee?.id },
-        profile: selectedInternship.profile || "",
-        skills: selectedInternship.skills || [],
-        internshipType: selectedInternship.internshipType || "",
-        openings: selectedInternship.openings || 0,
-        fromDate: selectedInternship.fromDate?.slice(0, 10) || "",
-        toDate: selectedInternship.toDate?.slice(0, 10) || "",
-        duration: selectedInternship.duration || "",
-        responsibility: selectedInternship.responsibility || [],
-        stipendStatus: selectedInternship.stipendStatus || "",
-        stipendAmount: selectedInternship.stipendAmount || 0,
-        perks: selectedInternship.perks || [],
-        assessments: selectedInternship.assessments || []
+        profile: selectedJob.profile || "",
+        companyName: selectedJob.companyName || "",
+        jobType: selectedJob.jobType || "",
+        openings: selectedJob.openings || 0,
+        startDate: selectedJob.startDate?.slice(0, 10) || "",
+        location: selectedJob.location || "",
+        experience: selectedJob.experience || "",
+        salaryStatus: selectedJob.salaryStatus || "",
+        salary: selectedJob.salary || 0,
+        skills: selectedJob.skills || [],
+        responsibility: selectedJob.responsibility || [],
+        perks: selectedJob.perks || [],
+        assessments: selectedJob.assessments || []
       });
     }
-  }, [selectedInternship]);
+  }, [selectedJob]);
 
   if (!mounted || !employee) return null;
 
@@ -101,15 +105,15 @@ const page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateInternship(internshipId, formData);
+      const response = await updateJob(jobId, formData);
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/employee/internships");
+      router.push("/employee/jobs");
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.msg || "Failed to create internship.", {
+      toast.error(error.response?.data?.msg || "Failed to create job.", {
         position: "bottom-right",
         autoClose: 2000
       });
@@ -143,7 +147,7 @@ const page = () => {
         <PathName />
         <div className="flex justify-center items-center mb-8">
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            Update Internship
+            Update Job
           </h1>
         </div>
 
@@ -181,97 +185,96 @@ const page = () => {
             </div>
 
             <div>
-              <label className="block font-medium mb-1">Stipend Amount</label>
-              <input
-                type="number"
-                name="stipendAmount"
-                value={formData.stipendAmount}
-                onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
-              />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block font-medium mb-1">From Date</label>
-              <input
-                type="date"
-                name="fromDate"
-                value={formData.fromDate}
-                onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
-              />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block font-medium mb-1">To Date</label>
-              <input
-                type="date"
-                name="toDate"
-                value={formData.toDate}
-                onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
-              />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
-              )}
-            </div>
-
-            <div>
               <label className="block font-medium mb-1">
-                Duration (in months)
+                Salary Amount (PM)
               </label>
               <input
-                type="text"
-                name="duration"
-                value={formData.duration}
+                type="number"
+                name="salary"
+                value={formData.salary}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.salary && (
+                <p className="text-red-500 text-sm mt-1">{errors.salary}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium mb-1">Start Date</label>
+              <input
+                type="date"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.startDate && (
+                <p className="text-red-500 text-sm mt-1">{errors.startDate}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium mb-1">Experience</label>
+              <input
+                type="text"
+                name="experience"
+                value={formData.experience}
+                onChange={handleChange}
+                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.experience && (
+                <p className="text-red-500 text-sm mt-1">{errors.experience}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium mb-1">Location</label>
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.location && (
+                <p className="text-red-500 text-sm mt-1">{errors.location}</p>
               )}
             </div>
           </div>
 
           <div className="flex flex-wrap justify-between gap-5">
             <div>
-              <label className="block font-medium mb-1">Internship Type</label>
+              <label className="block font-medium mb-1">Job Type</label>
               <select
-                name="internshipType"
-                value={formData.internshipType}
+                name="jobType"
+                value={formData.jobType}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70 "
               >
-                <option value="">Select Internship Type</option>
-                {["Onsite", "Remote", "Hybrid"].map((type) => (
+                <option value="">Select Job Type</option>
+                {["Full_Time", "Part_Time"].map((type) => (
                   <option key={type} value={type}>
-                    {type}
+                    {type.replace("_", " ")}
                   </option>
                 ))}
               </select>
-              {errors.internshipType && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.internshipType}
-                </p>
+              {errors.jobType && (
+                <p className="text-red-500 text-sm mt-1">{errors.jobType}</p>
               )}
             </div>
 
             <div>
-              <label className="block font-medium mb-1">Stipend Status</label>
+              <label className="block font-medium mb-1">Salary Status</label>
               <select
-                name="stipendStatus"
-                value={formData.stipendStatus}
+                name="salaryStatus"
+                value={formData.salaryStatus}
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70"
               >
-                <option value="">Select Stipend Status</option>
-                {["Fixed", "Negotiable", "Performance_Based", "Unpaid"].map(
+                <option value="">Select Salary Status</option>
+                {["Fixed", "Negotiable", "Company_Standard"].map(
+                  // Remove "Unpaid" to match backend validation
                   (status) => (
                     <option key={status} value={status}>
                       {status.replace("_", " ")}
@@ -279,9 +282,9 @@ const page = () => {
                   )
                 )}
               </select>
-              {errors.stipendStatus && (
+              {errors.salaryStatus && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.stipendStatus}
+                  {errors.salaryStatus}
                 </p>
               )}
             </div>
@@ -308,20 +311,22 @@ const page = () => {
             </div>
 
             <div>
+              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
+              {errors.perks && (
+                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
+              )}
+            </div>
+
+            <div>
               {renderSelectField(
                 "Hiring Process",
                 "assessments",
                 predefinedOptions.assessments
               )}
               {errors.assessments && (
-                <p className="text-red-500 text-sm mt-1">{errors.assessments}</p>
-              )}
-            </div>
-
-            <div>
-              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
-              {errors.perks && (
-                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.assessments}
+                </p>
               )}
             </div>
           </div>
@@ -331,9 +336,9 @@ const page = () => {
               type="submit"
               className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
             >
-              Update Internship
+              Update Job
             </button>
-            <Link href={"/employee/internships"}>
+            <Link href={"/employee/jobs"}>
               <button
                 type="submit"
                 className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"

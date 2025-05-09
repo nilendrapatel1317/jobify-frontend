@@ -1,16 +1,16 @@
 "use client";
-import { applyInternship, withdrawInternship } from "@/services/internshipService";
+import { applyJob, withdrawJob } from "@/services/jobService";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const WithdrawInternButton = ({ internshipId ,onWithdraw  }) => {
+const WithdrawInternButton = ({ jobId ,onWithdraw  }) => {
   const [mounted, setMounted] = useState(false);
 
   const router = useRouter();
   const { isStudentLoggedIn, student } = useSelector((state) => state.student);
-  const { internship } = useSelector((state) => state.internship); // assuming it's an array
+  const { job } = useSelector((state) => state.job); // assuming it's an array
 
   useEffect(() => {
     setMounted(true);
@@ -23,29 +23,32 @@ const WithdrawInternButton = ({ internshipId ,onWithdraw  }) => {
   }, [isStudentLoggedIn, mounted]);
 
   useEffect(() => {
-    if (mounted && student && internshipId && Array.isArray(internship)) {
-      const selectedInternship = internship.find(
-        (item) => item.id === internshipId
+    if (mounted && student && jobId && Array.isArray(job)) {
+      const selectedJob = job.find(
+        (item) => item.id === jobId
       );
-      if (selectedInternship && Array.isArray(selectedInternship.students)) {
-        const alreadyApplied = selectedInternship.students.some(
+      if (selectedJob && Array.isArray(selectedJob.students)) {
+        const alreadyApplied = selectedJob.students.some(
           (s) => s.id === student.id
         );
       }
     }
-  }, [internship, student, internshipId, mounted]);
+  }, [job, student, jobId, mounted]);
 
   if (!mounted || !student) return null;
 
   const handleWithdrawIntern = async () => {
     try {
-      const response = await withdrawInternship(internshipId, student?.id);
+      console.log(jobId)
+      console.log(student?.id)
+      const response = await withdrawJob(jobId, student?.id);
+      console.log(response)
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
       if (onWithdraw) {
-        onWithdraw(internshipId); 
+        onWithdraw(jobId); 
       }
     } catch (error) {
       console.log(error);

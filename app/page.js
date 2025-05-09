@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import RenderInternshipCards from "@/components/Internship/RenderInternshipCards";
+import RenderJobCards from "@/components/Job/RenderJobCards";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -160,21 +161,11 @@ const Page = () => {
       <div className="px-40">
         {mounted && !isEmployeeLoggedIn && <RenderInternshipCards from="home" />}
       </div>
-
+      
       {/* Main Bottom - Jobs */}
-      {/* <section className="px-6 py-8">
-        <h3 className="text-3xl font-bold text-gray-800 mb-6">Latest Jobs</h3>
-        {jobs.length > 0 ? (
-          <>
-            {renderCards(jobs, "job")}
-            <div className="text-center mt-8">
-              <Link href="/student/auth/login" className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold transition">View More Jobs</Link>
-            </div>
-          </>
-        ) : (
-          <p className="text-center text-lg text-gray-500 italic">💼 No Jobs added right now</p>
-        )}
-      </section> */}
+      <div className="px-40">
+        {mounted && !isEmployeeLoggedIn && <RenderJobCards from="home" />}
+      </div>
     </div>
   );
 };

@@ -1,12 +1,13 @@
 "use client";
-import { applyInternship } from "@/services/internshipService";
+import { applyJob } from "@/services/jobService";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const ApplyInternButton = ({ currInternship, onApply }) => {
-  const internshipId = currInternship?.id;
+const ApplyJobButton = ({ currJob, onApply }) => {
+  const searchParams = useSearchParams();
+  const jobId = currJob?.id;
   const [isApplied, setIsApplied] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [applicantsCount, setApplicantsCount] = useState(0);
@@ -14,7 +15,7 @@ const ApplyInternButton = ({ currInternship, onApply }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { isStudentLoggedIn, student } = useSelector((state) => state.student);
-  const { internship } = useSelector((state) => state.internship); // assuming it's an array
+  const { job } = useSelector((state) => state.job); // assuming it's an array
 
   useEffect(() => {
     setMounted(true);
@@ -27,28 +28,28 @@ const ApplyInternButton = ({ currInternship, onApply }) => {
   }, [isStudentLoggedIn, mounted]);
 
   useEffect(() => {
-    if (mounted && student && internshipId && Array.isArray(internship)) {
-      const selectedInternship = internship.find(
-        (item) => item.id === internshipId
+    if (mounted && student && jobId && Array.isArray(job)) {
+      const selectedJob = job.find(
+        (item) => item.id === jobId
       );
-      if (selectedInternship && Array.isArray(selectedInternship.students)) {
-        const alreadyApplied = selectedInternship.students.some(
+      if (selectedJob && Array.isArray(selectedJob.students)) {
+        const alreadyApplied = selectedJob.students.some(
           (s) => s.id === student.id
         );
         setIsApplied(alreadyApplied);
-        setApplicantsCount(currInternship?.students?.length || 0);
+        setApplicantsCount(currJob?.students?.length || 0);
       }
     }
-  }, [internship, student, internshipId, mounted]);
+  }, [job, student, jobId, mounted]);
 
   if (!mounted || !student) return null;
 
   const handleApplyIntern = async () => {
     try {
-      const response = await applyInternship(internshipId, student.id);
+      const response = await applyJob(jobId, student.id);
       toast.success(response.data.msg, {
         position: "bottom-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
       setIsApplied(true);
       
@@ -62,7 +63,7 @@ const ApplyInternButton = ({ currInternship, onApply }) => {
       console.log(error);
       toast.error(error?.response?.data?.msg || "Something went wrong", {
         position: "bottom-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
     }
   };
@@ -85,4 +86,4 @@ const ApplyInternButton = ({ currInternship, onApply }) => {
   );
 };
 
-export default ApplyInternButton;
+export default ApplyJobButton;

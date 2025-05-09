@@ -34,8 +34,8 @@ const ResumePage = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <h1 className="text-2xl text-red-500">Resume Page</h1>
+        <div className="mb-12">
+          <h1 className="text-2xl text-red-500">Coming Soon... (Work under construction)</h1>
         </div>
       </main>
     </div>

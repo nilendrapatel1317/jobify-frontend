@@ -9,7 +9,12 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import PathName from "@/components/globle/PathName";
 import Link from "next/link";
-import { assessmentsList, perksList, responsibilityList, skillsList } from "@/utils/contents";
+import {
+  assessmentsList,
+  perksList,
+  responsibilityList,
+  skillsList
+} from "@/utils/contents";
 
 const predefinedOptions = {
   skills: skillsList,
@@ -158,8 +163,10 @@ const page = () => {
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.stipendAmount && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.stipendAmount}
+                </p>
               )}
             </div>
 
@@ -186,8 +193,8 @@ const page = () => {
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.toDate && (
+                <p className="text-red-500 text-sm mt-1">{errors.toDate}</p>
               )}
             </div>
 
@@ -202,52 +209,13 @@ const page = () => {
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.duration && (
+                <p className="text-red-500 text-sm mt-1">{errors.duration}</p>
               )}
             </div>
           </div>
 
           <div className="flex flex-wrap justify-between gap-5">
-            <div>
-              {renderSelectField("Skills", "skills", predefinedOptions.skills)}
-              {errors.skills && (
-                <p className="text-red-500 text-sm mt-1">{errors.skills}</p>
-              )}
-            </div>
-
-            <div>
-              {" "}
-              {renderSelectField(
-                "Responsibility",
-                "responsibility",
-                predefinedOptions.responsibility
-              )}
-              {errors.responsibility && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.responsibility}
-                </p>
-              )}
-            </div>
-
-            <div>
-              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
-              {errors.perks && (
-                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
-              )}
-            </div>
-
-            <div>
-              {renderSelectField(
-                "Assesments",
-                "assessments",
-                predefinedOptions.assessments
-              )}
-              {errors.assessments && (
-                <p className="text-red-500 text-sm mt-1">{errors.assessments}</p>
-              )}
-            </div>
-
             <div>
               <label className="block font-medium mb-1">Internship Type</label>
               <select
@@ -290,6 +258,47 @@ const page = () => {
               {errors.stipendStatus && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.stipendStatus}
+                </p>
+              )}
+            </div>
+            
+            <div>
+              {renderSelectField("Skills", "skills", predefinedOptions.skills)}
+              {errors.skills && (
+                <p className="text-red-500 text-sm mt-1">{errors.skills}</p>
+              )}
+            </div>
+
+            <div>
+              {" "}
+              {renderSelectField(
+                "Responsibility",
+                "responsibility",
+                predefinedOptions.responsibility
+              )}
+              {errors.responsibility && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.responsibility}
+                </p>
+              )}
+            </div>
+
+            <div>
+              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
+              {errors.perks && (
+                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
+              )}
+            </div>
+
+            <div>
+              {renderSelectField(
+                "Hiring Process",
+                "assessments",
+                predefinedOptions.assessments
+              )}
+              {errors.assessments && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.assessments}
                 </p>
               )}
             </div>

@@ -7,17 +7,18 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
-import { Terminal } from "lucide-react";
+import { ShieldCheck, Terminal, Users } from "lucide-react";
+import ApplyInternButton from "@/components/Job/ApplyJobButton";
+import ApplyJobButton from "@/components/Job/ApplyJobButton";
 
-const JobForm = () => {
+const page = () => {
   const searchParams = useSearchParams();
   const jobId = searchParams.get("jobId");
+  const [applicantsCount, setApplicantsCount] = useState(0);
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isEmployeeLoggedIn, employee } = useSelector(
-    (state) => state.employee
-  );
+  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
 
   const [mounted, setMounted] = useState(false);
   const [jobs, setJobs] = useState([]);
@@ -28,30 +29,32 @@ const JobForm = () => {
   }, []);
 
   useEffect(() => {
-    if (mounted && !isEmployeeLoggedIn) {
+    if (mounted && !isStudentLoggedIn) {
       router.push("/");
     }
-  }, [mounted, isEmployeeLoggedIn]);
+  }, [mounted, isStudentLoggedIn]);
 
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
         const response = await getAllJobs();
         dispatch({
-          type: "ALL_JOB_FETCHED_SUCCESS",
+          type: "ALL_JOBS_FETCHED_SUCCESS",
           payload: response.data.data
         });
 
         const allJobs = response.data.data || [];
-        const filteredJobs = allJobs.filter(
-          (job) => job?.id === jobId
-        );
+
+        const filteredJobs = allJobs.filter((job) => job?.id === jobId);
 
         setJobs(filteredJobs);
+        if (filteredJobs.length > 0) {
+          setApplicantsCount(filteredJobs[0].students?.length || 0);
+        }
         setLoading(false);
       } catch (error) {
         dispatch({
-          type: "ALL_JOB_FETCHED_FAILED",
+          type: "ALL_JOBS_FETCHED_FAILED",
           payload: error.message
         });
         console.error("Error fetching jobs:", error);
@@ -59,16 +62,16 @@ const JobForm = () => {
       }
     };
 
-    if (mounted && employee?.id) {
+    if (mounted && student?.id) {
       fetchAllJobs();
     }
-  }, [mounted, employee]);
+  }, [mounted, student]);
 
   if (!mounted) return null;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <Sidebar sidebarFor="employee" />
+      <Sidebar sidebarFor="student" />
       <main className="ml-64 flex-1 p-10">
         <PathName />
         <div className="flex justify-between items-center mb-8">
@@ -76,18 +79,10 @@ const JobForm = () => {
             Job Detail
           </h1>
           <div className="flex gap-3">
-            <Link
-              className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white font-semibold"
-              href={`/employee/jobs/editJob?jobId=${jobId}`}
-            >
-              Edit
-            </Link>
-            <Link
-              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white font-semibold"
-              href={`/employee/jobs/deleteJob?jobId=${jobId}`}
-            >
-              Delete
-            </Link>
+            <ApplyJobButton
+              currJob={jobs[0]}
+              onApply={(count) => setApplicantsCount(count)}
+            />
           </div>
         </div>
 
@@ -101,7 +96,7 @@ const JobForm = () => {
               <div key={job.id}>
                 <div className="flex justify-between items-start">
                   <h2 className="text-3xl font-bold text-purple-700 flex items-top gap-2">
-                    <Terminal className="text-black w-10 h-10"/> {job.profile}
+                    <Terminal className="text-black w-10 h-10" /> {job.profile}
                   </h2>
                   <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
                     <strong>{job.jobType}</strong>
@@ -165,7 +160,7 @@ const JobForm = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="mt-6">
                     <h3 className="text-xl font-semibold text-gray-800 mb-1">
                       Perks
@@ -178,57 +173,11 @@ const JobForm = () => {
                   </div>
                 </div>
 
-                <div className="mt-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-1">
-                    All Students
-                  </h3>
-                  {job.students && job.students.length > 0 ? (
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-100">
-                          <tr>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              S.No
-                            </th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Name
-                            </th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Email
-                            </th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Status
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {job.students.map((student, index) => (
-                            <tr key={index}>
-                              <td className="px-4 py-2 whitespace-nowrap">
-                                {index + 1}
-                              </td>
-                              <td className="px-4 py-2 whitespace-nowrap">
-                                {student?.firstname || "Unknown"}{" "}
-                                {student?.lastname || ""}
-                              </td>
-                              <td className="px-4 py-2 whitespace-nowrap">
-                                {student?.email || "No email"}
-                              </td>
-                              <td className="px-4 py-2 whitespace-nowrap">
-                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                  Applied
-                                </span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-500 italic">
-                      No students have applied yet.
-                    </p>
-                  )}
+                <div className="mt-10 flex gap-2 ">
+                  <Users className="w-5 h-5 text-gray-500" />
+                  <p className="text-md text-gray-500">
+                    {applicantsCount} applicants
+                  </p>
                 </div>
               </div>
             ))}
@@ -239,4 +188,4 @@ const JobForm = () => {
   );
 };
 
-export default JobForm;
+export default page;

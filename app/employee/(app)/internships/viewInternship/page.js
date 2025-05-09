@@ -73,7 +73,7 @@ const InternshipForm = () => {
         <PathName />
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            {internshipId} Internship Detail
+            Internship Detail
           </h1>
           <div className="flex gap-3">
             <Link

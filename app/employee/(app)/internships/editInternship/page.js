@@ -189,8 +189,8 @@ const page = () => {
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.stipendAmount && (
+                <p className="text-red-500 text-sm mt-1">{errors.stipendAmount}</p>
               )}
             </div>
 
@@ -217,8 +217,8 @@ const page = () => {
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.toDate && (
+                <p className="text-red-500 text-sm mt-1">{errors.toDate}</p>
               )}
             </div>
 
@@ -233,8 +233,8 @@ const page = () => {
                 onChange={handleChange}
                 className="w-80 border border-gray-300 rounded-lg px-4 py-2"
               />
-              {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+              {errors.duration && (
+                <p className="text-red-500 text-sm mt-1">{errors.duration}</p>
               )}
             </div>
           </div>
