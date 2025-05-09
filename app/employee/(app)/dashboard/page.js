@@ -6,6 +6,7 @@ import Sidebar from "@/components/globle/Sidebar";
 import PathName from "@/components/globle/PathName";
 import { getAllInternships } from "@/services/internshipService";
 import Link from "next/link";
+import { getAllJobs } from "@/services/jobService";
 
 const dummyInternships = [
   { id: 1, title: "Frontend Intern at ABC Corp" },
@@ -28,7 +29,7 @@ const DashboardPage = () => {
 
   const [mounted, setMounted] = useState(false);
   const [internships, setInternships] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
     setMounted(true);
@@ -55,19 +56,40 @@ const DashboardPage = () => {
         );
 
         setInternships(filteredInternships);
-        setLoading(false);
       } catch (error) {
         dispatch({
           type: "ALL_INTERNSHIPS_FETCHED_FAILED",
           payload: error.message
         });
         console.error("Error fetching internships:", error);
-        setLoading(false);
+      }
+    };
+    const fetchAllJobs = async () => {
+      try {
+        const response = await getAllJobs();
+        dispatch({
+          type: "ALL_JOBS_FETCHED_SUCCESS",
+          payload: response.data.data
+        });
+        const allJobs = response.data.data || [];
+
+        const filteredJobs = allJobs.filter(
+          (job) => job.employee?.id === employee?.id
+        );
+
+        setJobs(filteredJobs);
+      } catch (error) {
+        dispatch({
+          type: "ALL_JOBS_FETCHED_FAILED",
+          payload: error.message
+        });
+        console.error("Error fetching jobs:", error);
       }
     };
 
     if (mounted && employee?.id) {
       fetchAllInternships();
+      fetchAllJobs();
     }
   }, [mounted, employee]);
 
@@ -90,13 +112,15 @@ const DashboardPage = () => {
           <Link href={"/employee/internships"}>
             <div className="bg-blue-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
               <h2>Total Internships Added</h2>
-              <p className="font-bold">{internships.length}</p>
+              <p className="font-bold">{internships?.length}</p>
             </div>
           </Link>
-          <div className="bg-green-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
-            <h2>Total Jobs Added</h2>
-            <p className="font-bold">0</p>
-          </div>
+          <Link href={"/employee/jobs"}>
+            <div className="bg-green-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
+              <h2>Total Jobs Added</h2>
+              <p className="font-bold">{jobs?.length}</p>
+            </div>
+          </Link>
         </div>
 
         {/* <section className="mb-12">

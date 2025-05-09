@@ -98,7 +98,7 @@ const page = () => {
                   </p>
                 </div>
 
-                <div className="text-gray-700 text-lg space-y-10 grid grid-cols-1 sm:grid-cols-4 justify-between mt-10">
+                <div className="text-gray-700 text-lg space-y-5 grid grid-cols-1 sm:grid-cols-4 justify-between mt-10">
                   <p>
                     <strong>Openings:</strong> {internship.openings}
                   </p>
@@ -122,7 +122,7 @@ const page = () => {
                   </p>
                 </div>
 
-                <div className="flex justify-between ">
+                <div className="grid grid-cols-4 ">
                   <div className="mt-6">
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">
                       Skills Required
@@ -150,7 +150,7 @@ const page = () => {
                       Selection Process
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {internship.assesments?.map((ass, index) => (
+                      {internship.assessments?.map((ass, index) => (
                         <li key={index}>{ass}</li>
                       ))}
                     </ul>
