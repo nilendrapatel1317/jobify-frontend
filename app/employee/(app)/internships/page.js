@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
+import ActivateDeactivateButton from "@/components/Internship/ActivateDeactivateButton";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 
-const InternshipForm = () => {
+const page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isEmployeeLoggedIn, employee } = useSelector(
@@ -29,36 +31,46 @@ const InternshipForm = () => {
     }
   }, [mounted, isEmployeeLoggedIn]);
 
+  const fetchAllInternships = async () => {
+    try {
+      const response = await getAllInternships();
+      dispatch({
+        type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
+        payload: response.data.data
+      });
+      const allInternships = response.data.data || [];
+
+      const filteredInternships = allInternships.filter(
+        (internship) => internship.employee?.id === employee?.id
+      );
+
+      setInternships(filteredInternships);
+    } catch (error) {
+      dispatch({
+        type: "ALL_INTERNSHIPS_FETCHED_FAILED",
+        payload: error.message
+      });
+      console.error("Error fetching internships:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchAllInternships = async () => {
-      try {
-        const response = await getAllInternships();
-        dispatch({
-          type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
-          payload: response.data.data
-        });
-        const allInternships = response.data.data || [];
-
-        const filteredInternships = allInternships.filter(
-          (internship) => internship.employee?.id === employee?.id
-        );
-
-        setInternships(filteredInternships);
-        setLoading(false);
-      } catch (error) {
-        dispatch({
-          type: "ALL_INTERNSHIPS_FETCHED_FAILED",
-          payload: error.message
-        });
-        console.error("Error fetching internships:", error);
-        setLoading(false);
-      }
-    };
-
-    if (mounted && employee?.id) {
+    if (mounted) {
       fetchAllInternships();
     }
   }, [mounted, employee]);
+
+  const handleStatusChange = (internshipId, newStatus) => {
+    setInternships((prev) =>
+      prev.map((internship) =>
+        internship.id === internshipId
+          ? { ...internship, isActive: newStatus }
+          : internship
+      )
+    );
+  };
 
   // Avoid hydration mismatch by only rendering after mounted
   if (!mounted) return null;
@@ -81,9 +93,21 @@ const InternshipForm = () => {
         </div>
 
         {loading ? (
-          <p className="text-center text-lg">Loading internships...</p>
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
         ) : internships.length === 0 ? (
-          <p className="text-center text-red-500">No internships found.</p>
+          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+            <p className="text-lg text-gray-500 italic mb-4">
+              No internships found.
+            </p>
+            <Link
+              href="/employee/internships/addInternship"
+              className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-all"
+            >
+              Add Your First Internship
+            </Link>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white rounded-lg shadow-md">
@@ -95,6 +119,7 @@ const InternshipForm = () => {
                   <th className="py-3 px-2 text-left">From Date</th>
                   <th className="py-3 px-2 text-left">To Date</th>
                   <th className="py-3 px-2 text-left">Stipend Amount</th>
+                  <th className="py-3 px-4 text-left">Status</th>
                   <th className="py-3 px-2 text-center">Action</th>
                 </tr>
               </thead>
@@ -102,7 +127,7 @@ const InternshipForm = () => {
                 {internships.map((internship) => (
                   <tr
                     key={internship.id}
-                    className="border-t hover:bg-gray-50 transition"
+                    className={`border-t border-black hover:bg-gray-50 transition ${internship?.isActive ? "" : "line-through opacity-60 text-red-500 italic font-semibold"}`}
                   >
                     <td className="py-2 px-2">{internship.id}</td>
                     <td className="py-2 px-2">{internship.profile}</td>
@@ -116,25 +141,51 @@ const InternshipForm = () => {
                         ? "Unpaid"
                         : `₹${internship.stipendAmount}`}
                     </td>
+                    <td className="py-4 px-4">
+                      <div className="flex gap-3 items-center">
+                        <ActivateDeactivateButton
+                          internshipId={internship.id}
+                          isActive={internship.isActive}
+                          onStatusChange={(newStatus) =>
+                            handleStatusChange(internship.id, newStatus)
+                          }
+                        />
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            internship.isActive
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
+                        >
+                          {internship.isActive ? "Active" : "Inactive"}
+                        </span>
+                      </div>
+                    </td>
+
                     <td className="py-2 px-2 space-x-2 text-center">
-                      <Link
-                        href={`/employee/internships/editInternship?internshipId=${internship.id}`}
-                        className="bg-yellow-500 text-white px-3 py-1 rounded"
-                      >
-                        Edit
-                      </Link>
-                      <Link
-                        href={`/employee/internships/deleteInternship?internshipId=${internship.id}`}
-                        className="bg-red-500 text-white px-3 py-1 rounded"
-                      >
-                        Delete
-                      </Link>
-                      <Link
-                        href={`/employee/internships/viewInternship?internshipId=${internship.id}`}
-                        className="bg-blue-500 text-white px-3 py-1 rounded"
-                      >
-                        View
-                      </Link>
+                      <div className="flex justify-center items-center space-x-2">
+                        <Link
+                          href={`/employee/internships/viewInternship?internshipId=${internship.id}`}
+                          className="p-2 rounded-full hover:bg-blue-100 text-blue-600 transition-colors"
+                          title="View"
+                        >
+                          <Eye className="h-6 w-6" />
+                        </Link>
+                        <Link
+                          href={`/employee/internships/editInternship?internshipId=${internship.id}`}
+                          className="p-2 rounded-full hover:bg-yellow-100 text-yellow-600 transition-colors"
+                          title="Edit"
+                        >
+                          <Pencil className="h-6 w-6" />
+                        </Link>
+                        <Link
+                          href={`/employee/internships/deleteInternship?internshipId=${internship.id}`}
+                          className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 className="h-6 w-6" />
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -147,4 +198,4 @@ const InternshipForm = () => {
   );
 };
 
-export default InternshipForm;
+export default page;

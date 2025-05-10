@@ -29,3 +29,17 @@ export const withdrawInternship = (internshipId, studentId) => {
     studentId
   });
 };
+
+// Activate Internship
+export const activateInternship = (internshipId) => {
+  return api.post(`/internship/activate`, {
+    internshipId
+  });
+};
+
+// Deactivate Internship
+export const deactivateInternship = (internshipId) => {
+  return api.post(`/internship/deactivate`, {
+    internshipId
+  });
+};

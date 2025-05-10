@@ -1,8 +1,10 @@
 "use client";
 import { getAllInternships } from "@/services/internshipService";
+import { Timer, TimerResetIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import TimeAgo from "../globle/TimeAgo";
 
 const RenderInternshipCards = ({ from }) => {
   const [internships, setInternships] = useState([]);
@@ -29,7 +31,7 @@ const RenderInternshipCards = ({ from }) => {
       } catch (error) {
         dispatch({
           type: "ALL_INTERNSHIPS_FETCHED_FAILED",
-          payload: error?.message,
+          payload: error?.message
         });
       }
     };
@@ -51,7 +53,23 @@ const RenderInternshipCards = ({ from }) => {
                 key={internship?.id}
                 className="relative bg-white p-6 rounded-xl shadow-md max-w-sm"
               >
-                <h3 className="text-2xl font-bold">{internship?.profile}</h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-2xl font-bold">
+                    {" "}
+                    {internship?.profile?.length > 15
+                      ? `${internship.profile.substring(0, 15)}...`
+                      : internship?.profile}
+                  </h3>
+                  <p
+                    className={`text-sm px-2 py-1 rounded-full italic ${
+                      internship?.isActive
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-500/50 cursor-none select-none text-white"
+                    }`}
+                  >
+                    {internship?.isActive ? "Active" : "Close"}
+                  </p>
+                </div>
                 <p>
                   <strong>Type:</strong> {internship?.internshipType}
                 </p>
@@ -67,9 +85,14 @@ const RenderInternshipCards = ({ from }) => {
                 </p>
 
                 <div className="flex justify-between items-center mt-4">
-                  <div className="bg-gray-100 text-gray-600 flex justify-center items-center px-3 py-1 rounded-full">
-                    Apply Now
-                  </div>
+                  {internship?.postedAt ? (
+                    <TimeAgo timestamp={internship?.postedAt} />
+                  ) : (
+                    <p className="text-sm text-black/50 italic flex mt-3 gap-2 items-center">
+                      <TimerResetIcon className="w-4 h-4" />
+                      posted 30+ days ago
+                    </p>
+                  )}
                   <Link
                     href={`/student/internships/viewInternship?internshipId=${internship?.id}`}
                     className="inline-block bg-blue-400 text-white px-4 py-2 rounded-lg font-semibold transition"
@@ -77,6 +100,8 @@ const RenderInternshipCards = ({ from }) => {
                     Details
                   </Link>
                 </div>
+
+                {/* Write here your dynamic time tracking */}
               </div>
             ))}
           </div>

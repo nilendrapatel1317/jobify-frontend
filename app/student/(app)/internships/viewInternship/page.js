@@ -22,6 +22,7 @@ const page = () => {
   const [mounted, setMounted] = useState(false);
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -51,6 +52,7 @@ const page = () => {
         setInternships(filteredInternships);
         if (filteredInternships.length > 0) {
           setApplicantsCount(filteredInternships[0].students?.length || 0);
+          setIsActive(filteredInternships[0]?.isActive);
         }
         setLoading(false);
       } catch (error) {
@@ -79,11 +81,17 @@ const page = () => {
           <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
             Internship Detail
           </h1>
-          <div className="flex gap-3">
-            <ApplyInternButton
-              currInternship={internships[0]}
-              onApply={(count) => setApplicantsCount(count)}
-            />
+          <div className="">
+            {isActive ? (
+              <ApplyInternButton
+                currInternship={internships[0]}
+                onApply={(count) => setApplicantsCount(count)}
+              />
+            ) : (
+              <p className=" bg-gray-500/50 cursor-none select-none text-white text-sm px-2 py-1 rounded-full italic">
+                Application Closed !
+              </p>
+            )}
           </div>
         </div>
 
@@ -95,6 +103,11 @@ const page = () => {
           <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6">
             {internships.map((internship) => (
               <div key={internship.id}>
+                {!internship?.isActive && (
+                  <p className=" bg-gray-500/10 mb-5 text-center cursor-none select-none text-red-500 text-md px-2 py-1 italic">
+                    This Internship is closed !
+                  </p>
+                )}
                 <div className="flex justify-between items-start">
                   <h2 className="text-3xl font-bold text-purple-700 flex items-center gap-2">
                     <ShieldCheck className="w-8 h-8" /> {internship.profile}
@@ -177,9 +190,6 @@ const page = () => {
 
                 <div className="mt-10 flex gap-2 ">
                   <Users className="w-5 h-5 text-gray-500" />
-                  {/* <p className="text-md text-gray-500">
-                    {internship.students.length} applicants
-                  </p> */}
                   <p className="text-md text-gray-500">
                     {applicantsCount} applicants
                   </p>

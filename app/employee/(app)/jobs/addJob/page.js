@@ -31,9 +31,6 @@ const page = () => {
     (state) => state.employee
   );
   const [mounted, setMounted] = useState(false);
-
-  console.log(employee?.organizationName)
-
   const [formData, setFormData] = useState({
     employee: { id: employee?.id },
     profile: "",

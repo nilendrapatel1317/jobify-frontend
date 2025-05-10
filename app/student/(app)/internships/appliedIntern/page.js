@@ -69,7 +69,7 @@ const page = () => {
                     <th className="py-3 px-2 text-left">Openings</th>
                     <th className="py-3 px-2 text-left">Duration</th>
                     <th className="py-3 px-2 text-left">Stipend Amount</th>
-                    <th className="py-3 px-2 text-center">Status</th>
+                    <th className="py-3 px-2 text-center">Status <span className="text-sm">(Your / Hiring )</span></th>
                     <th className="py-3 px-2 text-center">Action</th>
                   </tr>
                 </thead>
@@ -84,11 +84,15 @@ const page = () => {
                         className="border-y hover:bg-gray-50 h-16"
                       >
                         <td className="py-2 px-2 text-lg">{index + 1}</td>
-                        <td className="py-2 px-2 text-lg">{internship.profile}</td>
+                        <td className="py-2 px-2 text-lg">
+                          {internship.profile}
+                        </td>
                         <td className="py-2 px-2 text-lg ">
                           {internship.internshipType}
                         </td>
-                        <td className="py-2 px-2 text-lg">{internship.openings}</td>
+                        <td className="py-2 px-2 text-lg">
+                          {internship.openings}
+                        </td>
                         <td className="py-2 px-2 text-lg">
                           {internship.duration}{" "}
                           {internship.duration > 1 ? "Months" : "Month"}
@@ -98,10 +102,21 @@ const page = () => {
                             ? "Unpaid"
                             : `₹${internship.stipendAmount}`}
                         </td>
-                        <td className="text-center">
-                          <span className="bg-green-500/40 px-3 py-1 rounded-full  text-white ">
-                            Applied
-                          </span>
+                        <td >
+                          <div className="flex items-center gap-2 justify-center">
+                            <p className="bg-green-500 cursor-none select-none text-sm px-2 py-1 rounded-full italic text-white ">
+                              Applied
+                            </p>
+                            <p
+                              className={`text-sm px-2 py-1 rounded-full italic ${
+                                internship?.isActive
+                                  ? "bg-green-500 text-white"
+                                  : "bg-gray-500/50 cursor-none select-none text-white"
+                              }`}
+                            >
+                              {internship?.isActive ? "Active" : "Close"}
+                            </p>
+                          </div>
                         </td>
                         <td className="text-center space-x-3">
                           <Link

@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
-import { ShieldCheck, Terminal, Users } from "lucide-react";
+import { Terminal, Users } from "lucide-react";
 import ApplyInternButton from "@/components/Job/ApplyJobButton";
 import ApplyJobButton from "@/components/Job/ApplyJobButton";
 
@@ -23,6 +23,7 @@ const page = () => {
   const [mounted, setMounted] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -50,6 +51,7 @@ const page = () => {
         setJobs(filteredJobs);
         if (filteredJobs.length > 0) {
           setApplicantsCount(filteredJobs[0].students?.length || 0);
+          setIsActive(filteredJobs[0]?.isActive);
         }
         setLoading(false);
       } catch (error) {
@@ -78,11 +80,18 @@ const page = () => {
           <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
             Job Detail
           </h1>
-          <div className="flex gap-3">
-            <ApplyJobButton
-              currJob={jobs[0]}
-              onApply={(count) => setApplicantsCount(count)}
-            />
+
+          <div className="">
+            {isActive ? (
+              <ApplyJobButton
+                currJob={jobs[0]}
+                onApply={(count) => setApplicantsCount(count)}
+              />
+            ) : (
+              <p className=" bg-gray-500/50 cursor-none select-none text-white text-sm px-2 py-1 rounded-full italic">
+                Application Closed !
+              </p>
+            )}
           </div>
         </div>
 

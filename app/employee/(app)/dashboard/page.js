@@ -8,28 +8,23 @@ import { getAllInternships } from "@/services/internshipService";
 import Link from "next/link";
 import { getAllJobs } from "@/services/jobService";
 
-const dummyInternships = [
-  { id: 1, title: "Frontend Intern at ABC Corp" },
-  { id: 2, title: "Backend Intern at XYZ Ltd" },
-  { id: 3, title: "UI/UX Intern at DesignCo" }
-];
-
-const dummyJobs = [
-  { id: 1, title: "Java Developer at TechSoft" },
-  { id: 2, title: "React Developer at CodeBase" },
-  { id: 3, title: "Full Stack Developer at DevCorp" }
-];
-
 const DashboardPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isEmployeeLoggedIn, employee } = useSelector(
     (state) => state.employee
   );
+  const { internship } = useSelector((state) => state?.internship);
+  const { job } = useSelector((state) => state?.job);
 
   const [mounted, setMounted] = useState(false);
-  const [internships, setInternships] = useState([]);
-  const [jobs, setJobs] = useState([]);
+
+
+  const internshipCount =
+    internship?.filter((i) => i?.employee?.id === employee?.id)?.length || 0;
+
+  const jobCount =
+    job?.filter((i) => i?.employee?.id === employee?.id)?.length || 0;
 
   useEffect(() => {
     setMounted(true);
@@ -41,60 +36,8 @@ const DashboardPage = () => {
     }
   }, [mounted, isEmployeeLoggedIn]);
 
-  useEffect(() => {
-    const fetchAllInternships = async () => {
-      try {
-        const response = await getAllInternships();
-        dispatch({
-          type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
-          payload: response.data.data
-        });
-        const allInternships = response.data.data || [];
-
-        const filteredInternships = allInternships.filter(
-          (internship) => internship.employee?.id === employee?.id
-        );
-
-        setInternships(filteredInternships);
-      } catch (error) {
-        dispatch({
-          type: "ALL_INTERNSHIPS_FETCHED_FAILED",
-          payload: error.message
-        });
-        console.error("Error fetching internships:", error);
-      }
-    };
-    const fetchAllJobs = async () => {
-      try {
-        const response = await getAllJobs();
-        dispatch({
-          type: "ALL_JOBS_FETCHED_SUCCESS",
-          payload: response.data.data
-        });
-        const allJobs = response.data.data || [];
-
-        const filteredJobs = allJobs.filter(
-          (job) => job.employee?.id === employee?.id
-        );
-
-        setJobs(filteredJobs);
-      } catch (error) {
-        dispatch({
-          type: "ALL_JOBS_FETCHED_FAILED",
-          payload: error.message
-        });
-        console.error("Error fetching jobs:", error);
-      }
-    };
-
-    if (mounted && employee?.id) {
-      fetchAllInternships();
-      fetchAllJobs();
-    }
-  }, [mounted, employee]);
-
   // Avoid hydration mismatch by only rendering after mounted
-  if (!mounted) return null;
+  if (!mounted || !employee) return null;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
@@ -112,13 +55,13 @@ const DashboardPage = () => {
           <Link href={"/employee/internships"}>
             <div className="bg-blue-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
               <h2>Total Internships Added</h2>
-              <p className="font-bold">{internships?.length}</p>
+              <p className="font-bold">{internshipCount}</p>
             </div>
           </Link>
           <Link href={"/employee/jobs"}>
             <div className="bg-green-500 flex flex-col gap-5 text-white py-16 px-6 rounded-lg shadow-lg">
               <h2>Total Jobs Added</h2>
-              <p className="font-bold">{jobs?.length}</p>
+              <p className="font-bold">{jobCount}</p>
             </div>
           </Link>
         </div>

@@ -29,3 +29,17 @@ export const withdrawJob = (jobId, studentId) => {
     studentId
   });
 };
+
+// Activate Job
+export const activateJob = (jobId) => {
+  return api.post(`/job/activate`, {
+    jobId
+  });
+};
+
+// Deactivate Job
+export const deactivateJob = (jobId) => {
+  return api.post(`/job/deactivate`, {
+    jobId
+  });
+};

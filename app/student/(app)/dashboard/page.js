@@ -8,23 +8,12 @@ import RenderInternshipCards from "@/components/Internship/RenderInternshipCards
 import Link from "next/link";
 import RenderJobCards from "@/components/Job/RenderJobCards";
 
-const dummyInternships = [
-  { id: 1, title: "Frontend Intern at ABC Corp" },
-  { id: 2, title: "Backend Intern at XYZ Ltd" },
-  { id: 3, title: "UI/UX Intern at DesignCo" }
-];
-
-const dummyJobs = [
-  { id: 1, title: "Java Developer at TechSoft" },
-  { id: 2, title: "React Developer at CodeBase" },
-  { id: 3, title: "Full Stack Developer at DevCorp" }
-];
-
 const DashboardPage = () => {
   const router = useRouter();
   const { isStudentLoggedIn, student } = useSelector((state) => state?.student);
   const { internship } = useSelector((state) => state?.internship);
   const { job } = useSelector((state) => state?.job);
+  const [mounted, setMounted] = useState(false);
 
   const internshipCount =
     internship?.filter((i) => i?.students?.some((s) => s?.id === student?.id))
@@ -34,7 +23,6 @@ const DashboardPage = () => {
     job?.filter((i) => i?.students?.some((s) => s?.id === student?.id))
       ?.length || 0;
 
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
