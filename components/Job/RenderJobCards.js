@@ -16,7 +16,6 @@ const RenderJobCards = ({ from }) => {
       try {
         const response = await getAllJobs();
         const data = response?.data.data;
-        console.log(data);
 
         dispatch({ type: "ALL_JOBS_FETCHED_SUCCESS", payload: data });
 
@@ -65,7 +64,7 @@ const RenderJobCards = ({ from }) => {
                         : "bg-gray-500/50 cursor-none select-none text-white"
                     }`}
                   >
-                    {job?.isActive ? "Active" : "Close"}
+                    {job?.isActive ? "Active" : "InActive"}
                   </p>
                 </div>
                 <p>

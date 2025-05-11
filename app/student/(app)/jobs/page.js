@@ -44,6 +44,8 @@ const JobsPage = () => {
     fetchJobs();
   }, []);
 
+  const filteredJobs = jobs?.filter((job) => !job.students?.some((s) => s.id === student.id));
+
   if (!mounted || !student) return null;
 
   return (
@@ -65,13 +67,9 @@ const JobsPage = () => {
         </div>
 
         <section className="py-8">
-          {jobs?.length > 0 ? (
+          {filteredJobs?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-10">
-              {jobs
-                ?.filter(
-                  (job) => !job.students?.some((s) => s.id === student.id)
-                )
-                .map((job) => (
+              {filteredJobs?.map((job) => (
                   <div
                     key={job.id}
                     className="relative bg-white p-6 rounded-xl shadow-md max-w-sm"
@@ -126,8 +124,8 @@ const JobsPage = () => {
                 ))}
             </div>
           ) : (
-            <p className="text-center text-lg text-gray-500 italic">
-              🎓 No Jobs added right now
+            <p className="text-center text-lg text-gray-500 italic mt-60">
+              🎓 No Jobs Available for you right now
             </p>
           )}
         </section>

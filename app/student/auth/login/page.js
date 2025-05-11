@@ -9,37 +9,37 @@ import { toast } from "react-toastify";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isStudentLoggedIn, error } = useSelector((state) => state.student);
-  const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
+  const { isStudentLoggedIn, error } = useSelector((state) => state?.student);
+  const { isEmployeeLoggedIn } = useSelector((state) => state?.employee);
 
   const [form, setForm] = useState({ email: "", password: "" });
 
   useEffect(() => {
     if (isStudentLoggedIn) {
-      router.push("/student/dashboard");
+      router?.push("/student/dashboard");
     } else if (isEmployeeLoggedIn) {
-      router.push("/");
+      router?.push("/");
     } else {
-      router.push("/student/auth/login");
+      router?.push("/student/auth/login");
     }
   }, [isStudentLoggedIn]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e?.target?.name]: e?.target?.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     try {
       const response = await loginStudent(form);
-      dispatch({ type: "STUDENT_LOGIN_SUCCESS", payload: response.data.data });
-      toast.success(response.data.msg, {
+      dispatch({ type: "STUDENT_LOGIN_SUCCESS", payload: response?.data?.data });
+      toast?.success(response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/student/dashboard");
+      router?.push("/student/dashboard");
     } catch (error) {
-      toast.error(error.response.data.msg, {
+      toast?.error(error?.response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
@@ -72,7 +72,7 @@ const LoginPage = () => {
           {[
             { label: "Email", name: "email", type: "email" },
             { label: "Password", name: "password", type: "password" }
-          ].map(({ label, name, type }) => (
+          ]?.map(({ label, name, type }) => (
             <div key={name}>
               <label className="block font-medium mb-1">{label}</label>
               <input

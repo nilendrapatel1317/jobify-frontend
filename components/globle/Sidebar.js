@@ -113,7 +113,8 @@ const Sidebar = (props) => {
           <div>
             <div className="flex items-center space-x-2">
               <img
-                src="https://imgs.search.brave.com/nG1XXrjBGwj_rWKgiJkqEsDlf4PbjUpJ0kzu9eRx4Ag/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvRnJl/ZVBob3Rvcy9GcmVl/LVBob3RvLTc0MHg0/OTItMTc0NDkxNTMz/My5qcGc"
+                // src={student?.avatar?.url}
+                src={sidebarFor === "employee" ? employee?.organizationLogo?.url : student?.avatar?.url}
                 alt="Logo"
                 className="h-7 w-7 rounded-full"
               />

@@ -10,8 +10,8 @@ import { toast } from "react-toastify";
 const RegisterStudentPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isStudentLoggedIn } = useSelector((state) => state.student);
-  const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
+  const { isStudentLoggedIn } = useSelector((state) => state?.student);
+  const { isEmployeeLoggedIn } = useSelector((state) => state?.employee);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -25,33 +25,33 @@ const RegisterStudentPage = () => {
   const [errors, setErrors] = useState({});
   useEffect(() => {
     if (isStudentLoggedIn) {
-      router.push("/student/dashboard");
+      router?.push("/student/dashboard");
     } else if (isEmployeeLoggedIn) {
-      router.push("/");
+      router?.push("/");
     } else {
-      router.push("/student/auth/register");
+      router?.push("/student/auth/register");
     }
   }, [isStudentLoggedIn]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e?.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     setErrors({});
     try {
       const response = await registerStudent(formData);
-      toast.success(response.data.msg, {
+      toast?.success(response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/student/auth/login");
+      router?.push("/student/auth/login");
     } catch (error) {
-      const backendErrors = error.response?.data?.data || {};
+      const backendErrors = error?.response?.data?.data || {};
       const fieldErrors = {};
-      toast.error(error.response.data.msg, {
+      toast?.error(error?.response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
@@ -90,7 +90,7 @@ const RegisterStudentPage = () => {
               { label: "City", name: "city", type: "text" },
               { label: "Email", name: "email", type: "email" },
               { label: "Password", name: "password", type: "password" }
-            ].map(({ label, name, type }) => (
+            ]?.map(({ label, name, type }) => (
               <div key={name}>
                 <label className="block font-medium mb-1">{label}</label>
                 <input
@@ -110,13 +110,13 @@ const RegisterStudentPage = () => {
           <div>
             <label className="block font-medium mb-1">Gender</label>
             <div className="flex gap-6">
-              {["Male", "Female", "Others"].map((option) => (
+              {["Male", "Female", "Others"]?.map((option) => (
                 <label key={option} className="flex items-center gap-2">
                   <input
                     type="radio"
                     name="gender"
                     value={option}
-                    checked={formData.gender === option}
+                    checked={formData?.gender === option}
                     onChange={handleChange}
                     className="accent-purple-500"
                   />
@@ -124,8 +124,8 @@ const RegisterStudentPage = () => {
                 </label>
               ))}
             </div>
-            {errors.gender && (
-              <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
+            {errors?.gender && (
+              <p className="text-red-500 text-sm mt-1">{errors?.gender}</p>
             )}
           </div>
 

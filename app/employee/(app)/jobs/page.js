@@ -14,7 +14,7 @@ const page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { isEmployeeLoggedIn, employee } = useSelector(
-    (state) => state.employee
+    (state) => state?.employee
   );
 
   const [mounted, setMounted] = useState(false);
@@ -27,7 +27,7 @@ const page = () => {
 
   useEffect(() => {
     if (mounted && !isEmployeeLoggedIn) {
-      router.push("/");
+      router?.push("/");
     }
   }, [mounted, isEmployeeLoggedIn]);
 
@@ -36,21 +36,21 @@ const page = () => {
       const response = await getAllJobs();
       dispatch({
         type: "ALL_JOBS_FETCHED_SUCCESS",
-        payload: response.data.data
+        payload: response?.data?.data
       });
-      const allJobs = response.data.data || [];
+      const allJobs = response?.data?.data || [];
 
-      const filteredJobs = allJobs.filter(
-        (job) => job.employee?.id === employee?.id
+      const filteredJobs = allJobs?.filter(
+        (job) => job?.employee?.id === employee?.id
       );
 
       setJobs(filteredJobs);
     } catch (error) {
       dispatch({
         type: "ALL_JOBS_FETCHED_FAILED",
-        payload: error.message
+        payload: error?.message
       });
-      console.error("Error fetching jobs:", error);
+      console?.error("Error fetching jobs:", error);
     } finally {
       setLoading(false);
     }
@@ -63,8 +63,8 @@ const page = () => {
 
   const handleStatusChange = (jobId, newStatus) => {
     setJobs((prev) =>
-      prev.map((job) =>
-        job.id === jobId ? { ...job, isActive: newStatus } : job
+      prev?.map((job) =>
+        job?.id === jobId ? { ...job, isActive: newStatus } : job
       )
     );
   };
@@ -93,11 +93,9 @@ const page = () => {
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
-        ) : jobs.length === 0 ? (
+        ) : jobs?.length === 0 ? (
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <p className="text-lg text-gray-500 italic mb-4">
-              No jobs found.
-            </p>
+            <p className="text-lg text-gray-500 italic mb-4">No jobs found?.</p>
             <Link
               href="/employee/jobs/addInternship"
               className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-all"
@@ -121,34 +119,38 @@ const page = () => {
                 </tr>
               </thead>
               <tbody>
-                {jobs.map((job) => (
+                {jobs?.map((job) => (
                   <tr
-                    key={job.id}
-                    className="border-t hover:bg-gray-50 transition"
+                    key={job?.id}
+                    className={`border-t border-black hover:bg-gray-50 transition ${
+                      job?.isActive
+                        ? ""
+                        : "line-through opacity-60 text-red-500 italic font-semibold"
+                    }`}
                   >
-                    <td className="py-2 px-2">{job.id}</td>
-                    <td className="py-2 px-2">{job.profile}</td>
-                    <td className="py-2 px-2">{job.openings}</td>
-                    <td className="py-2 px-2">{job.experience}</td>
-                    <td className="py-2 px-2">₹{job.salary}</td>
-                    <td className="py-2 px-2">{job.location}</td>
+                    <td className="py-2 px-2">{job?.id}</td>
+                    <td className="py-2 px-2">{job?.profile}</td>
+                    <td className="py-2 px-2">{job?.openings}</td>
+                    <td className="py-2 px-2">{job?.experience} {job?.experience > 0 ? job?.experience == 1 ? "Year" : "Years" : ""}</td>
+                    <td className="py-2 px-2">₹{job?.salary}</td>
+                    <td className="py-2 px-2">{job?.location}</td>
                     <td className="py-4 px-4">
                       <div className="flex gap-3 items-center">
                         <ActivateDeactivateButton
-                          jobId={job.id}
-                          isActive={job.isActive}
+                          jobId={job?.id}
+                          isActive={job?.isActive}
                           onStatusChange={(newStatus) =>
-                            handleStatusChange(job.id, newStatus)
+                            handleStatusChange(job?.id, newStatus)
                           }
                         />
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            job.isActive
+                            job?.isActive
                               ? "bg-green-100 text-green-800"
                               : "bg-red-100 text-red-800"
                           }`}
                         >
-                          {job.isActive ? "Active" : "Inactive"}
+                          {job?.isActive ? "Active" : "Inactive"}
                         </span>
                       </div>
                     </td>
@@ -156,22 +158,26 @@ const page = () => {
                     <td className="py-2 px-2 space-x-2 text-center">
                       <div className="flex justify-center items-center space-x-2">
                         <Link
-                          href={`/employee/jobs/viewJob?jobId=${job.id}`}
+                          href={`/employee/jobs/viewJob?jobId=${job?.id}`}
                           className="p-2 rounded-full hover:bg-blue-100 text-blue-600 transition-colors"
                           title="View"
                         >
                           <Eye className="h-6 w-6" />
                         </Link>
                         <Link
-                          href={`/employee/jobs/editJob?jobId=${job.id}`}
-                          className="p-2 rounded-full hover:bg-yellow-100 text-yellow-600 transition-colors"
+                          href={`/employee/jobs/editJob?jobId=${job?.id}`}
+                          className={`p-2 rounded-full  transition-colors ${
+                            !job?.isActive
+                              ? "pointer-events-none text-gray-400 "
+                              : "hover:bg-yellow-100 text-yellow-600"
+                          }`}
                           title="Edit"
                         >
                           <Pencil className="h-6 w-6" />
                         </Link>
                         <Link
-                          href={`/employee/jobs/deleteJob?jobId=${job.id}`}
-                          className="p-2 rounded-full hover:bg-red-100 text-red-600 transition-colors"
+                          href={`/employee/jobs/deleteJob?jobId=${job?.id}`}
+                          className="p-2 rounded-full  transition-colors hover:bg-red-100 text-red-600"
                           title="Delete"
                         >
                           <Trash2 className="h-6 w-6" />

@@ -20,7 +20,7 @@ const JobForm = () => {
   );
 
   const [mounted, setMounted] = useState(false);
-  const [jobs, setJobs] = useState([]);
+  const [currJob, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,11 +43,9 @@ const JobForm = () => {
         });
 
         const allJobs = response.data.data || [];
-        const filteredJobs = allJobs.filter(
-          (job) => job?.id === jobId
-        );
+        const filteredJobs = allJobs.filter((job) => job?.id === jobId);
 
-        setJobs(filteredJobs);
+        setJobs(filteredJobs[0]);
         setLoading(false);
       } catch (error) {
         dispatch({
@@ -75,13 +73,21 @@ const JobForm = () => {
           <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
             Job Detail
           </h1>
-          <div className="flex gap-3">
-            <Link
-              className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white font-semibold"
-              href={`/employee/jobs/editJob?jobId=${jobId}`}
-            >
-              Edit
-            </Link>
+
+          <div className="flex gap-5 items-center">
+            {!currJob?.isActive ? (
+              <span className="px-4 py-1 rounded-full text-md font-medium bg-red-100 text-red-800">
+                Job Inactive
+              </span>
+            ) : (
+              <Link
+                className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white font-semibold"
+                href={`/employee/jobs/editJob?jobId=${jobId}`}
+              >
+                Edit
+              </Link>
+            )}
+
             <Link
               className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white font-semibold"
               href={`/employee/jobs/deleteJob?jobId=${jobId}`}
@@ -93,42 +99,43 @@ const JobForm = () => {
 
         {loading ? (
           <p className="text-center text-lg">Loading jobs...</p>
-        ) : jobs.length === 0 ? (
+        ) : currJob.length === 0 ? (
           <p className="text-center text-red-500">No jobs found.</p>
         ) : (
           <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6">
-            {jobs.map((job) => (
-              <div key={job.id}>
+            {currJob && (
+              <div key={currJob.id}>
                 <div className="flex justify-between items-start">
                   <h2 className="text-3xl font-bold text-purple-700 flex items-top gap-2">
-                    <Terminal className="text-black w-10 h-10"/> {job.profile}
+                    <Terminal className="text-black w-10 h-10" />{" "}
+                    {currJob.profile}
                   </h2>
                   <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
-                    <strong>{job.jobType}</strong>
+                    <strong>{currJob.jobType}</strong>
                   </p>
                 </div>
 
                 <div className="text-gray-700 text-lg space-y-2 grid grid-cols-4 mt-10">
                   <p>
-                    <strong>Openings:</strong> {job.openings}
+                    <strong>Openings:</strong> {currJob.openings}
                   </p>
                   <p>
-                    <strong>Start:</strong> {job.startDate}
+                    <strong>Start:</strong> {currJob.startDate}
                   </p>
                   <p>
-                    <strong>Experience:</strong> {job.experience}
+                    <strong>Experience:</strong> {currJob.experience}
                   </p>
                   <p>
-                    <strong>Company Name:</strong> {job.companyName}
+                    <strong>Company Name:</strong> {currJob.companyName}
                   </p>
                   <p>
-                    <strong>Location:</strong> {job.location}
+                    <strong>Location:</strong> {currJob.location}
                   </p>
                   <p>
-                    <strong>Salary Status:</strong> {job.salaryStatus}
+                    <strong>Salary Status:</strong> {currJob.salaryStatus}
                   </p>
                   <p>
-                    <strong>Salary (PM):</strong> ₹{job.salary}
+                    <strong>Salary (PM):</strong> ₹{currJob.salary}
                   </p>
                 </div>
 
@@ -138,7 +145,7 @@ const JobForm = () => {
                       Skills Required
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {job.skills?.map((skill, index) => (
+                      {currJob.skills?.map((skill, index) => (
                         <li key={index}>{skill}</li>
                       ))}
                     </ul>
@@ -149,7 +156,7 @@ const JobForm = () => {
                       Your Responsibility
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {job.responsibility?.map((resp, index) => (
+                      {currJob.responsibility?.map((resp, index) => (
                         <li key={index}>{resp}</li>
                       ))}
                     </ul>
@@ -160,18 +167,18 @@ const JobForm = () => {
                       Selection Process
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {job.assessments?.map((ass, index) => (
+                      {currJob.assessments?.map((ass, index) => (
                         <li key={index}>{ass}</li>
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="mt-6">
                     <h3 className="text-xl font-semibold text-gray-800 mb-1">
                       Perks
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {job.perks?.map((perk, index) => (
+                      {currJob.perks?.map((perk, index) => (
                         <li key={index}>{perk}</li>
                       ))}
                     </ul>
@@ -182,7 +189,7 @@ const JobForm = () => {
                   <h3 className="text-xl font-semibold text-gray-800 mb-1">
                     All Students
                   </h3>
-                  {job.students && job.students.length > 0 ? (
+                  {currJob.students && currJob.students.length > 0 ? (
                     <div className="bg-gray-50 p-4 rounded-lg">
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-100">
@@ -202,7 +209,7 @@ const JobForm = () => {
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {job.students.map((student, index) => (
+                          {currJob.students.map((student, index) => (
                             <tr key={index}>
                               <td className="px-4 py-2 whitespace-nowrap">
                                 {index + 1}
@@ -231,7 +238,7 @@ const JobForm = () => {
                   )}
                 </div>
               </div>
-            ))}
+            )}
           </div>
         )}
       </main>

@@ -67,7 +67,7 @@ const RenderInternshipCards = ({ from }) => {
                         : "bg-gray-500/50 cursor-none select-none text-white"
                     }`}
                   >
-                    {internship?.isActive ? "Active" : "Close"}
+                    {internship?.isActive ? "Active" : "InActive"}
                   </p>
                 </div>
                 <p>

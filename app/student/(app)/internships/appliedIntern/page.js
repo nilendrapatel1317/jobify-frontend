@@ -43,6 +43,10 @@ const page = () => {
     fetchInternships();
   }, []);
 
+  const filteredInternship = internships?.filter((internship) =>
+    internship.students?.some((s) => s.id === student.id)
+  );
+
   if (!mounted || !student) return null;
 
   return (
@@ -58,7 +62,7 @@ const page = () => {
         </div>
 
         <section className="py-8">
-          {internships?.length > 0 ? (
+          {filteredInternship?.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white rounded-lg shadow-md ">
                 <thead>
@@ -69,89 +73,84 @@ const page = () => {
                     <th className="py-3 px-2 text-left">Openings</th>
                     <th className="py-3 px-2 text-left">Duration</th>
                     <th className="py-3 px-2 text-left">Stipend Amount</th>
-                    <th className="py-3 px-2 text-center">Status <span className="text-sm">(Your / Hiring )</span></th>
+                    <th className="py-3 px-2 text-center">
+                      Status <span className="text-xs">(Internship)</span>
+                    </th>
                     <th className="py-3 px-2 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {internships
-                    ?.filter((internship) =>
-                      internship.students?.some((s) => s.id === student.id)
-                    )
-                    .map((internship, index) => (
-                      <tr
-                        key={internship.id}
-                        className="border-y hover:bg-gray-50 h-16"
-                      >
-                        <td className="py-2 px-2 text-lg">{index + 1}</td>
-                        <td className="py-2 px-2 text-lg">
-                          {internship.profile}
-                        </td>
-                        <td className="py-2 px-2 text-lg ">
-                          {internship.internshipType}
-                        </td>
-                        <td className="py-2 px-2 text-lg">
-                          {internship.openings}
-                        </td>
-                        <td className="py-2 px-2 text-lg">
-                          {internship.duration}{" "}
-                          {internship.duration > 1 ? "Months" : "Month"}
-                        </td>
-                        <td className="py-2 px-2 text-lg">
-                          {internship.stipendStatus === "UNPAID"
-                            ? "Unpaid"
-                            : `₹${internship.stipendAmount}`}
-                        </td>
-                        <td >
-                          <div className="flex items-center gap-2 justify-center">
-                            <p className="bg-green-500 cursor-none select-none text-sm px-2 py-1 rounded-full italic text-white ">
-                              Applied
-                            </p>
-                            <p
-                              className={`text-sm px-2 py-1 rounded-full italic ${
-                                internship?.isActive
-                                  ? "bg-green-500 text-white"
-                                  : "bg-gray-500/50 cursor-none select-none text-white"
-                              }`}
-                            >
-                              {internship?.isActive ? "Active" : "Close"}
-                            </p>
-                          </div>
-                        </td>
-                        <td className="text-center space-x-3">
-                          <Link
-                            href={`/student/internships/viewInternship?internshipId=${internship.id}`}
+                  {filteredInternship.map((internship, index) => (
+                    <tr
+                      key={internship.id}
+                      className="border-y hover:bg-gray-50 h-16 text-sm"
+                    >
+                      <td className="py-2 px-2 text-lg">{index + 1}</td>
+                      <td className="py-2 px-2 text-lg">
+                        {internship.profile}
+                      </td>
+                      <td className="py-2 px-2 text-lg ">
+                        {internship.internshipType}
+                      </td>
+                      <td className="py-2 px-2 text-lg">
+                        {internship.openings}
+                      </td>
+                      <td className="py-2 px-2 text-lg">
+                        {internship.duration}{" "}
+                        {internship.duration > 1 ? "Months" : "Month"}
+                      </td>
+                      <td className="py-2 px-2 text-lg">
+                        {internship.stipendStatus === "UNPAID"
+                          ? "Unpaid"
+                          : `₹${internship.stipendAmount}`}
+                      </td>
+                      <td>
+                        <div className="flex items-center gap-2 justify-center">
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              internship?.isActive
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
                           >
-                            <button className="bg-blue-600 text-white px-3 py-1 rounded-full">
-                              Details
-                            </button>
-                          </Link>
-                          <WithdrawInternButton
-                            internshipId={internship?.id}
-                            onWithdraw={(id) => {
-                              setInternships((prev) =>
-                                prev.map((intern) =>
-                                  intern?.id === id
-                                    ? {
-                                        ...intern,
-                                        students: intern?.students?.filter(
-                                          (s) => s?.id !== student?.id
-                                        )
-                                      }
-                                    : intern
-                                )
-                              );
-                            }}
-                          />
-                        </td>
-                      </tr>
-                    ))}
+                            {internship?.isActive ? "Active" : "Inactive"}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="text-center space-x-3">
+                        <Link
+                          href={`/student/internships/viewInternship?internshipId=${internship.id}`}
+                        >
+                          <button className="bg-blue-600 text-sm text-white px-3 py-1 rounded-full">
+                            Details
+                          </button>
+                        </Link>
+                        <WithdrawInternButton
+                          internshipId={internship?.id}
+                          onWithdraw={(id) => {
+                            setInternships((prev) =>
+                              prev.map((intern) =>
+                                intern?.id === id
+                                  ? {
+                                      ...intern,
+                                      students: intern?.students?.filter(
+                                        (s) => s?.id !== student?.id
+                                      )
+                                    }
+                                  : intern
+                              )
+                            );
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <p className="text-center text-lg text-gray-500 italic">
-              🎓 No Internships added right now
+            <p className="text-center text-lg text-gray-500 italic mt-60">
+              🎓 No Internships Applied by you right now
             </p>
           )}
         </section>

@@ -65,42 +65,6 @@ const DashboardPage = () => {
             </div>
           </Link>
         </div>
-
-        {/* <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">
-            Internships created by You
-          </h2>
-          <div className="space-y-4">
-            {dummyInternships.map((intern) => (
-              <div
-                key={intern.id}
-                className="bg-white p-4 rounded shadow border"
-              >
-                <h3 className="text-lg font-semibold">{intern.title}</h3>
-                <button className="mt-2 px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
-                  Apply
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <p>Not Available</p>
-        </section> */}
-
-        {/* <section>
-          <h2 className="text-2xl font-semibold mb-4">Jobs created by you</h2>
-          <div className="space-y-4">
-            {dummyJobs.map((job) => (
-              <div key={job.id} className="bg-white p-4 rounded shadow border">
-                <h3 className="text-lg font-semibold">{job.title}</h3>
-                <button className="mt-2 px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700">
-                  Apply
-                </button>
-              </div>
-            ))}
-          </div>
-          <p>Not Available</p>
-        </section> */}
       </main>
     </div>
   );

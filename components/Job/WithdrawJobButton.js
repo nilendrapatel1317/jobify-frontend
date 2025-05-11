@@ -62,7 +62,7 @@ const WithdrawInternButton = ({ jobId ,onWithdraw  }) => {
   return (
     <button
       onClick={handleWithdrawIntern}
-      className="bg-yellow-400 px-3 py-1 rounded-full"
+      className="bg-yellow-400 text-sm px-3 py-1 rounded-full"
     >
       Withdraw
     </button>

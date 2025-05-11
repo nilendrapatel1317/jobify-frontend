@@ -43,6 +43,10 @@ const page = () => {
     fetchJobs();
   }, []);
 
+  const filteredJobs = jobs?.filter((job) =>
+    job.students?.some((s) => s.id === student.id)
+  );
+
   if (!mounted || !student) return null;
 
   return (
@@ -58,7 +62,7 @@ const page = () => {
         </div>
 
         <section className="py-8">
-          {jobs?.length > 0 ? (
+          {filteredJobs?.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white rounded-lg shadow-md ">
                 <thead>
@@ -75,59 +79,65 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobs
-                    ?.filter((job) =>
-                      job.students?.some((s) => s.id === student.id)
-                    )
-                    .map((job, index) => (
-                      <tr
-                        key={job.id}
-                        className="border-y hover:bg-gray-50 h-16"
-                      >
-                        <td className="py-2 px-2 text-lg">{index + 1}</td>
-                        <td className="py-2 px-2 text-lg">{job.profile}</td>
-                        <td className="py-2 px-2 text-lg ">{job.jobType}</td>
-                        <td className="py-2 px-2 text-lg">{job.openings}</td>
-                        <td className="py-2 px-2 text-lg">{job.experience}</td>
-                        <td className="py-2 px-2 text-lg">{job.location}</td>
-                        <td className="py-2 px-2 text-lg">₹{job.salary}</td>
-                        <td className="text-center">
-                          <span className="bg-green-500/40 px-3 py-1 rounded-full  text-white ">
-                            Applied
-                          </span>
-                        </td>
-                        <td className="text-center space-x-3">
-                          <Link href={`/student/jobs/viewJob?jobId=${job.id}`}>
-                            <button className="bg-blue-600 text-white px-3 py-1 rounded-full">
-                              Details
-                            </button>
-                          </Link>
-                          <WithdrawJobButton
-                            jobId={job?.id}
-                            onWithdraw={(id) => {
-                              setJobs((prev) =>
-                                prev.map((job) =>
-                                  job?.id === id
-                                    ? {
-                                        ...job,
-                                        students: job?.students?.filter(
-                                          (s) => s?.id !== student?.id
-                                        )
-                                      }
-                                    : job
-                                )
-                              );
-                            }}
-                          />
-                        </td>
-                      </tr>
-                    ))}
+                  {filteredJobs.map((job, index) => (
+                    <tr key={job.id} className="border-y hover:bg-gray-50 h-16">
+                      <td className="py-2 px-2 text-lg">{index + 1}</td>
+                      <td className="py-2 px-2 text-lg">{job.profile}</td>
+                      <td className="py-2 px-2 text-lg ">{job.jobType}</td>
+                      <td className="py-2 px-2 text-lg">{job.openings}</td>
+                      <td className="py-2 px-2 text-lg">
+                        {job.experience}{" "}
+                        {job?.experience > 0
+                          ? job?.experience == 1
+                            ? "Year"
+                            : "Years"
+                          : ""}{" "}
+                      </td>
+                      <td className="py-2 px-2 text-lg">{job.location}</td>
+                      <td className="py-2 px-2 text-lg">₹{job.salary}</td>
+                      <td className="text-center">
+                        <span
+                          className={`px-3 py-1 rounded-full text-sm font-medium ${
+                            job?.isActive
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
+                        >
+                          {job?.isActive ? "Active" : "Inactive"}
+                        </span>
+                      </td>
+                      <td className="text-center space-x-3">
+                        <Link href={`/student/jobs/viewJob?jobId=${job.id}`}>
+                          <button className="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">
+                            Details
+                          </button>
+                        </Link>
+                        <WithdrawJobButton
+                          jobId={job?.id}
+                          onWithdraw={(id) => {
+                            setJobs((prev) =>
+                              prev.map((job) =>
+                                job?.id === id
+                                  ? {
+                                      ...job,
+                                      students: job?.students?.filter(
+                                        (s) => s?.id !== student?.id
+                                      )
+                                    }
+                                  : job
+                              )
+                            );
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <p className="text-center text-lg text-gray-500 italic">
-              🎓 No Jobs added right now
+            <p className="text-center text-lg text-gray-500 italic mt-60">
+              🎓 No Jobs Applied by you right now
             </p>
           )}
         </section>

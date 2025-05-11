@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 const RegisterEmployeePage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isEmployeeLoggedIn } = useSelector((state) => state.employee);
-  const { isStudentLoggedIn } = useSelector((state) => state.student);
+  const { isEmployeeLoggedIn } = useSelector((state) => state?.employee);
+  const { isStudentLoggedIn } = useSelector((state) => state?.student);
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -27,35 +27,35 @@ const RegisterEmployeePage = () => {
 
    useEffect(() => {
     if (isEmployeeLoggedIn) {
-      router.push("/employee/dashboard");
+      router?.push("/employee/dashboard");
     } else if (isStudentLoggedIn) {
-      router.push("/");
+      router?.push("/");
     } else {
-      router.push("/employee/auth/register");
+      router?.push("/employee/auth/register");
     }
   }, [isEmployeeLoggedIn, isStudentLoggedIn]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e?.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     setErrors({});
     try {
       const response = await registerEmployee(formData);
-      toast.success(response.data.msg, {
+      toast?.success(response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/employee/auth/login");
+      router?.push("/employee/auth/login");
     } catch (error) {
-      toast.error(error.response.data.msg, {
+      toast?.error(error?.response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      const backendErrors = error.response?.data?.data || {};
+      const backendErrors = error?.response?.data?.data || {};
       const fieldErrors = {};
       for (const key in backendErrors) {
         fieldErrors[key] = backendErrors[key];
@@ -97,7 +97,7 @@ const RegisterEmployeePage = () => {
               },
               { label: "Email", name: "email", type: "email" },
               { label: "Password", name: "password", type: "password" }
-            ].map(({ label, name, type }) => (
+            ]?.map(({ label, name, type }) => (
               <div key={name}>
                 <label className="block font-medium mb-1">{label}</label>
                 <input
@@ -115,13 +115,13 @@ const RegisterEmployeePage = () => {
             <div className="w-80">
               <label className="block font-medium mb-1">Gender</label>
               <div className="flex gap-6 py-2">
-                {["Male", "Female", "Others"].map((option) => (
+                {["Male", "Female", "Others"]?.map((option) => (
                   <label key={option} className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="gender"
                       value={option}
-                      checked={formData.gender === option}
+                      checked={formData?.gender === option}
                       onChange={handleChange}
                       className="accent-purple-500"
                     />
@@ -129,8 +129,8 @@ const RegisterEmployeePage = () => {
                   </label>
                 ))}
               </div>
-              {errors.gender && (
-                <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
+              {errors?.gender && (
+                <p className="text-red-500 text-sm mt-1">{errors?.gender}</p>
               )}
             </div>
           </div>

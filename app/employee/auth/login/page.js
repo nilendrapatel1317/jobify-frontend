@@ -9,38 +9,38 @@ import { loginEmployee } from "@/services/employeeService";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { isEmployeeLoggedIn, error } = useSelector((state) => state.employee);
-  const { isStudentLoggedIn } = useSelector((state) => state.student);
+  const { isEmployeeLoggedIn, error } = useSelector((state) => state?.employee);
+  const { isStudentLoggedIn } = useSelector((state) => state?.student);
 
   const [form, setForm] = useState({ email: "", password: "" });
 
   useEffect(() => {
     if (isEmployeeLoggedIn) {
-      router.push("/employee/dashboard");
+      router?.push("/employee/dashboard");
     } else if (isStudentLoggedIn) {
-      router.push("/");
+      router?.push("/");
     } else {
-      router.push("/employee/auth/login");
+      router?.push("/employee/auth/login");
     }
   }, [isEmployeeLoggedIn, isStudentLoggedIn]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e?.target?.name]: e?.target?.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     try {
       const response = await loginEmployee(form);
       const res = await loginEmployee(form);
-      dispatch({ type: "EMPLOYEE_LOGIN_SUCCESS", payload: response.data.data });
-      toast.success(response.data.msg, {
+      dispatch({ type: "EMPLOYEE_LOGIN_SUCCESS", payload: response?.data?.data });
+      toast?.success(response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/employee/dashboard");
+      router?.push("/employee/dashboard");
     } catch (error) {
-      toast.error(error.response.data.msg, {
+      toast?.error(error?.response?.data?.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
@@ -73,7 +73,7 @@ const LoginPage = () => {
           {[
             { label: "Email", name: "email", type: "email" },
             { label: "Password", name: "password", type: "password" }
-          ].map(({ label, name, type }) => (
+          ]?.map(({ label, name, type }) => (
             <div key={name}>
               <label className="block font-medium mb-1">{label}</label>
               <input
