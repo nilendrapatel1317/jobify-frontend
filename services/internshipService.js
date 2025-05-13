@@ -1,5 +1,13 @@
 import api from "@/utils/axios";
 
+const API = process.env.NEXT_PUBLIC_API_URL;
+
+// Create axios instance with baseURL
+const api = axios.create({
+  baseURL: API,
+  withCredentials: true, // optional, if you're using cookies/session
+});
+
 // Get all Internships
 export const getAllInternships = () => api.get("/internship/all");
 
