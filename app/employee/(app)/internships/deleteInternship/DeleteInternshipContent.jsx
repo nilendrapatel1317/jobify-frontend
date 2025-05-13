@@ -1,5 +1,4 @@
 "use client";
-export const dynamic = "force-dynamic";
 import React from "react";
 import {
   deleteInternship,
@@ -10,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
-const page = () => {
+const DeleteInternshipContent = () => {
   const searchParams = useSearchParams();
   const internshipId = searchParams.get("internshipId");
   const dispatch = useDispatch();
@@ -66,4 +65,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default DeleteInternshipContent;
