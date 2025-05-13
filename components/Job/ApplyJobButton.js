@@ -1,12 +1,12 @@
 "use client";
+
 import { applyJob } from "@/services/jobService";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const ApplyJobButton = ({ currJob, onApply }) => {
-  const searchParams = useSearchParams();
   const jobId = currJob?.id;
   const [isApplied, setIsApplied] = useState(false);
   const [mounted, setMounted] = useState(false);

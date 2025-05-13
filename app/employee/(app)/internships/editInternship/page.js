@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import Sidebar from "@/components/globle/Sidebar";

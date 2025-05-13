@@ -1,6 +1,7 @@
 "use client";
-import { applyJob, withdrawJob } from "@/services/jobService";
-import { useRouter, useSearchParams } from "next/navigation";
+
+import { withdrawJob } from "@/services/jobService";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";

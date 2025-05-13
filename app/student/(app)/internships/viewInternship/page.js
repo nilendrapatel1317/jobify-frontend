@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/globle/Sidebar";
 import { getAllInternships } from "@/services/internshipService";
