@@ -1,38 +1,37 @@
 "use client";
-
-export const dynamic = "force-dynamic";
 import React from "react";
 import {
-  deleteJob,
-  getAllJobs
-} from "@/services/jobService";
+  deleteInternship,
+  getAllInternships
+} from "@/services/internshipService";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
-const page = () => {
+const DeleteInternship = () => {
   const searchParams = useSearchParams();
-  const jobId = searchParams.get("jobId");
+  const internshipId = searchParams.get("internshipId");
   const dispatch = useDispatch();
   const router = useRouter();
+  console.log(internshipId)
 
   const handleDelete = async () => {
     try {
-      await deleteJob(jobId);
-      const response = await getAllJobs();
+      await deleteInternship(internshipId);
+      const response = await getAllInternships();
       dispatch({
-        type: "ALL_JOBS_FETCHED_SUCCESS",
+        type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
         payload: response.data.data
       });
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
-      router.push("/employee/jobs");
+      router.push("/employee/internships");
     } catch (error) {
-      console.error("Error deleting job:", error);
-      toast.error(error.response?.data?.msg || "Failed to delete job.", {
+      console.error("Error deleting internship:", error);
+      toast.error(error.response?.data?.msg || "Failed to delete internship.", {
         position: "bottom-right",
         autoClose: 2000
       });
@@ -46,7 +45,7 @@ const page = () => {
           Confirm Deletion
         </h1>
         <p className="text-gray-600 mb-6">
-          Are you sure you want to delete this job? This action cannot be undone.
+          Are you sure you want to delete this internship? This action cannot be undone.
         </p>
         <div className="flex justify-center gap-4">
           <button
@@ -56,7 +55,7 @@ const page = () => {
             Delete
           </button>
           <Link
-            href="/employee/jobs"
+            href="/employee/internships"
             className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded-lg shadow-sm transition"
           >
             Cancel
@@ -67,4 +66,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default DeleteInternship;

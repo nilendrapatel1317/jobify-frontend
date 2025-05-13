@@ -24,7 +24,7 @@ const predefinedOptions = {
   assessments: assessmentsList
 };
 
-const page = () => {
+const EditInternship = () => {
   const [errors, setErrors] = useState({});
   const searchParams = useSearchParams();
   const internshipId = searchParams.get("internshipId");
@@ -350,4 +350,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EditInternship;

@@ -4,16 +4,16 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/globle/Sidebar";
-import { getAllInternships } from "@/services/internshipService";
+import { getAllJobs } from "@/services/jobService";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import PathName from "@/components/globle/PathName";
 import { Terminal } from "lucide-react";
 
-const InternshipForm = () => {
+const ViewJob = () => {
   const searchParams = useSearchParams();
-  const internshipId = searchParams.get("internshipId");
+  const jobId = searchParams.get("jobId");
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const InternshipForm = () => {
   );
 
   const [mounted, setMounted] = useState(false);
-  const [currInternship, setInternships] = useState([]);
+  const [currJob, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,33 +36,31 @@ const InternshipForm = () => {
   }, [mounted, isEmployeeLoggedIn]);
 
   useEffect(() => {
-    const fetchAllInternships = async () => {
+    const fetchAllJobs = async () => {
       try {
-        const response = await getAllInternships();
+        const response = await getAllJobs();
         dispatch({
-          type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
+          type: "ALL_JOB_FETCHED_SUCCESS",
           payload: response.data.data
         });
 
-        const allInternships = response.data.data || [];
-        const filteredInternships = allInternships.filter(
-          (internship) => internship?.id === internshipId
-        );
+        const allJobs = response.data.data || [];
+        const filteredJobs = allJobs.filter((job) => job?.id === jobId);
 
-        setInternships(filteredInternships[0]);
+        setJobs(filteredJobs[0]);
         setLoading(false);
       } catch (error) {
         dispatch({
-          type: "ALL_INTERNSHIPS_FETCHED_FAILED",
+          type: "ALL_JOB_FETCHED_FAILED",
           payload: error.message
         });
-        console.error("Error fetching internships:", error);
+        console.error("Error fetching jobs:", error);
         setLoading(false);
       }
     };
 
     if (mounted && employee?.id) {
-      fetchAllInternships();
+      fetchAllJobs();
     }
   }, [mounted, employee]);
 
@@ -75,25 +73,26 @@ const InternshipForm = () => {
         <PathName />
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
-            Internship Detail
+            Job Detail
           </h1>
+
           <div className="flex gap-5 items-center">
-          {!currInternship?.isActive ? (
+            {!currJob?.isActive ? (
               <span className="px-4 py-1 rounded-full text-md font-medium bg-red-100 text-red-800">
-                Internship Inactive
+                Job Inactive
               </span>
             ) : (
               <Link
                 className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded text-white font-semibold"
-                href={`/employee/internships/editInternship?internshipId=${internshipId}`}
+                href={`/employee/jobs/editJob?jobId=${jobId}`}
               >
                 Edit
               </Link>
             )}
-            
+
             <Link
               className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white font-semibold"
-              href={`/employee/internships/deleteInternship?internshipId=${internshipId}`}
+              href={`/employee/jobs/deleteJob?jobId=${jobId}`}
             >
               Delete
             </Link>
@@ -101,45 +100,44 @@ const InternshipForm = () => {
         </div>
 
         {loading ? (
-          <p className="text-center text-lg">Loading internships...</p>
-        ) : currInternship.length === 0 ? (
-          <p className="text-center text-red-500">No internships found.</p>
+          <p className="text-center text-lg">Loading jobs...</p>
+        ) : currJob.length === 0 ? (
+          <p className="text-center text-red-500">No jobs found.</p>
         ) : (
           <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6">
-            {currInternship && (
-              <div key={currInternship?.id}>
+            {currJob && (
+              <div key={currJob.id}>
                 <div className="flex justify-between items-start">
                   <h2 className="text-3xl font-bold text-purple-700 flex items-top gap-2">
                     <Terminal className="text-black w-10 h-10" />{" "}
-                    {currInternship?.profile}
+                    {currJob.profile}
                   </h2>
                   <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
-                    <strong>{currInternship?.internshipType}</strong>
+                    <strong>{currJob.jobType}</strong>
                   </p>
                 </div>
 
                 <div className="text-gray-700 text-lg space-y-2 grid grid-cols-4 mt-10">
                   <p>
-                    <strong>Openings:</strong> {currInternship?.openings}
+                    <strong>Openings:</strong> {currJob.openings}
                   </p>
                   <p>
-                    <strong>From:</strong> {currInternship?.fromDate}
+                    <strong>Start:</strong> {currJob.startDate}
                   </p>
                   <p>
-                    <strong>To:</strong> {currInternship?.toDate}
+                    <strong>Experience:</strong> {currJob.experience}
                   </p>
                   <p>
-                    <strong>Duration:</strong> {currInternship?.duration}
+                    <strong>Company Name:</strong> {currJob.companyName}
                   </p>
                   <p>
-                    <strong>stipend Status:</strong>{" "}
-                    {currInternship?.stipendStatus}
+                    <strong>Location:</strong> {currJob.location}
                   </p>
                   <p>
-                    <strong>Stipend:</strong>{" "}
-                    {currInternship?.stipendStatus === "UNPAID"
-                      ? "Unpaid"
-                      : `₹${currInternship?.stipendAmount}`}
+                    <strong>Salary Status:</strong> {currJob.salaryStatus}
+                  </p>
+                  <p>
+                    <strong>Salary (PM):</strong> ₹{currJob.salary}
                   </p>
                 </div>
 
@@ -149,7 +147,7 @@ const InternshipForm = () => {
                       Skills Required
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {currInternship?.skills?.map((skill, index) => (
+                      {currJob.skills?.map((skill, index) => (
                         <li key={index}>{skill}</li>
                       ))}
                     </ul>
@@ -160,7 +158,7 @@ const InternshipForm = () => {
                       Your Responsibility
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {currInternship?.responsibility?.map((resp, index) => (
+                      {currJob.responsibility?.map((resp, index) => (
                         <li key={index}>{resp}</li>
                       ))}
                     </ul>
@@ -171,7 +169,7 @@ const InternshipForm = () => {
                       Selection Process
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {currInternship?.assessments?.map((ass, index) => (
+                      {currJob.assessments?.map((ass, index) => (
                         <li key={index}>{ass}</li>
                       ))}
                     </ul>
@@ -182,7 +180,7 @@ const InternshipForm = () => {
                       Perks
                     </h3>
                     <ul className="list-disc list-inside text-gray-600 ml-4">
-                      {currInternship?.perks?.map((perk, index) => (
+                      {currJob.perks?.map((perk, index) => (
                         <li key={index}>{perk}</li>
                       ))}
                     </ul>
@@ -193,8 +191,7 @@ const InternshipForm = () => {
                   <h3 className="text-xl font-semibold text-gray-800 mb-1">
                     All Students
                   </h3>
-                  {currInternship?.students &&
-                  currInternship?.students.length > 0 ? (
+                  {currJob.students && currJob.students.length > 0 ? (
                     <div className="bg-gray-50 p-4 rounded-lg">
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-100">
@@ -214,7 +211,7 @@ const InternshipForm = () => {
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {currInternship?.students.map((student, index) => (
+                          {currJob.students.map((student, index) => (
                             <tr key={index}>
                               <td className="px-4 py-2 whitespace-nowrap">
                                 {index + 1}
@@ -251,4 +248,4 @@ const InternshipForm = () => {
   );
 };
 
-export default InternshipForm;
+export default ViewJob;

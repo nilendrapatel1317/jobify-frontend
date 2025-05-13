@@ -26,7 +26,7 @@ const predefinedOptions = {
   assessments: assessmentsList
 };
 
-const page = () => {
+const EditJob = () => {
   const [errors, setErrors] = useState({});
   const searchParams = useSearchParams();
   const jobId = searchParams.get("jobId");
@@ -355,4 +355,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EditJob;
