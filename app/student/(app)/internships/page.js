@@ -31,13 +31,13 @@ const InternshipsPage = () => {
     const fetchInternships = async () => {
       try {
         const response = await getAllInternships();
-        const data = response.data.data;
+        const data = response?.data?.data;
         dispatch({ type: "ALL_INTERNSHIPS_FETCHED_SUCCESS", payload: data });
         setInternships(data);
       } catch (error) {
         dispatch({
           type: "ALL_INTERNSHIPS_FETCHED_FAILED",
-          payload: error.message
+          payload: error?.message
         });
       }
     };
@@ -45,7 +45,7 @@ const InternshipsPage = () => {
   }, []);
 
   const filteredInternships = internships?.filter(
-    (internship) => !internship.students?.some((s) => s.id === student.id)
+    (internship) => !internship?.students?.some((s) => s?.id === student?.id)
   );
 
   if (!mounted || !student) return null;
@@ -80,7 +80,7 @@ const InternshipsPage = () => {
                       <h3 className="text-2xl font-bold">
                         {" "}
                         {internship?.profile?.length > 15
-                          ? `${internship.profile.substring(0, 15)}...`
+                          ? `${internship?.profile.substring(0, 15)}...`
                           : internship?.profile}
                       </h3>
                       <p

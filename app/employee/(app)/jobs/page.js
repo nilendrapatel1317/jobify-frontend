@@ -94,15 +94,9 @@ const page = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         ) : jobs?.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <p className="text-lg text-gray-500 italic mb-4">No jobs found?.</p>
-            <Link
-              href="/employee/jobs/addInternship"
-              className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-all"
-            >
-              Add Your First Internship
-            </Link>
-          </div>
+          <p className="text-lg text-gray-500 italic mb-4 mt-60 text-center">
+            No jobs found ! Please Add at least one job to remove error !
+          </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white rounded-lg shadow-md">
@@ -131,7 +125,14 @@ const page = () => {
                     <td className="py-2 px-2">{job?.id}</td>
                     <td className="py-2 px-2">{job?.profile}</td>
                     <td className="py-2 px-2">{job?.openings}</td>
-                    <td className="py-2 px-2">{job?.experience} {job?.experience > 0 ? job?.experience == 1 ? "Year" : "Years" : ""}</td>
+                    <td className="py-2 px-2">
+                      {job?.experience}{" "}
+                      {job?.experience > 0
+                        ? job?.experience == 1
+                          ? "Year"
+                          : "Years"
+                        : ""}
+                    </td>
                     <td className="py-2 px-2">₹{job?.salary}</td>
                     <td className="py-2 px-2">{job?.location}</td>
                     <td className="py-4 px-4">

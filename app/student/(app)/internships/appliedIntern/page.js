@@ -44,7 +44,7 @@ const page = () => {
   }, []);
 
   const filteredInternship = internships?.filter((internship) =>
-    internship.students?.some((s) => s.id === student.id)
+    internship?.students?.some((s) => s?.id === student?.id)
   );
 
   if (!mounted || !student) return null;
@@ -82,27 +82,27 @@ const page = () => {
                 <tbody>
                   {filteredInternship.map((internship, index) => (
                     <tr
-                      key={internship.id}
+                      key={internship?.id}
                       className="border-y hover:bg-gray-50 h-16 text-sm"
                     >
                       <td className="py-2 px-2 text-lg">{index + 1}</td>
                       <td className="py-2 px-2 text-lg">
-                        {internship.profile}
+                        {internship?.profile}
                       </td>
                       <td className="py-2 px-2 text-lg ">
-                        {internship.internshipType}
+                        {internship?.internshipType}
                       </td>
                       <td className="py-2 px-2 text-lg">
-                        {internship.openings}
+                        {internship?.openings}
                       </td>
                       <td className="py-2 px-2 text-lg">
-                        {internship.duration}{" "}
-                        {internship.duration > 1 ? "Months" : "Month"}
+                        {internship?.duration}{" "}
+                        {internship?.duration > 1 ? "Months" : "Month"}
                       </td>
                       <td className="py-2 px-2 text-lg">
-                        {internship.stipendStatus === "UNPAID"
+                        {internship?.stipendStatus === "UNPAID"
                           ? "Unpaid"
-                          : `₹${internship.stipendAmount}`}
+                          : `₹${internship?.stipendAmount}`}
                       </td>
                       <td>
                         <div className="flex items-center gap-2 justify-center">
@@ -119,7 +119,7 @@ const page = () => {
                       </td>
                       <td className="text-center space-x-3">
                         <Link
-                          href={`/student/internships/viewInternship?internshipId=${internship.id}`}
+                          href={`/student/internships/viewInternship?internshipId=${internship?.id}`}
                         >
                           <button className="bg-blue-600 text-sm text-white px-3 py-1 rounded-full">
                             Details

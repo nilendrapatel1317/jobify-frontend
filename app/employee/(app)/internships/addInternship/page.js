@@ -80,6 +80,7 @@ const page = () => {
         position: "bottom-right",
         autoClose: 2000
       });
+      console.log(response)
       router.push("/employee/internships");
     } catch (error) {
       console.log(error);
@@ -87,7 +88,7 @@ const page = () => {
         position: "bottom-right",
         autoClose: 2000
       });
-      const backendErrors = error.response.data.data;
+      const backendErrors = error.response?.data?.data;
       const fieldErrors = {};
       for (const key in backendErrors) {
         if (backendErrors.hasOwnProperty(key)) {
