@@ -77,7 +77,7 @@ const InternshipsPage = () => {
                     className="relative bg-white p-4 sm:p-6 rounded-xl shadow-md w-full"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-xl sm:text-2xl font-bold">
+                      <h3 className="text-xl sm:text-2xl font-bold text-black">
                         {internship?.profile?.length > 15
                           ? `${internship?.profile.substring(0, 15)}...`
                           : internship?.profile}
@@ -92,7 +92,7 @@ const InternshipsPage = () => {
                         {internship?.isActive ? "Active" : "Close"}
                       </p>
                     </div>
-                    <div className="space-y-2 mt-3 text-sm sm:text-base">
+                    <div className="space-y-2 mt-3 text-sm sm:text-base text-black">
                       <p>
                         <strong>Type:</strong> {internship?.internshipType}
                       </p>

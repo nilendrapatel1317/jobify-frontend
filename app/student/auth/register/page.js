@@ -97,7 +97,7 @@ const RegisterStudentPage = () => {
                   name={name}
                   value={formData[name]}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
+                  className="w-full text-black border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
                 />
                 {errors[name] && (
                   <p className="text-red-500 text-xs sm:text-sm mt-1">{errors[name]}</p>
@@ -107,8 +107,8 @@ const RegisterStudentPage = () => {
           </div>
 
           <div>
-            <label className="block font-medium mb-1 text-sm sm:text-base">Gender</label>
-            <div className="flex flex-wrap gap-4 sm:gap-6">
+            <label className="block font-medium mb-1 text-sm sm:text-base text-black">Gender</label>
+            <div className="flex flex-wrap gap-4 sm:gap-6 text-black">
               {["Male", "Female", "Others"]?.map((option) => (
                 <label key={option} className=" text-black flex items-center gap-2 text-sm sm:text-base">
                   <input

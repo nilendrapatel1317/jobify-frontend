@@ -76,7 +76,7 @@ const ViewJob = () => {
             Job Detail
           </h1>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-center">
+          <div className="flex flex-row gap-3 sm:gap-5 items-center">
             {!currJob?.isActive ? (
               <span className="px-3 sm:px-4 py-1 rounded-full text-sm sm:text-md font-medium bg-red-100 text-red-800 whitespace-nowrap">
                 Job Inactive
@@ -112,7 +112,7 @@ const ViewJob = () => {
                     <Terminal className="text-black w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" />{" "}
                     {currJob.profile}
                   </h2>
-                  <p className="text-sm sm:text-md bg-gray-200 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
+                  <p className="text-sm sm:text-md text-black bg-gray-200 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
                     <strong>{currJob.jobType}</strong>
                   </p>
                 </div>
@@ -213,7 +213,7 @@ const ViewJob = () => {
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white divide-y divide-gray-200 text-black">
                           {currJob.students.map((student, index) => (
                             <tr key={student.id}>
                               <td className="px-3 sm:px-4 py-2 whitespace-nowrap text-sm sm:text-base">

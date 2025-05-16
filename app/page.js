@@ -96,7 +96,7 @@ const Page = () => {
                   Login
                 </button>
                 {showLogin && (
-                  <div className="absolute -left-5 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
+                  <div className="absolute -left-5 mt-2 w-48 text-black shadow-lg rounded-lg z-50">
                     <Link
                       href="/student/auth/login"
                       className="block px-4 py-2 hover:bg-gray-100 text-sm"
@@ -123,7 +123,7 @@ const Page = () => {
                   Register
                 </button>
                 {showRegister && (
-                  <div className="absolute -left-26 mt-2 w-56 bg-white shadow-lg rounded-lg z-50">
+                  <div className="absolute -left-26 mt-2 w-56 text-black shadow-lg rounded-lg z-50">
                     <Link
                       href="/student/auth/register"
                       className="block px-4 py-2 hover:bg-gray-100 text-sm"

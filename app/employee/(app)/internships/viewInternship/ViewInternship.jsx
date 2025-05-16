@@ -77,7 +77,7 @@ const ViewInternship = () => {
           <h1 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center sm:text-left">
             Internship Detail
           </h1>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-center">
+          <div className="flex flex-row gap-3 sm:gap-5 items-center">
             {!currInternship?.isActive ? (
               <span className="px-3 sm:px-4 py-1 rounded-full text-sm sm:text-md font-medium bg-red-100 text-red-800 whitespace-nowrap">
                 Internship Inactive
@@ -113,7 +113,7 @@ const ViewInternship = () => {
                     <Terminal className="text-black w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" />{" "}
                     {currInternship?.profile}
                   </h2>
-                  <p className="text-sm sm:text-md bg-gray-200 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
+                  <p className="text-sm sm:text-md text-black bg-gray-200 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
                     <strong>{currInternship?.internshipType}</strong>
                   </p>
                 </div>
@@ -216,7 +216,7 @@ const ViewInternship = () => {
                             </th>
                           </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white divide-y divide-gray-200 text-black" >
                           {currInternship?.students.map((student, index) => (
                             <tr key={student.id}>
                               <td className="px-3 sm:px-4 py-2 whitespace-nowrap text-sm sm:text-base">

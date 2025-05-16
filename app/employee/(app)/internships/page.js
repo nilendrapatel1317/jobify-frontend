@@ -115,7 +115,7 @@ const page = () => {
                   <th className="py-3 px-2 sm:px-4 text-center text-xs sm:text-sm font-medium">Action</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 text-black">
                 {internships?.map((internship) => (
                   <tr
                     key={internship?.id}
@@ -125,14 +125,14 @@ const page = () => {
                         : "line-through opacity-60 text-red-500 italic font-semibold"
                     }`}
                   >
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{internship?.id}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{internship?.profile}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{internship?.openings}</td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.id}</td>
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.profile}</td>
+                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.openings}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-black text-xs sm:text-sm">
                       {internship?.fromDate || "N/A"}
                     </td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">{internship?.toDate || "N/A"}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.toDate || "N/A"}</td>
+                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">
                       {internship?.stipendStatus === "UNPAID"
                         ? "Unpaid"
                         : `₹${internship?.stipendAmount}`}
