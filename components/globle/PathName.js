@@ -18,7 +18,7 @@ const PathName = () => {
   }).filter(Boolean); // remove nulls
 
   return (
-    <div className="text-gray-500 font-medium mb-2">
+    <div className="text-gray-500 font-medium mb-5 ps-12">
       {breadcrumb.join(" > ")}
     </div>
   );
