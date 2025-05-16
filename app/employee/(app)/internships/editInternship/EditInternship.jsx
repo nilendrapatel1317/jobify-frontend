@@ -139,116 +139,112 @@ const EditInternship = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor="employee" />
-      <main className="ml-64 flex-1 p-10">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-center items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex justify-center items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center">
             Update Internship
           </h1>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-xl rounded-2xl p-8 space-y-6 max-w-6xl mx-auto"
+          className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-6xl mx-auto"
         >
-          <div className="flex flex-wrap justify-between gap-5">
-            <div>
-              <label className="block font-medium mb-1">Profile (Role)</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Profile (Role)</label>
               <input
                 type="text"
                 name="profile"
                 value={formData.profile}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.profile && (
-                <p className="text-red-500 text-sm mt-1">{errors.profile}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.profile}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Openings</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Openings</label>
               <input
                 type="number"
                 name="openings"
                 value={formData.openings}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.openings && (
-                <p className="text-red-500 text-sm mt-1">{errors.openings}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.openings}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Stipend Amount</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Stipend Amount</label>
               <input
                 type="number"
                 name="stipendAmount"
                 value={formData.stipendAmount}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.stipendAmount && (
-                <p className="text-red-500 text-sm mt-1">{errors.stipendAmount}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.stipendAmount}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">From Date</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">From Date</label>
               <input
                 type="date"
                 name="fromDate"
                 value={formData.fromDate}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.fromDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.fromDate}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.fromDate}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">To Date</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">To Date</label>
               <input
                 type="date"
                 name="toDate"
                 value={formData.toDate}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.toDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.toDate}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.toDate}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">
-                Duration (in months)
-              </label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Duration (in months)</label>
               <input
                 type="text"
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.duration && (
-                <p className="text-red-500 text-sm mt-1">{errors.duration}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.duration}</p>
               )}
             </div>
-          </div>
 
-          <div className="flex flex-wrap justify-between gap-5">
-            <div>
-              <label className="block font-medium mb-1">Internship Type</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Internship Type</label>
               <select
                 name="internshipType"
                 value={formData.internshipType}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70 "
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black/70"
               >
                 <option value="">Select Internship Type</option>
                 {["Onsite", "Remote", "Hybrid"].map((type) => (
@@ -258,91 +254,106 @@ const EditInternship = () => {
                 ))}
               </select>
               {errors.internshipType && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.internshipType}
-                </p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.internshipType}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Stipend Status</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Stipend Status</label>
               <select
                 name="stipendStatus"
                 value={formData.stipendStatus}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black/70"
               >
                 <option value="">Select Stipend Status</option>
-                {["Fixed", "Negotiable", "Performance_Based", "Unpaid"].map(
-                  (status) => (
-                    <option key={status} value={status}>
-                      {status.replace("_", " ")}
-                    </option>
-                  )
-                )}
+                {["Fixed", "Negotiable", "Performance_Based", "Unpaid"].map((status) => (
+                  <option key={status} value={status}>
+                    {status.replace("_", " ")}
+                  </option>
+                ))}
               </select>
               {errors.stipendStatus && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.stipendStatus}
-                </p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.stipendStatus}</p>
               )}
             </div>
 
-            <div>
-              {renderSelectField("Skills", "skills", predefinedOptions.skills)}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Skills</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.skills.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("skills", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+                value={formData.skills.map(skill => ({ value: skill, label: skill }))}
+              />
               {errors.skills && (
-                <p className="text-red-500 text-sm mt-1">{errors.skills}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.skills}</p>
               )}
             </div>
 
-            <div>
-              {" "}
-              {renderSelectField(
-                "Responsibility",
-                "responsibility",
-                predefinedOptions.responsibility
-              )}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Responsibility</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.responsibility.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("responsibility", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+                value={formData.responsibility.map(resp => ({ value: resp, label: resp }))}
+              />
               {errors.responsibility && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.responsibility}
-                </p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.responsibility}</p>
               )}
             </div>
 
-            <div>
-              {renderSelectField(
-                "Hiring Process",
-                "assessments",
-                predefinedOptions.assessments
-              )}
-              {errors.assessments && (
-                <p className="text-red-500 text-sm mt-1">{errors.assessments}</p>
-              )}
-            </div>
-
-            <div>
-              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Perks</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.perks.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("perks", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+                value={formData.perks.map(perk => ({ value: perk, label: perk }))}
+              />
               {errors.perks && (
-                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.perks}</p>
+              )}
+            </div>
+
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Hiring Process</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.assessments.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("assessments", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+                value={formData.assessments.map(assessment => ({ value: assessment, label: assessment }))}
+              />
+              {errors.assessments && (
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.assessments}</p>
               )}
             </div>
           </div>
 
-          <div className="flex justify-end gap-5 mt-10">
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
-            >
-              Update Internship
-            </button>
-            <Link href={"/employee/internships"}>
+          <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-5 mt-6 sm:mt-8">
+            <Link href="/employee/internships" className="w-full sm:w-auto">
               <button
-                type="submit"
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+                type="button"
+                className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
               >
                 Cancel
               </button>
             </Link>
+            <button
+              type="submit"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+            >
+              Update Internship
+            </button>
           </div>
         </form>
       </main>

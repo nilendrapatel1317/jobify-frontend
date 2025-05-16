@@ -51,40 +51,39 @@ const InternshipsPage = () => {
   if (!mounted || !student) return null;
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor={"student"} />
 
-      <main className="ml-64 flex-1 p-8">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center sm:text-left">
             Available Internships List
           </h1>
           <Link
             href={"/student/internships/appliedIntern"}
-            className=" bg-gradient-to-r from-blue-600 to-purple-500 text-white py-2 px-3 rounded-full"
+            className="bg-gradient-to-r from-blue-600 to-purple-500 text-white py-2 px-4 rounded-full text-sm sm:text-base whitespace-nowrap"
           >
             Applied Internships
           </Link>
         </div>
 
-        <section className="py-8">
+        <section className="py-4 sm:py-8">
           {filteredInternships?.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {filteredInternships.map((internship) => (
                   <div
                     key={internship?.id}
-                    className="relative bg-white p-6 rounded-xl shadow-md max-w-sm"
+                    className="relative bg-white p-4 sm:p-6 rounded-xl shadow-md w-full"
                   >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-2xl font-bold">
-                        {" "}
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-xl sm:text-2xl font-bold">
                         {internship?.profile?.length > 15
                           ? `${internship?.profile.substring(0, 15)}...`
                           : internship?.profile}
                       </h3>
                       <p
-                        className={`text-sm px-2 py-1 rounded-full italic ${
+                        className={`text-xs sm:text-sm px-2 py-1 rounded-full italic whitespace-nowrap ${
                           internship?.isActive
                             ? "bg-green-500 text-white"
                             : "bg-gray-500/50 cursor-none select-none text-white"
@@ -93,42 +92,43 @@ const InternshipsPage = () => {
                         {internship?.isActive ? "Active" : "Close"}
                       </p>
                     </div>
-                    <p>
-                      <strong>Type:</strong> {internship?.internshipType}
-                    </p>
-                    <p>
-                      <strong>Openings:</strong> {internship?.openings}
-                    </p>
-                    <p>
-                      <strong>Duration:</strong> {internship?.duration}{" "}
-                      {internship?.duration > 1 ? "Months" : "Month"}
-                    </p>
-                    <p>
-                      <strong>Stipend:</strong> ₹{internship?.stipendAmount}
-                    </p>
+                    <div className="space-y-2 mt-3 text-sm sm:text-base">
+                      <p>
+                        <strong>Type:</strong> {internship?.internshipType}
+                      </p>
+                      <p>
+                        <strong>Openings:</strong> {internship?.openings}
+                      </p>
+                      <p>
+                        <strong>Duration:</strong> {internship?.duration}{" "}
+                        {internship?.duration > 1 ? "Months" : "Month"}
+                      </p>
+                      <p>
+                        <strong>Stipend:</strong> ₹{internship?.stipendAmount}
+                      </p>
+                    </div>
 
-                    <div className="flex justify-between items-center mt-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-4">
                       {internship?.postedAt ? (
                         <TimeAgo timestamp={internship?.postedAt} />
                       ) : (
-                        <p className="text-sm text-black/50 italic flex mt-3 gap-2 items-center">
+                        <p className="text-xs sm:text-sm text-black/50 italic flex gap-2 items-center">
                           <TimerResetIcon className="w-4 h-4" />
                           posted 30+ days ago
                         </p>
                       )}
                       <Link
                         href={`/student/internships/viewInternship?internshipId=${internship?.id}`}
-                        className="inline-block bg-blue-400 text-white px-4 py-2 rounded-lg font-semibold transition"
+                        className="w-full sm:w-auto text-center bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold transition text-sm sm:text-base"
                       >
                         Details
                       </Link>
                     </div>
-
                   </div>
                 ))}
             </div>
           ) : (
-            <p className="text-center text-lg text-gray-500 italic mt-60">
+            <p className="text-center text-base sm:text-lg text-gray-500 italic mt-20 sm:mt-60">
               🎓 No Internships available for you right now
             </p>
           )}

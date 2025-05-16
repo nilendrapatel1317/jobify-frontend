@@ -7,6 +7,7 @@ import { updateStudent } from "@/services/studentService";
 import { toast } from "react-toastify";
 import PathName from "@/components/globle/PathName";
 import Link from "next/link";
+import { UserCog } from "lucide-react";
 
 const EditStudentPage = () => {
   const router = useRouter();
@@ -83,113 +84,120 @@ const EditStudentPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor="student" />
 
-      <main className="ml-64 flex-1 p-10">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-center items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex justify-center items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text flex items-center gap-2 sm:gap-3">
+            <UserCog className="w-6 h-6 sm:w-8 sm:h-8" />
             Edit Your Profile
           </h1>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-xl rounded-2xl p-8 space-y-6 max-w-3xl mx-auto"
+          className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-sm sm:max-w-2xl lg:max-w-3xl mx-auto"
         >
-          <div className="flex flex-wrap justify-between gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <label className="block font-medium mb-1">First Name</label>
+              <label className="block font-medium mb-1 text-sm sm:text-base">First Name</label>
               <input
                 type="text"
                 name="firstname"
                 value={formData.firstname}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
               />
               {errors.firstname && (
-                <p className="text-red-500 text-sm mt-1">{errors.firstname}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.firstname}</p>
               )}
             </div>
+
             <div>
-              <label className="block font-medium mb-1">Last Name</label>
+              <label className="block font-medium mb-1 text-sm sm:text-base">Last Name</label>
               <input
                 type="text"
                 name="lastname"
                 value={formData.lastname}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
               />
               {errors.lastname && (
-                <p className="text-red-500 text-sm mt-1">{errors.lastname}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.lastname}</p>
               )}
             </div>
+
             <div>
-              <label className="block font-medium mb-1">Contact</label>
+              <label className="block font-medium mb-1 text-sm sm:text-base">Contact</label>
               <input
                 type="text"
                 name="contact"
                 value={formData.contact}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
               />
               {errors.contact && (
-                <p className="text-red-500 text-sm mt-1">{errors.contact}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.contact}</p>
               )}
             </div>
+
             <div>
-              <label className="block font-medium mb-1">City</label>
+              <label className="block font-medium mb-1 text-sm sm:text-base">City</label>
               <input
                 type="text"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
               />
               {errors.city && (
-                <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.city}</p>
               )}
             </div>
           </div>
 
           <div>
-            <label className="block font-medium mb-1">Gender</label>
-            <div className="flex gap-6">
+            <label className="block font-medium mb-2 text-sm sm:text-base">Gender</label>
+            <div className="flex flex-wrap gap-4 sm:gap-6">
               {["Male", "Female", "Others"].map((option) => (
-                <label key={option} className="flex items-center gap-2">
+                <label key={option} className="flex items-center gap-2 text-sm sm:text-base">
                   <input
                     type="radio"
                     name="gender"
                     value={option}
                     checked={formData.gender === option}
                     onChange={handleChange}
-                    className="accent-purple-500"
+                    className="accent-purple-500 w-4 h-4"
                   />
                   {option}
                 </label>
               ))}
             </div>
             {errors.gender && (
-              <p className="text-red-500 text-sm mt-1">{errors.gender}</p>
+              <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.gender}</p>
             )}
           </div>
 
-          <div className="flex justify-end mt-10 gap-3">
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+          <div className="flex flex-col sm:flex-row justify-end mt-6 sm:mt-8 gap-3">
+            <Link 
+              href="/student/profile"
+              className="w-full sm:w-auto"
             >
-              Update Profile
-            </button>
-            <Link href={"/student/profile"}>
               <button
-                type="submit"
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+                type="button"
+                className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
               >
                 Cancel
               </button>
             </Link>
+            <button
+              type="submit"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+            >
+              Update Profile
+            </button>
           </div>
         </form>
       </main>

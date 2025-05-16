@@ -1,36 +1,51 @@
 "use client";
-import React from "react";
-import {
-  deleteInternship,
-  getAllInternships
-} from "@/services/internshipService";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useDispatch } from "react-redux";
+
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState } from "react";
+import Sidebar from "@/components/globle/Sidebar";
 import { toast } from "react-toastify";
+import { deleteInternship } from "@/services/internshipService";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import PathName from "@/components/globle/PathName";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { AlertTriangle } from "lucide-react";
 
 const DeleteInternship = () => {
   const searchParams = useSearchParams();
   const internshipId = searchParams.get("internshipId");
-  const dispatch = useDispatch();
+
   const router = useRouter();
-  console.log(internshipId)
+  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
+  const { internship } = useSelector((state) => state.internship);
+  const selectedInternship = internship?.find((i) => i.id === internshipId);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isEmployeeLoggedIn) {
+      router.push("/");
+    }
+  }, [isEmployeeLoggedIn, mounted]);
+
+  if (!mounted || !employee || !selectedInternship) return null;
 
   const handleDelete = async () => {
     try {
-      await deleteInternship(internshipId);
-      const response = await getAllInternships();
-      dispatch({
-        type: "ALL_INTERNSHIPS_FETCHED_SUCCESS",
-        payload: response.data.data
-      });
+      const response = await deleteInternship(internshipId);
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
       router.push("/employee/internships");
     } catch (error) {
-      console.error("Error deleting internship:", error);
+      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to delete internship.", {
         position: "bottom-right",
         autoClose: 2000
@@ -39,29 +54,73 @@ const DeleteInternship = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">
-          Confirm Deletion
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Are you sure you want to delete this internship? This action cannot be undone.
-        </p>
-        <div className="flex justify-center gap-4">
-          <button
-            onClick={handleDelete}
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow-sm transition"
-          >
-            Delete
-          </button>
-          <Link
-            href="/employee/internships"
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded-lg shadow-sm transition"
-          >
-            Cancel
-          </Link>
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+      <Sidebar sidebarFor="employee" />
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
+        <PathName />
+        <div className="flex justify-center items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center">
+            Delete Internship
+          </h1>
         </div>
-      </div>
+
+        <div className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center text-center space-y-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-100 rounded-full flex items-center justify-center">
+              <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 text-red-500" />
+            </div>
+            
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+              Delete Internship
+            </h2>
+            
+            <p className="text-sm sm:text-base text-gray-600 max-w-md">
+              Are you sure you want to delete the internship for the role of{" "}
+              <span className="font-semibold text-gray-900">
+                {selectedInternship.profile}
+              </span>
+              ? This action cannot be undone.
+            </p>
+
+            <div className="bg-gray-50 rounded-lg p-4 w-full mt-4">
+              <h3 className="text-sm sm:text-base font-medium text-gray-900 mb-2">
+                Internship Details:
+              </h3>
+              <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
+                <li>
+                  <span className="font-medium">Type:</span> {selectedInternship.internshipType}
+                </li>
+                <li>
+                  <span className="font-medium">Duration:</span> {selectedInternship.duration}
+                </li>
+                <li>
+                  <span className="font-medium">Openings:</span> {selectedInternship.openings}
+                </li>
+                <li>
+                  <span className="font-medium">Stipend:</span> ₹{selectedInternship.stipendAmount}/month
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-5 w-full mt-6">
+              <Link href="/employee/internships" className="w-full sm:w-auto">
+                <button
+                  type="button"
+                  className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+                >
+                  Cancel
+                </button>
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+              >
+                Delete Internship
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

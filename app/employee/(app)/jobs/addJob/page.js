@@ -111,119 +111,115 @@ const page = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor="employee" />
-      <main className="ml-64 flex-1 p-10">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-center items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex justify-center items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center">
             Create Job
           </h1>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-xl rounded-2xl p-8 space-y-6 max-w-6xl mx-auto"
+          className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-6xl mx-auto"
         >
-          <div className="flex flex-wrap justify-between gap-5">
-            <div>
-              <label className="block font-medium mb-1">Profile (Role)</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Profile (Role)</label>
               <input
                 type="text"
                 name="profile"
                 value={formData.profile}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
                 placeholder="Enter Job Profile"
               />
               {errors.profile && (
-                <p className="text-red-500 text-sm mt-1">{errors.profile}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.profile}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Openings</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Openings</label>
               <input
                 type="number"
                 name="openings"
                 value={formData.openings}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.openings && (
-                <p className="text-red-500 text-sm mt-1">{errors.openings}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.openings}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">
-                Salary Amount (PM)
-              </label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Salary Amount (PM)</label>
               <input
                 type="number"
                 name="salary"
                 value={formData.salary}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.salary && (
-                <p className="text-red-500 text-sm mt-1">{errors.salary}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.salary}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Start Date</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Start Date</label>
               <input
                 type="date"
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.startDate && (
-                <p className="text-red-500 text-sm mt-1">{errors.startDate}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.startDate}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Experience</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Experience</label>
               <input
                 type="text"
                 name="experience"
                 value={formData.experience}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
-                placeholder="Enter required experence"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                placeholder="Enter required experience"
               />
               {errors.experience && (
-                <p className="text-red-500 text-sm mt-1">{errors.experience}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.experience}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Location</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Location</label>
               <input
                 type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
                 placeholder="Enter job location"
               />
               {errors.location && (
-                <p className="text-red-500 text-sm mt-1">{errors.location}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.location}</p>
               )}
             </div>
-          </div>
 
-          <div className="flex flex-wrap justify-between gap-5">
-            <div>
-              <label className="block font-medium mb-1">Job Type</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Job Type</label>
               <select
                 name="jobType"
                 value={formData.jobType}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70 "
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black/70"
               >
                 <option value="">Select Job Type</option>
                 {["Full_Time", "Part_Time"].map((type) => (
@@ -233,92 +229,102 @@ const page = () => {
                 ))}
               </select>
               {errors.jobType && (
-                <p className="text-red-500 text-sm mt-1">{errors.jobType}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.jobType}</p>
               )}
             </div>
 
-            <div>
-              <label className="block font-medium mb-1">Salary Status</label>
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Salary Status</label>
               <select
                 name="salaryStatus"
                 value={formData.salaryStatus}
                 onChange={handleChange}
-                className="w-80 border border-gray-300 rounded-lg px-4 py-2 text-black/70"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black/70"
               >
                 <option value="">Select Salary Status</option>
-                {["Fixed", "Negotiable", "Company_Standard"].map(
-                  // Remove "Unpaid" to match backend validation
-                  (status) => (
-                    <option key={status} value={status}>
-                      {status.replace("_", " ")}
-                    </option>
-                  )
-                )}
+                {["Fixed", "Negotiable", "Company_Standard"].map((status) => (
+                  <option key={status} value={status}>
+                    {status.replace("_", " ")}
+                  </option>
+                ))}
               </select>
               {errors.salaryStatus && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.salaryStatus}
-                </p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.salaryStatus}</p>
               )}
             </div>
 
-            <div>
-              {renderSelectField("Skills", "skills", predefinedOptions.skills)}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Skills</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.skills.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("skills", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+              />
               {errors.skills && (
-                <p className="text-red-500 text-sm mt-1">{errors.skills}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.skills}</p>
               )}
             </div>
 
-            <div>
-              {" "}
-              {renderSelectField(
-                "Responsibility",
-                "responsibility",
-                predefinedOptions.responsibility
-              )}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Responsibility</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.responsibility.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("responsibility", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+              />
               {errors.responsibility && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.responsibility}
-                </p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.responsibility}</p>
               )}
             </div>
 
-            <div>
-              {renderSelectField("Perks", "perks", predefinedOptions.perks)}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Perks</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.perks.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("perks", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+              />
               {errors.perks && (
-                <p className="text-red-500 text-sm mt-1">{errors.perks}</p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.perks}</p>
               )}
             </div>
 
-            <div>
-              {renderSelectField(
-                "Hiring Process",
-                "assessments",
-                predefinedOptions.assessments
-              )}
+            <div className="w-full">
+              <label className="block font-medium mb-1 text-sm sm:text-base">Hiring Process</label>
+              <CreatableSelect
+                isMulti
+                options={predefinedOptions.assessments.map((opt) => ({ value: opt, label: opt }))}
+                onChange={(selected) => handleSelectChange("assessments", selected)}
+                className="text-sm sm:text-base"
+                classNamePrefix="select"
+              />
               {errors.assessments && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.assessments}
-                </p>
+                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.assessments}</p>
               )}
             </div>
           </div>
 
-          <div className="flex justify-end gap-5 mt-10">
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
-            >
-              Create Job
-            </button>
-            <Link href={"/employee/jobs"}>
+          <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-5 mt-6 sm:mt-8">
+            <Link href="/employee/jobs" className="w-full sm:w-auto">
               <button
-                type="submit"
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+                type="button"
+                className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
               >
                 Cancel
               </button>
             </Link>
+            <button
+              type="submit"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+            >
+              Create Job
+            </button>
           </div>
         </form>
       </main>

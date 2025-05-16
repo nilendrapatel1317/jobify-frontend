@@ -64,25 +64,24 @@ const RegisterStudentPage = () => {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <main className="flex-1 px-10 py-4">
+      <main className="flex-1 px-4 sm:px-6 lg:px-10 py-4">
         <Link
           href={`/`}
-          className="bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+          className="inline-block bg-blue-500 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base hover:bg-blue-600 transition"
         >
           Home
         </Link>
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center w-full">
+        <div className="flex justify-between items-center my-6 sm:my-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center w-full">
             Register as Student
           </h1>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white  shadow-xl rounded-2xl p-8 space-y-6 max-w-3xl mx-auto"
+          className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-3xl mx-auto"
         >
-          <div className="flex flex-wrap justify-between gap-5">
-            {" "}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {[
               { label: "First Name", name: "firstname", type: "text" },
               { label: "Last Name", name: "lastname", type: "text" },
@@ -92,26 +91,26 @@ const RegisterStudentPage = () => {
               { label: "Password", name: "password", type: "password" }
             ]?.map(({ label, name, type }) => (
               <div key={name}>
-                <label className="block font-medium mb-1">{label}</label>
+                <label className="block font-medium mb-1 text-sm sm:text-base">{label}</label>
                 <input
                   type={type}
                   name={name}
                   value={formData[name]}
                   onChange={handleChange}
-                  className="w-80 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
                 />
                 {errors[name] && (
-                  <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
+                  <p className="text-red-500 text-xs sm:text-sm mt-1">{errors[name]}</p>
                 )}
               </div>
             ))}
           </div>
 
           <div>
-            <label className="block font-medium mb-1">Gender</label>
-            <div className="flex gap-6">
+            <label className="block font-medium mb-1 text-sm sm:text-base">Gender</label>
+            <div className="flex flex-wrap gap-4 sm:gap-6">
               {["Male", "Female", "Others"]?.map((option) => (
-                <label key={option} className="flex items-center gap-2">
+                <label key={option} className="flex items-center gap-2 text-sm sm:text-base">
                   <input
                     type="radio"
                     name="gender"
@@ -125,20 +124,23 @@ const RegisterStudentPage = () => {
               ))}
             </div>
             {errors?.gender && (
-              <p className="text-red-500 text-sm mt-1">{errors?.gender}</p>
+              <p className="text-red-500 text-xs sm:text-sm mt-1">{errors?.gender}</p>
             )}
           </div>
 
-          <div className="flex justify-between mt-10">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mt-6 sm:mt-10">
             <button
               type="submit"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition"
             >
               Register
             </button>
-            <div className="flex items-center gap-2">
-              <p>Already have an account ?</p>
-              <Link href={"/student/auth/login"} className="text-md font-bold">
+            <div className="flex items-center gap-1 sm:gap-2">
+              <p className="text-sm sm:text-base">Already have an account ?</p>
+              <Link 
+                href={"/student/auth/login"} 
+                className="text-sm sm:text-base font-bold hover:text-purple-600 transition"
+              >
                 Login
               </Link>
             </div>

@@ -23,19 +23,19 @@ const ResumePage = () => {
   if (!mounted || !student) return null;
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor={"student"} />
 
-      <main className="ml-64 flex-1 p-8">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex justify-between items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
             Your Resume
           </h1>
         </div>
 
-        <div className="mb-12">
-          <h1 className="text-2xl text-red-500">Coming Soon... (Work under construction)</h1>
+        <div className="mb-8 sm:mb-12">
+          <h1 className="text-xl sm:text-2xl text-red-500">Coming Soon... (Work under construction)</h1>
         </div>
       </main>
     </div>

@@ -73,23 +73,23 @@ const ViewJobByStudent = () => {
   if (!mounted) return null;
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor="student" />
-      <main className="ml-64 flex-1 p-10">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center sm:text-left">
             Job Detail
           </h1>
 
-          <div className="">
+          <div>
             {isActive ? (
               <ApplyJobButton
                 currJob={jobs[0]}
                 onApply={(count) => setApplicantsCount(count)}
               />
             ) : (
-              <p className=" bg-gray-500/50 cursor-none select-none text-white text-sm px-2 py-1 rounded-full italic">
+              <p className="bg-gray-500/50 cursor-none select-none text-white text-xs sm:text-sm px-2 py-1 rounded-full italic">
                 Application Closed !
               </p>
             )}
@@ -97,23 +97,23 @@ const ViewJobByStudent = () => {
         </div>
 
         {loading ? (
-          <p className="text-center text-lg">Loading jobs...</p>
+          <p className="text-center text-base sm:text-lg">Loading jobs...</p>
         ) : jobs.length === 0 ? (
-          <p className="text-center text-red-500">No jobs found.</p>
+          <p className="text-center text-red-500 text-base sm:text-lg">No jobs found.</p>
         ) : (
-          <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6">
+          <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
             {jobs.map((job) => (
               <div key={job.id}>
-                <div className="flex justify-between items-start">
-                  <h2 className="text-3xl font-bold text-purple-700 flex items-top gap-2">
-                    <Terminal className="text-black w-10 h-10" /> {job.profile}
+                <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-3 sm:gap-0">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-700 flex items-center gap-2 text-center sm:text-left">
+                    <Terminal className="text-black w-6 h-6 sm:w-8 sm:h-8" /> {job.profile}
                   </h2>
-                  <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
+                  <p className="text-sm sm:text-md bg-gray-200 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
                     <strong>{job.jobType}</strong>
                   </p>
                 </div>
 
-                <div className="text-gray-700 text-lg space-y-2 grid grid-cols-4 mt-10">
+                <div className="text-gray-700 text-sm sm:text-base lg:text-lg space-y-3 sm:space-y-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mt-6 sm:mt-10">
                   <p>
                     <strong>Openings:</strong> {job.openings}
                   </p>
@@ -137,45 +137,45 @@ const ViewJobByStudent = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-4">
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                  <div className="mt-4 sm:mt-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 sm:mb-2">
                       Skills Required
                     </h3>
-                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                    <ul className="list-disc list-inside text-gray-600 ml-2 sm:ml-4 text-sm sm:text-base">
                       {job.skills?.map((skill, index) => (
                         <li key={index}>{skill}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                  <div className="mt-4 sm:mt-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 sm:mb-2">
                       Your Responsibility
                     </h3>
-                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                    <ul className="list-disc list-inside text-gray-600 ml-2 sm:ml-4 text-sm sm:text-base">
                       {job.responsibility?.map((resp, index) => (
                         <li key={index}>{resp}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                  <div className="mt-4 sm:mt-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 sm:mb-2">
                       Selection Process
                     </h3>
-                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                    <ul className="list-disc list-inside text-gray-600 ml-2 sm:ml-4 text-sm sm:text-base">
                       {job.assessments?.map((ass, index) => (
                         <li key={index}>{ass}</li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                  <div className="mt-4 sm:mt-6">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 sm:mb-2">
                       Perks
                     </h3>
-                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                    <ul className="list-disc list-inside text-gray-600 ml-2 sm:ml-4 text-sm sm:text-base">
                       {job.perks?.map((perk, index) => (
                         <li key={index}>{perk}</li>
                       ))}
@@ -183,9 +183,9 @@ const ViewJobByStudent = () => {
                   </div>
                 </div>
 
-                <div className="mt-10 flex gap-2 ">
-                  <Users className="w-5 h-5 text-gray-500" />
-                  <p className="text-md text-gray-500">
+                <div className="mt-6 sm:mt-10 flex gap-2 items-center">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
+                  <p className="text-sm sm:text-md text-gray-500">
                     {applicantsCount} applicants
                   </p>
                 </div>

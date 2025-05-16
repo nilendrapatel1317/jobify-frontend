@@ -7,6 +7,7 @@ import PathName from "@/components/globle/PathName";
 import { changePasswordStudent } from "@/services/studentService";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { Lock } from "lucide-react";
 
 const ChangePasswordPage = () => {
   const [formData, setFormData] = useState({
@@ -63,63 +64,67 @@ const ChangePasswordPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       <Sidebar sidebarFor="student" />
-      <main className="ml-64 flex-1 p-10">
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
         <PathName />
-        <div className="flex justify-center items-center mb-8">
-          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+        <div className="flex justify-center items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text flex items-center gap-2 sm:gap-3">
+            <Lock className="w-6 h-6 sm:w-8 sm:h-8" />
             Change Password
           </h1>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-xl rounded-2xl p-8 space-y-6 max-w-3xl mx-auto"
+          className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-xl sm:max-w-2xl lg:max-w-3xl mx-auto"
         >
           <div>
-            <label className="block font-medium mb-1">Current Password</label>
+            <label className="block font-medium mb-1 text-sm sm:text-base">Current Password</label>
             <input
               type="password"
               name="currentPassword"
               value={formData.currentPassword}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
             />
             {errors.currentPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.currentPassword}</p>
+              <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.currentPassword}</p>
             )}
           </div>
 
           <div>
-            <label className="block font-medium mb-1">New Password</label>
+            <label className="block font-medium mb-1 text-sm sm:text-base">New Password</label>
             <input
               type="password"
               name="newPassword"
               value={formData.newPassword}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
             />
             {errors.newPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.newPassword}</p>
+              <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.newPassword}</p>
             )}
           </div>
 
-          <div className="flex justify-end mt-10 gap-3">
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+          <div className="flex flex-col sm:flex-row justify-end mt-6 sm:mt-8 gap-3">
+            <Link 
+              href="/student/settings"
+              className="w-full sm:w-auto"
             >
-              Change Password
-            </button>
-            <Link href={"/student/settings"}>
               <button
-                type="submit"
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md"
+                type="button"
+                className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
               >
                 Cancel
               </button>
             </Link>
+            <button
+              type="submit"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+            >
+              Change Password
+            </button>
           </div>
         </form>
       </main>

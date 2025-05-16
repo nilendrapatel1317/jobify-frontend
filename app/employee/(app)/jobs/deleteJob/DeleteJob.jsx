@@ -1,37 +1,51 @@
 "use client";
 
 export const dynamic = "force-dynamic";
-import React from "react";
-import {
-  deleteJob,
-  getAllJobs
-} from "@/services/jobService";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useDispatch } from "react-redux";
+
+import { useEffect, useState } from "react";
+import Sidebar from "@/components/globle/Sidebar";
 import { toast } from "react-toastify";
+import { deleteJob } from "@/services/jobService";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import PathName from "@/components/globle/PathName";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { AlertTriangle } from "lucide-react";
 
 const DeleteJob = () => {
   const searchParams = useSearchParams();
   const jobId = searchParams.get("jobId");
-  const dispatch = useDispatch();
+
   const router = useRouter();
+  const { isEmployeeLoggedIn, employee } = useSelector((state) => state.employee);
+  const { job } = useSelector((state) => state.job);
+  const selectedJob = job?.find((i) => i.id === jobId);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isEmployeeLoggedIn) {
+      router.push("/");
+    }
+  }, [isEmployeeLoggedIn, mounted]);
+
+  if (!mounted || !employee || !selectedJob) return null;
 
   const handleDelete = async () => {
     try {
-      await deleteJob(jobId);
-      const response = await getAllJobs();
-      dispatch({
-        type: "ALL_JOBS_FETCHED_SUCCESS",
-        payload: response.data.data
-      });
+      const response = await deleteJob(jobId);
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
       router.push("/employee/jobs");
     } catch (error) {
-      console.error("Error deleting job:", error);
+      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to delete job.", {
         position: "bottom-right",
         autoClose: 2000
@@ -40,29 +54,76 @@ const DeleteJob = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">
-          Confirm Deletion
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Are you sure you want to delete this job? This action cannot be undone.
-        </p>
-        <div className="flex justify-center gap-4">
-          <button
-            onClick={handleDelete}
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow-sm transition"
-          >
-            Delete
-          </button>
-          <Link
-            href="/employee/jobs"
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded-lg shadow-sm transition"
-          >
-            Cancel
-          </Link>
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+      <Sidebar sidebarFor="employee" />
+      <main className="w-full lg:ml-64 p-4 lg:p-8">
+        <PathName />
+        <div className="flex justify-center items-center mb-4 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center">
+            Delete Job
+          </h1>
         </div>
-      </div>
+
+        <div className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center text-center space-y-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-100 rounded-full flex items-center justify-center">
+              <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 text-red-500" />
+            </div>
+            
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+              Delete Job
+            </h2>
+            
+            <p className="text-sm sm:text-base text-gray-600 max-w-md">
+              Are you sure you want to delete the job position for{" "}
+              <span className="font-semibold text-gray-900">
+                {selectedJob.profile}
+              </span>
+              ? This action cannot be undone.
+            </p>
+
+            <div className="bg-gray-50 rounded-lg p-4 w-full mt-4">
+              <h3 className="text-sm sm:text-base font-medium text-gray-900 mb-2">
+                Job Details:
+              </h3>
+              <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
+                <li>
+                  <span className="font-medium">Company:</span> {selectedJob.companyName}
+                </li>
+                <li>
+                  <span className="font-medium">Type:</span> {selectedJob.jobType.replace("_", " ")}
+                </li>
+                <li>
+                  <span className="font-medium">Location:</span> {selectedJob.location}
+                </li>
+                <li>
+                  <span className="font-medium">Openings:</span> {selectedJob.openings}
+                </li>
+                <li>
+                  <span className="font-medium">Salary:</span> ₹{selectedJob.salary}/month
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-5 w-full mt-6">
+              <Link href="/employee/jobs" className="w-full sm:w-auto">
+                <button
+                  type="button"
+                  className="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+                >
+                  Cancel
+                </button>
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md text-sm sm:text-base transition-colors"
+              >
+                Delete Job
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
