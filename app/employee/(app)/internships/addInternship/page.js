@@ -217,7 +217,7 @@ const page = () => {
                 name="internshipType"
                 value={formData.internshipType}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black/70"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
                 <option value="">Select Internship Type</option>
                 {["Onsite", "Remote", "Hybrid"].map((type) => (
@@ -237,7 +237,7 @@ const page = () => {
                 name="stipendStatus"
                 value={formData.stipendStatus}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black/70"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
                 <option value="">Select Stipend Status</option>
                 {["Fixed", "Negotiable", "Performance_Based", "Unpaid"].map((status) => (

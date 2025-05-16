@@ -85,7 +85,7 @@ const RenderJobCards = ({ from }) => {
                   {job?.postedAt ? (
                     <TimeAgo timestamp={job?.postedAt} />
                   ) : (
-                    <p className="text-xs lg:text-sm text-black/50 italic flex mt-3 gap-2 items-center">
+                    <p className="text-xs lg:text-sm text-black italic flex mt-3 gap-2 items-center">
                       <TimerResetIcon className="w-4 h-4" />
                       posted 30+ days ago
                     </p>

@@ -112,7 +112,7 @@ const InternshipsPage = () => {
                       {internship?.postedAt ? (
                         <TimeAgo timestamp={internship?.postedAt} />
                       ) : (
-                        <p className="text-xs sm:text-sm text-black/50 italic flex gap-2 items-center">
+                        <p className="text-xs sm:text-sm text-black italic flex gap-2 items-center">
                           <TimerResetIcon className="w-4 h-4" />
                           posted 30+ days ago
                         </p>
