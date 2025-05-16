@@ -104,15 +104,15 @@ const page = () => {
                 <tr className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">ID</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Profile</th>
-                  <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
+                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Experience</th>
-                  <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Salary</th>
+                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Salary</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Location</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Status</th>
                   <th className="py-3 px-2 sm:px-4 text-center text-xs sm:text-sm font-medium">Action</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 text-black">
                 {jobs?.map((job) => (
                   <tr
                     key={job?.id}
@@ -122,10 +122,10 @@ const page = () => {
                         : "line-through opacity-60 text-red-500 italic font-semibold"
                     }`}
                   >
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.id}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.profile}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.openings}</td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.id}</td>
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.profile}</td>
+                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.openings}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">
                       {job?.experience}{" "}
                       {job?.experience > 0
                         ? job?.experience == 1
@@ -133,10 +133,10 @@ const page = () => {
                           : "Years"
                         : ""}
                     </td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">₹{job?.salary}</td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.location}</td>
+                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">₹{job?.salary}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.location}</td>
                     <td className="py-2 px-2 sm:px-4">
-                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center text-black">
                         <ActivateDeactivateButton
                           jobId={job?.id}
                           isActive={job?.isActive}

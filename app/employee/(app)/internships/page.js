@@ -107,10 +107,10 @@ const page = () => {
                 <tr className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">ID</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Profile</th>
-                  <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
+                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">From Date</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">To Date</th>
-                  <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Stipend Amount</th>
+                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Stipend Amount</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Status</th>
                   <th className="py-3 px-2 sm:px-4 text-center text-xs sm:text-sm font-medium">Action</th>
                 </tr>
