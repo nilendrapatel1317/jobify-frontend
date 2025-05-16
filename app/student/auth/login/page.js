@@ -74,7 +74,7 @@ const LoginPage = () => {
             { label: "Password", name: "password", type: "password" }
           ]?.map(({ label, name, type }) => (
             <div key={name}>
-              <label className="block font-medium mb-1 text-sm sm:text-base">{label}</label>
+              <label className="text-black block font-medium mb-1 text-sm sm:text-base">{label}</label>
               <input
                 type={type}
                 name={name}
@@ -88,7 +88,7 @@ const LoginPage = () => {
 
           {error && <p className="text-red-500 text-xs sm:text-sm text-center">{error}</p>}
 
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mt-6 sm:mt-10">
+          <div className=" flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mt-6 sm:mt-10">
             <button
               type="submit"
               className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition"
@@ -96,10 +96,10 @@ const LoginPage = () => {
               Login
             </button>
             <div className="flex items-center gap-1 sm:gap-2">
-              <p className="text-sm sm:text-base">Don't have an account?</p>
+              <p className="text-sm sm:text-base text-black">Don't have an account?</p>
               <Link
                 href={"/student/auth/register"}
-                className="text-sm sm:text-base font-bold hover:text-purple-600 transition"
+                className="text-sm sm:text-base font-bold hover:text-purple-600 transition text-blue-500"
               >
                 Register
               </Link>

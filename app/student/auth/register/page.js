@@ -91,7 +91,7 @@ const RegisterStudentPage = () => {
               { label: "Password", name: "password", type: "password" }
             ]?.map(({ label, name, type }) => (
               <div key={name}>
-                <label className="block font-medium mb-1 text-sm sm:text-base">{label}</label>
+                <label className="text-black block font-medium mb-1 text-sm sm:text-base">{label}</label>
                 <input
                   type={type}
                   name={name}
@@ -110,14 +110,14 @@ const RegisterStudentPage = () => {
             <label className="block font-medium mb-1 text-sm sm:text-base">Gender</label>
             <div className="flex flex-wrap gap-4 sm:gap-6">
               {["Male", "Female", "Others"]?.map((option) => (
-                <label key={option} className="flex items-center gap-2 text-sm sm:text-base">
+                <label key={option} className=" text-black flex items-center gap-2 text-sm sm:text-base">
                   <input
                     type="radio"
                     name="gender"
                     value={option}
                     checked={formData?.gender === option}
                     onChange={handleChange}
-                    className="accent-purple-500"
+                    className="accent-purple-500 text-black"
                   />
                   {option}
                 </label>
@@ -136,10 +136,10 @@ const RegisterStudentPage = () => {
               Register
             </button>
             <div className="flex items-center gap-1 sm:gap-2">
-              <p className="text-sm sm:text-base">Already have an account ?</p>
+              <p className="text-sm sm:text-base text-black">Already have an account ?</p>
               <Link 
                 href={"/student/auth/login"} 
-                className="text-sm sm:text-base font-bold hover:text-purple-600 transition"
+                className="text-sm sm:text-base font-bold hover:text-purple-600 text-blue-500 transition"
               >
                 Login
               </Link>

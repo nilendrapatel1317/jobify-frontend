@@ -90,7 +90,7 @@ const ViewInternshipByStudent = () => {
                 onApply={(count) => setApplicantsCount(count)}
               />
             ) : (
-              <p className="bg-gray-500/50 cursor-none select-none text-white text-xs sm:text-sm px-2 py-1 rounded-full italic">
+              <p className="bg-gray-500/50 cursor-none select-none text-black text-xs sm:text-sm px-2 py-1 rounded-full italic">
                 Application Closed !
               </p>
             )}
@@ -98,7 +98,7 @@ const ViewInternshipByStudent = () => {
         </div>
 
         {loading ? (
-          <p className="text-center text-base sm:text-lg">Loading internships...</p>
+          <p className="text-center text-base sm:text-lg text-black">Loading internships...</p>
         ) : internships.length === 0 ? (
           <p className="text-center text-red-500 text-base sm:text-lg">No internships found.</p>
         ) : (
@@ -114,7 +114,7 @@ const ViewInternshipByStudent = () => {
                   <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-700 flex items-center gap-2 text-center sm:text-left">
                     <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8" /> {internship.profile}
                   </h2>
-                  <p className="text-sm sm:text-md bg-gray-200 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
+                  <p className="text-sm sm:text-md bg-gray-200 text-black px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">
                     <strong>{internship.internshipType}</strong>
                   </p>
                 </div>

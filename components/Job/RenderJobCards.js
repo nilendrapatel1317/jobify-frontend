@@ -48,10 +48,10 @@ const RenderJobCards = ({ from }) => {
             {jobs?.map((job) => (
               <div
                 key={job?.id}
-                className="relative bg-white p-4 lg:p-6 rounded-xl shadow-md w-full"
+                className="relative text-black bg-white p-4 lg:p-6 rounded-xl shadow-md w-full"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl lg:text-2xl font-bold">
+                  <h3 className="text-xl lg:text-2xl font-bold text-black">
                     {job?.profile?.length > 15
                       ? `${job.profile.substring(0, 15)}...`
                       : job?.profile}
@@ -66,7 +66,7 @@ const RenderJobCards = ({ from }) => {
                     {job?.isActive ? "Active" : "InActive"}
                   </p>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 text-black">
                   <p className="text-sm lg:text-base">
                     <strong>Type:</strong> {job?.jobType}
                   </p>

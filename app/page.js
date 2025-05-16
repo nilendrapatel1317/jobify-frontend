@@ -41,7 +41,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
+    <div className="overflow-hidden min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
       {/* Header */}
       <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 shadow-md bg-white/10 gap-4 sm:gap-0">
         <div className="flex items-center space-x-3">
@@ -96,7 +96,7 @@ const Page = () => {
                   Login
                 </button>
                 {showLogin && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
+                  <div className="absolute -left-5 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
                     <Link
                       href="/student/auth/login"
                       className="block px-4 py-2 hover:bg-gray-100 text-sm"
@@ -123,7 +123,7 @@ const Page = () => {
                   Register
                 </button>
                 {showRegister && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white shadow-lg rounded-lg z-50">
+                  <div className="absolute -left-26 mt-2 w-56 bg-white shadow-lg rounded-lg z-50">
                     <Link
                       href="/student/auth/register"
                       className="block px-4 py-2 hover:bg-gray-100 text-sm"

@@ -83,8 +83,8 @@ const page = () => {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredJobs.map((job, index) => (
                         <tr key={job.id} className="hover:bg-gray-50">
-                          <td className="py-2 px-3 text-sm sm:text-base">{index + 1}</td>
-                          <td className="py-2 px-3 text-sm sm:text-base font-medium">{job.profile}</td>
+                          <td className="py-2 px-3 text-sm sm:text-base text-black">{index + 1}</td>
+                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">{job.profile}</td>
                           <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{job.jobType}</td>
                           <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{job.openings}</td>
                           <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">

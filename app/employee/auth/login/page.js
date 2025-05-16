@@ -75,7 +75,7 @@ const LoginPage = () => {
             { label: "Password", name: "password", type: "password" }
           ]?.map(({ label, name, type }) => (
             <div key={name}>
-              <label className="block font-medium mb-1 text-sm sm:text-base">{label}</label>
+              <label className="text-black block font-medium mb-1 text-sm sm:text-base">{label}</label>
               <input
                 type={type}
                 name={name}
@@ -97,10 +97,10 @@ const LoginPage = () => {
               Login
             </button>
             <div className="flex items-center gap-1 sm:gap-2">
-              <p className="text-sm sm:text-base">Don't have an account?</p>
+              <p className="text-sm sm:text-base text-black">Don't have an account?</p>
               <Link
                 href={"/employee/auth/register"}
-                className="text-sm sm:text-base font-bold hover:text-purple-600 transition"
+                className="text-sm sm:text-base font-bold hover:text-purple-600 text-blue-500 transition"
               >
                 Register
               </Link>

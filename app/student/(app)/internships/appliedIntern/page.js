@@ -82,8 +82,8 @@ const page = () => {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredInternship.map((internship, index) => (
                         <tr key={internship?.id} className="hover:bg-gray-50">
-                          <td className="py-2 px-3 text-sm sm:text-base">{index + 1}</td>
-                          <td className="py-2 px-3 text-sm sm:text-base font-medium">{internship?.profile}</td>
+                          <td className="py-2 px-3 text-sm sm:text-base text-black">{index + 1}</td>
+                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">{internship?.profile}</td>
                           <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{internship?.internshipType}</td>
                           <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{internship?.openings}</td>
                           <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">

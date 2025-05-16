@@ -51,10 +51,10 @@ const RenderInternshipCards = ({ from }) => {
             {internships?.map((internship) => (
               <div
                 key={internship?.id}
-                className="relative bg-white p-4 lg:p-6 rounded-xl shadow-md w-full"
+                className="relative bg-white text-black p-4 lg:p-6 rounded-xl shadow-md w-full"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl lg:text-2xl font-bold">
+                  <h3 className="text-xl lg:text-2xl font-bold text-black">
                     {internship?.profile?.length > 15
                       ? `${internship.profile.substring(0, 15)}...`
                       : internship?.profile}
@@ -69,7 +69,7 @@ const RenderInternshipCards = ({ from }) => {
                     {internship?.isActive ? "Active" : "InActive"}
                   </p>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 text-black">
                   <p className="text-sm lg:text-base">
                     <strong>Type:</strong> {internship?.internshipType}
                   </p>
