@@ -132,12 +132,12 @@ const EditJob = () => {
 
   const renderSelectField = (label, field, options) => (
     <div>
-      <label className="block font-medium mb-1">{label}</label>
+      <label className="block text-black font-medium mb-1">{label}</label>
       <CreatableSelect
         isMulti
         options={options.map((opt) => ({ value: opt, label: opt }))}
         onChange={(selected) => handleSelectChange(field, selected)}
-        className="w-80"
+        className="w-80 text-black"
       />
     </div>
   );
@@ -159,13 +159,13 @@ const EditJob = () => {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Profile (Role)</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Profile (Role)</label>
               <input
                 type="text"
                 name="profile"
                 value={formData.profile}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.profile && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.profile}</p>
@@ -173,13 +173,13 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Openings</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Openings</label>
               <input
                 type="number"
                 name="openings"
                 value={formData.openings}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.openings && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.openings}</p>
@@ -187,13 +187,13 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Salary Amount (PM)</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Salary Amount (PM)</label>
               <input
                 type="number"
                 name="salary"
                 value={formData.salary}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.salary && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.salary}</p>
@@ -201,13 +201,13 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Start Date</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Start Date</label>
               <input
                 type="date"
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.startDate && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.startDate}</p>
@@ -215,13 +215,13 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Experience</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Experience</label>
               <input
                 type="text"
                 name="experience"
                 value={formData.experience}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full text-black border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.experience && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.experience}</p>
@@ -229,13 +229,13 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Location</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Location</label>
               <input
                 type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full text-black border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.location && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.location}</p>
@@ -243,14 +243,14 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Job Type</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Job Type</label>
               <select
                 name="jobType"
                 value={formData.jobType}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
-                <option value="">Select Job Type</option>
+                <option value="" className="text-black">Select Job Type</option>
                 {["Full_Time", "Part_Time"].map((type) => (
                   <option key={type} value={type}>
                     {type.replace("_", " ")}
@@ -263,12 +263,12 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Salary Status</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Salary Status</label>
               <select
                 name="salaryStatus"
                 value={formData.salaryStatus}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
                 <option value="">Select Salary Status</option>
                 {["Fixed", "Negotiable", "Company_Standard"].map((status) => (
@@ -283,12 +283,12 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Skills</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Skills</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.skills.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("skills", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.skills.map(skill => ({ value: skill, label: skill }))}
               />
@@ -298,12 +298,12 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Responsibility</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Responsibility</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.responsibility.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("responsibility", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.responsibility.map(resp => ({ value: resp, label: resp }))}
               />
@@ -313,12 +313,12 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Perks</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Perks</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.perks.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("perks", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.perks.map(perk => ({ value: perk, label: perk }))}
               />
@@ -328,12 +328,12 @@ const EditJob = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Hiring Process</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Hiring Process</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.assessments.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("assessments", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.assessments.map(assessment => ({ value: assessment, label: assessment }))}
               />

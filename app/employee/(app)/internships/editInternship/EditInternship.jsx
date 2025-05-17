@@ -128,12 +128,12 @@ const EditInternship = () => {
 
   const renderSelectField = (label, field, options) => (
     <div>
-      <label className="block font-medium mb-1">{label}</label>
+      <label className="block text-black font-medium mb-1">{label}</label>
       <CreatableSelect
         isMulti
         options={options.map((opt) => ({ value: opt, label: opt }))}
         onChange={(selected) => handleSelectChange(field, selected)}
-        className="w-80"
+        className="w-80 text-black"
       />
     </div>
   );
@@ -155,13 +155,13 @@ const EditInternship = () => {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Profile (Role)</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Profile (Role)</label>
               <input
                 type="text"
                 name="profile"
                 value={formData.profile}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.profile && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.profile}</p>
@@ -169,13 +169,13 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Openings</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Openings</label>
               <input
                 type="number"
                 name="openings"
                 value={formData.openings}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.openings && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.openings}</p>
@@ -183,13 +183,13 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Stipend Amount</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Stipend Amount</label>
               <input
                 type="number"
                 name="stipendAmount"
                 value={formData.stipendAmount}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.stipendAmount && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.stipendAmount}</p>
@@ -197,13 +197,13 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">From Date</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">From Date</label>
               <input
                 type="date"
                 name="fromDate"
                 value={formData.fromDate}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.fromDate && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.fromDate}</p>
@@ -211,13 +211,13 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">To Date</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">To Date</label>
               <input
                 type="date"
                 name="toDate"
                 value={formData.toDate}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.toDate && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.toDate}</p>
@@ -225,13 +225,13 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Duration (in months)</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Duration (in months)</label>
               <input
                 type="text"
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
+                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base"
               />
               {errors.duration && (
                 <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.duration}</p>
@@ -239,16 +239,16 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Internship Type</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Internship Type</label>
               <select
                 name="internshipType"
                 value={formData.internshipType}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
+                className="w-full border  border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
-                <option value="">Select Internship Type</option>
+                <option value="" className="text-black">Select Internship Type</option>
                 {["Onsite", "Remote", "Hybrid"].map((type) => (
-                  <option key={type} value={type}>
+                  <option className="text-black" key={type} value={type}>
                     {type}
                   </option>
                 ))}
@@ -259,7 +259,7 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Stipend Status</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Stipend Status</label>
               <select
                 name="stipendStatus"
                 value={formData.stipendStatus}
@@ -268,7 +268,7 @@ const EditInternship = () => {
               >
                 <option value="">Select Stipend Status</option>
                 {["Fixed", "Negotiable", "Performance_Based", "Unpaid"].map((status) => (
-                  <option key={status} value={status}>
+                  <option className="text-black" key={status} value={status}>
                     {status.replace("_", " ")}
                   </option>
                 ))}
@@ -279,12 +279,12 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Skills</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Skills</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.skills.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("skills", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.skills.map(skill => ({ value: skill, label: skill }))}
               />
@@ -294,12 +294,12 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Responsibility</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Responsibility</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.responsibility.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("responsibility", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.responsibility.map(resp => ({ value: resp, label: resp }))}
               />
@@ -309,12 +309,12 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Perks</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Perks</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.perks.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("perks", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.perks.map(perk => ({ value: perk, label: perk }))}
               />
@@ -324,12 +324,12 @@ const EditInternship = () => {
             </div>
 
             <div className="w-full">
-              <label className="block font-medium mb-1 text-sm sm:text-base">Hiring Process</label>
+              <label className="block text-black font-medium mb-1 text-sm sm:text-base">Hiring Process</label>
               <CreatableSelect
                 isMulti
                 options={predefinedOptions.assessments.map((opt) => ({ value: opt, label: opt }))}
                 onChange={(selected) => handleSelectChange("assessments", selected)}
-                className="text-sm sm:text-base"
+                className="text-sm sm:text-base text-black"
                 classNamePrefix="select"
                 value={formData.assessments.map(assessment => ({ value: assessment, label: assessment }))}
               />
