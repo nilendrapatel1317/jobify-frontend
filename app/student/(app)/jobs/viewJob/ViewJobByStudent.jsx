@@ -1,114 +1,201 @@
 "use client";
+export const dynamic = "force-dynamic";
+
 import { useEffect, useState } from "react";
+import Sidebar from "@/components/globle/Sidebar";
+import { getAllJobs } from "@/services/jobService";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
-import { loginStudent } from "@/services/studentService";
 import Link from "next/link";
-import { toast } from "react-toastify";
+import PathName from "@/components/globle/PathName";
+import { Terminal, Users } from "lucide-react";
+import ApplyInternButton from "@/components/Job/ApplyJobButton";
+import ApplyJobButton from "@/components/Job/ApplyJobButton";
 
-const LoginPage = () => {
-  const dispatch = useDispatch();
+const ViewJobByStudent = () => {
+  const searchParams = useSearchParams();
+  const jobId = searchParams.get("jobId");
+  const [applicantsCount, setApplicantsCount] = useState(0);
+
   const router = useRouter();
-  const { isStudentLoggedIn, error } = useSelector((state) => state?.student);
-  const { isEmployeeLoggedIn } = useSelector((state) => state?.employee);
+  const dispatch = useDispatch();
+  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
 
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [mounted, setMounted] = useState(false);
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (isStudentLoggedIn) {
-      router?.push("/student/dashboard");
-    } else if (isEmployeeLoggedIn) {
-      router?.push("/");
-    } else {
-      router?.push("/student/auth/login");
-    }
-  }, [isStudentLoggedIn]);
+    setMounted(true);
+  }, []);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e?.target?.name]: e?.target?.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e?.preventDefault();
-    try {
-      const response = await loginStudent(form);
-      dispatch({ type: "STUDENT_LOGIN_SUCCESS", payload: response?.data?.data });
-      toast?.success(response?.data?.msg, {
-        position: "bottom-right",
-        autoClose: 2000
-      });
-      router?.push("/student/dashboard");
-    } catch (error) {
-      toast?.error(error?.response?.data?.msg, {
-        position: "bottom-right",
-        autoClose: 2000
-      });
-      dispatch({
-        type: "STUDENT_LOGIN_FAILURE",
-        payload: "Invalid credentials"
-      });
+  useEffect(() => {
+    if (mounted && !isStudentLoggedIn) {
+      router.push("/");
     }
-  };
+  }, [mounted, isStudentLoggedIn]);
+
+  useEffect(() => {
+    const fetchAllJobs = async () => {
+      try {
+        const response = await getAllJobs();
+        dispatch({
+          type: "ALL_JOBS_FETCHED_SUCCESS",
+          payload: response.data.data
+        });
+
+        const allJobs = response.data.data || [];
+
+        const filteredJobs = allJobs.filter((job) => job?.id === jobId);
+
+        setJobs(filteredJobs);
+        if (filteredJobs.length > 0) {
+          setApplicantsCount(filteredJobs[0].students?.length || 0);
+          setIsActive(filteredJobs[0]?.isActive);
+        }
+        setLoading(false);
+      } catch (error) {
+        dispatch({
+          type: "ALL_JOBS_FETCHED_FAILED",
+          payload: error.message
+        });
+        console.error("Error fetching jobs:", error);
+        setLoading(false);
+      }
+    };
+
+    if (mounted && student?.id) {
+      fetchAllJobs();
+    }
+  }, [mounted, student]);
+
+  if (!mounted) return null;
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <main className="flex-1 px-4 sm:px-6 lg:px-10 py-4">
-        <Link
-          href={`/`}
-          className="inline-block bg-blue-500 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base hover:bg-blue-600 transition"
-        >
-          Home
-        </Link>
-        <div className="flex justify-between items-center my-6 sm:my-8">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text text-center w-full">
-            Student Login
+      <Sidebar sidebarFor="student" />
+      <main className="ml-64 flex-1 p-10">
+        <PathName />
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-500 text-transparent bg-clip-text">
+            Job Detail
           </h1>
+
+          <div className="">
+            {isActive ? (
+              <ApplyJobButton
+                currJob={jobs[0]}
+                onApply={(count) => setApplicantsCount(count)}
+              />
+            ) : (
+              <p className=" bg-gray-500/50 cursor-none select-none text-white text-sm px-2 py-1 rounded-full italic">
+                Application Closed !
+              </p>
+            )}
+          </div>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white shadow-xl rounded-2xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 max-w-md mx-auto w-full"
-        >
-          {[
-            { label: "Email", name: "email", type: "email" },
-            { label: "Password", name: "password", type: "password" }
-          ]?.map(({ label, name, type }) => (
-            <div key={name}>
-              <label className="text-black block font-medium mb-1 text-sm sm:text-base">{label}</label>
-              <input
-                type={type}
-                name={name}
-                value={form[name]}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
-              />
-            </div>
-          ))}
+        {loading ? (
+          <p className="text-center text-lg">Loading jobs...</p>
+        ) : jobs.length === 0 ? (
+          <p className="text-center text-red-500">No jobs found.</p>
+        ) : (
+          <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6">
+            {jobs.map((job) => (
+              <div key={job.id}>
+                <div className="flex justify-between items-start">
+                  <h2 className="text-3xl font-bold text-purple-700 flex items-top gap-2">
+                    <Terminal className="text-black w-10 h-10" /> {job.profile}
+                  </h2>
+                  <p className="text-md bg-gray-200 px-3 py-1 rounded-full  ">
+                    <strong>{job.jobType}</strong>
+                  </p>
+                </div>
 
-          {error && <p className="text-red-500 text-xs sm:text-sm text-center">{error}</p>}
+                <div className="text-gray-700 text-lg space-y-2 grid grid-cols-4 mt-10">
+                  <p>
+                    <strong>Openings:</strong> {job.openings}
+                  </p>
+                  <p>
+                    <strong>Start:</strong> {job.startDate}
+                  </p>
+                  <p>
+                    <strong>Experience:</strong> {job.experience}
+                  </p>
+                  <p>
+                    <strong>Company Name:</strong> {job.companyName}
+                  </p>
+                  <p>
+                    <strong>Location:</strong> {job.location}
+                  </p>
+                  <p>
+                    <strong>Salary Status:</strong> {job.salaryStatus}
+                  </p>
+                  <p>
+                    <strong>Salary (PM):</strong> ₹{job.salary}
+                  </p>
+                </div>
 
-          <div className=" flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mt-6 sm:mt-10">
-            <button
-              type="submit"
-              className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold py-1.5 sm:py-2 px-4 sm:px-6 rounded-lg shadow-md text-sm sm:text-base transition"
-            >
-              Login
-            </button>
-            <div className="flex items-center gap-1 sm:gap-2">
-              <p className="text-sm sm:text-base text-black">Don't have an account?</p>
-              <Link
-                href={"/student/auth/register"}
-                className="text-sm sm:text-base font-bold hover:text-purple-600 transition text-blue-500"
-              >
-                Register
-              </Link>
-            </div>
+                <div className="grid grid-cols-4">
+                  <div className="mt-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                      Skills Required
+                    </h3>
+                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                      {job.skills?.map((skill, index) => (
+                        <li key={index}>{skill}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                      Your Responsibility
+                    </h3>
+                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                      {job.responsibility?.map((resp, index) => (
+                        <li key={index}>{resp}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                      Selection Process
+                    </h3>
+                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                      {job.assessments?.map((ass, index) => (
+                        <li key={index}>{ass}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-6">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                      Perks
+                    </h3>
+                    <ul className="list-disc list-inside text-gray-600 ml-4">
+                      {job.perks?.map((perk, index) => (
+                        <li key={index}>{perk}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-10 flex gap-2 ">
+                  <Users className="w-5 h-5 text-gray-500" />
+                  <p className="text-md text-gray-500">
+                    {applicantsCount} applicants
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        </form>
+        )}
       </main>
     </div>
   );
 };
 
-export default LoginPage;
+export default ViewJobByStudent;
