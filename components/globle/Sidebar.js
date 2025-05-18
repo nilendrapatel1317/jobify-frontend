@@ -138,7 +138,7 @@ const Sidebar = (props) => {
             <Settings className="w-6 h-6" /> Settings
           </Link>
         </div>
-        <div className="flex flex-col gap-4 items-start mb-20">
+        <div className="flex flex-col gap-4 items-start mb-10 sm:mb-0">
           <button
             onClick={handleLogout}
             className="bg-red-400/50 hover:bg-red-400 rounded w-full text-start p-2 flex items-center gap-2 mb-3"

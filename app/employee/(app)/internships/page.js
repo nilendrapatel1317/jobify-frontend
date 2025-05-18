@@ -107,10 +107,10 @@ const page = () => {
                 <tr className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">ID</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Profile</th>
-                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
+                  <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">From Date</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">To Date</th>
-                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Stipend Amount</th>
+                  <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Stipend Amount</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Status</th>
                   <th className="py-3 px-2 sm:px-4 text-center text-xs sm:text-sm font-medium">Action</th>
                 </tr>
@@ -126,19 +126,19 @@ const page = () => {
                     }`}
                   >
                     <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.id}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.profile}</td>
-                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.openings}</td>
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black text-nowrap">{internship?.profile}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.openings}</td>
                     <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-black text-xs sm:text-sm">
                       {internship?.fromDate || "N/A"}
                     </td>
                     <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{internship?.toDate || "N/A"}</td>
-                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">
                       {internship?.stipendStatus === "UNPAID"
                         ? "Unpaid"
                         : `₹${internship?.stipendAmount}`}
                     </td>
                     <td className="py-2 px-2 sm:px-4">
-                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center">
+                      <div className="flex flex-row gap-2 sm:gap-3 items-start sm:items-center">
                         <ActivateDeactivateButton
                           internshipId={internship?.id}
                           isActive={internship?.isActive}

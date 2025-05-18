@@ -104,9 +104,9 @@ const page = () => {
                 <tr className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">ID</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Profile</th>
-                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
+                  <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Openings</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Experience</th>
-                  <th className="hidden py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Salary</th>
+                  <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Salary</th>
                   <th className="hidden sm:table-cell py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Location</th>
                   <th className="py-3 px-2 sm:px-4 text-left text-xs sm:text-sm font-medium">Status</th>
                   <th className="py-3 px-2 sm:px-4 text-center text-xs sm:text-sm font-medium">Action</th>
@@ -123,8 +123,8 @@ const page = () => {
                     }`}
                   >
                     <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.id}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.profile}</td>
-                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.openings}</td>
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black text-nowrap">{job?.profile}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.openings}</td>
                     <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">
                       {job?.experience}{" "}
                       {job?.experience > 0
@@ -133,10 +133,10 @@ const page = () => {
                           : "Years"
                         : ""}
                     </td>
-                    <td className="hidden py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">₹{job?.salary}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">₹{job?.salary}</td>
                     <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.location}</td>
                     <td className="py-2 px-2 sm:px-4">
-                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center text-black">
+                      <div className="flex flex-row gap-2 sm:gap-3 items-start sm:items-center text-black">
                         <ActivateDeactivateButton
                           jobId={job?.id}
                           isActive={job?.isActive}
