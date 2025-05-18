@@ -38,8 +38,6 @@ const EditJob = () => {
   const { job } = useSelector((state) => state.job);
   const selectedJob = job?.find((i) => i.id === jobId);
 
-  console.log(job);
-
   const [mounted, setMounted] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -114,7 +112,6 @@ const EditJob = () => {
       });
       router.push("/employee/jobs");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to create job.", {
         position: "bottom-right",
         autoClose: 2000

@@ -45,7 +45,6 @@ const DeleteJob = () => {
       });
       router.push("/employee/jobs");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to delete job.", {
         position: "bottom-right",
         autoClose: 2000

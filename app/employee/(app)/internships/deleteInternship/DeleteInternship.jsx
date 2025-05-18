@@ -45,7 +45,6 @@ const DeleteInternship = () => {
       });
       router.push("/employee/internships");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to delete internship.", {
         position: "bottom-right",
         autoClose: 2000

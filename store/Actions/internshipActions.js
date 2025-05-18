@@ -4,7 +4,6 @@ import { getAllInternships } from '@/services/internshipService';
 export const fetchAllInternships = () => async (dispatch) => {
   try {
     const res = await getAllInternships();
-    console.log(res)
     dispatch({ type: 'ALL_INTERNSHIPS_FETCHED_SUCCESS', payload: res.data.data });
   } catch (error) {
     dispatch({ type: 'ALL_INTERNSHIPS_FETCHED_FAILED', payload: error.message });

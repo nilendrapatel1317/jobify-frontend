@@ -60,7 +60,6 @@ const ApplyJobButton = ({ currJob, onApply }) => {
         onApply(newCount);
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.msg || "Something went wrong", {
         position: "bottom-right",
         autoClose: 2000,

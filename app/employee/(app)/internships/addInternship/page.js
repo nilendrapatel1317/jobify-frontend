@@ -80,10 +80,8 @@ const page = () => {
         position: "bottom-right",
         autoClose: 2000
       });
-      console.log(response)
       router.push("/employee/internships");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to create internship.", {
         position: "bottom-right",
         autoClose: 2000

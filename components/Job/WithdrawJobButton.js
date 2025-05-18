@@ -3,7 +3,7 @@
 import { withdrawJob } from "@/services/jobService";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const WithdrawInternButton = ({ jobId, onWithdraw }) => {
@@ -13,7 +13,7 @@ const WithdrawInternButton = ({ jobId, onWithdraw }) => {
   const { isStudentLoggedIn, student } = useSelector((state) => state.student);
   const { job } = useSelector((state) => state.job); // assuming it's an array
   const [currJob, setCurrJob] = useState(null);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -40,10 +40,8 @@ const WithdrawInternButton = ({ jobId, onWithdraw }) => {
 
   const handleWithdrawIntern = async () => {
     try {
-      console.log(jobId);
-      console.log(student?.id);
+      
       const response = await withdrawJob(jobId, student?.id);
-      console.log(response);
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
@@ -52,7 +50,6 @@ const WithdrawInternButton = ({ jobId, onWithdraw }) => {
         onWithdraw(jobId);
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.msg || "Something went wrong", {
         position: "bottom-right",
         autoClose: 2000

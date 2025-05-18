@@ -82,7 +82,6 @@ const page = () => {
       });
       router.push("/employee/jobs");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to create job.", {
         position: "bottom-right",
         autoClose: 2000

@@ -50,7 +50,6 @@ const WithdrawInternButton = ({ internshipId ,onWithdraw  }) => {
         onWithdraw(internshipId); 
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.msg || "Something went wrong", {
         position: "bottom-right",
         autoClose: 2000

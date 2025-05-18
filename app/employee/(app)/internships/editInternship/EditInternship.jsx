@@ -36,8 +36,6 @@ const EditInternship = () => {
   const { internship } = useSelector((state) => state.internship);
   const selectedInternship = internship?.find((i) => i.id === internshipId);
 
-  console.log(internship);
-
   const [mounted, setMounted] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -110,7 +108,6 @@ const EditInternship = () => {
       });
       router.push("/employee/internships");
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.msg || "Failed to create internship.", {
         position: "bottom-right",
         autoClose: 2000
