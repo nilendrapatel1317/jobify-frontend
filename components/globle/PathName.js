@@ -1,25 +1,40 @@
 "use client";
 import React from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const PathName = () => {
-  const pathname = usePathname(); // e.g. "/employee/profile/edit/EMP@101"
-  
-  // Remove leading slash and split the path
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Remove leading/trailing slashes and split path
   const segments = pathname.replace(/^\/|\/$/g, "").split("/");
 
-  // Capitalize and format segments
-  const breadcrumb = segments.map((segment, index) => {
-    // Skip dynamic values like IDs or codes
-    if (/^[A-Z0-9@]+$/.test(segment)) return null;
-
-    // Capitalize first letter
-    return segment.charAt(0).toUpperCase() + segment.slice(1);
-  }).filter(Boolean); // remove nulls
+  const handleClick = (index) => {
+    // Recreate the path up to the clicked segment
+    const newPath = "/" + segments.slice(0, index + 1).join("/");
+    router.push(newPath); // Navigate to the new path
+  };
 
   return (
-    <div className="text-gray-500 font-medium mb-5 ps-12 sm:ps-0">
-      {breadcrumb.join(" > ")}
+    <div className="text-gray-500 text-xs sm:text-sm font-medium mb-10 sm:mb-5 mt-3 sm:mt-0 ps-12 sm:ps-0">
+      {segments.map((segment, index) => {
+        // Skip dynamic values like IDs or codes
+        if (/^[A-Z0-9@]+$/.test(segment)) return null;
+
+        const formatted = segment.charAt(0).toUpperCase() + segment.slice(1);
+
+        return (
+          <span key={index}>
+            <span
+              onClick={() => handleClick(index)}
+              className="cursor-pointer hover:underline"
+            >
+              {formatted}
+            </span>
+            {index < segments.length - 1 && " > "}
+          </span>
+        );
+      })}
     </div>
   );
 };
