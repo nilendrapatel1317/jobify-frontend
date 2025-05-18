@@ -11,6 +11,7 @@ const WithdrawInternButton = ({ internshipId ,onWithdraw  }) => {
   const router = useRouter();
   const { isStudentLoggedIn, student } = useSelector((state) => state.student);
   const { internship } = useSelector((state) => state.internship); // assuming it's an array
+  const [currInternship, setCurrInternship] = useState(null)
 
   useEffect(() => {
     setMounted(true);
@@ -27,6 +28,7 @@ const WithdrawInternButton = ({ internshipId ,onWithdraw  }) => {
       const selectedInternship = internship.find(
         (item) => item.id === internshipId
       );
+      setCurrInternship(selectedInternship);
       if (selectedInternship && Array.isArray(selectedInternship.students)) {
         const alreadyApplied = selectedInternship.students.some(
           (s) => s.id === student.id
@@ -59,7 +61,7 @@ const WithdrawInternButton = ({ internshipId ,onWithdraw  }) => {
   return (
     <button
       onClick={handleWithdrawIntern}
-      className="bg-yellow-400 text-sm px-3 py-1 rounded-full"
+      className={` text-sm px-3 py-1 rounded-full ${!currInternship?.isActive ? "pointer-events-none bg-yellow-400/50 text-black/50 line-through" : "bg-yellow-400"}`}
     >
       Withdraw
     </button>

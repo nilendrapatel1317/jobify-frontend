@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const WithdrawInternButton = ({ jobId ,onWithdraw  }) => {
+const WithdrawInternButton = ({ jobId, onWithdraw }) => {
   const [mounted, setMounted] = useState(false);
 
   const router = useRouter();
   const { isStudentLoggedIn, student } = useSelector((state) => state.student);
   const { job } = useSelector((state) => state.job); // assuming it's an array
-
+  const [currJob, setCurrJob] = useState(null);
+  
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -25,9 +26,8 @@ const WithdrawInternButton = ({ jobId ,onWithdraw  }) => {
 
   useEffect(() => {
     if (mounted && student && jobId && Array.isArray(job)) {
-      const selectedJob = job.find(
-        (item) => item.id === jobId
-      );
+      const selectedJob = job.find((item) => item.id === jobId);
+      setCurrJob(selectedJob);
       if (selectedJob && Array.isArray(selectedJob.students)) {
         const alreadyApplied = selectedJob.students.some(
           (s) => s.id === student.id
@@ -40,16 +40,16 @@ const WithdrawInternButton = ({ jobId ,onWithdraw  }) => {
 
   const handleWithdrawIntern = async () => {
     try {
-      console.log(jobId)
-      console.log(student?.id)
+      console.log(jobId);
+      console.log(student?.id);
       const response = await withdrawJob(jobId, student?.id);
-      console.log(response)
+      console.log(response);
       toast.success(response.data.msg, {
         position: "bottom-right",
         autoClose: 2000
       });
       if (onWithdraw) {
-        onWithdraw(jobId); 
+        onWithdraw(jobId);
       }
     } catch (error) {
       console.log(error);
@@ -63,7 +63,11 @@ const WithdrawInternButton = ({ jobId ,onWithdraw  }) => {
   return (
     <button
       onClick={handleWithdrawIntern}
-      className="bg-yellow-400 text-sm px-3 py-1 rounded-full"
+      className={` text-sm px-3 py-1 rounded-full ${
+        !currJob?.isActive
+          ? "pointer-events-none bg-yellow-400/50 text-black/50 line-through"
+          : "bg-yellow-400"
+      }`}
     >
       Withdraw
     </button>
