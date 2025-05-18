@@ -200,7 +200,7 @@ const page = () => {
             <div className="w-full">
               <label className="block text-black font-medium mb-1 text-sm sm:text-base">Duration (in months)</label>
               <input
-                type="text"
+                type="number"
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
@@ -237,7 +237,7 @@ const page = () => {
                 name="stipendStatus"
                 value={formData.stipendStatus}
                 onChange={handleChange}
-                className="w-full text-black border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
+                className="w-full text-black border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base "
               >
                 <option value="">Select Stipend Status</option>
                 {["Fixed", "Negotiable", "Performance_Based", "Unpaid"].map((status) => (

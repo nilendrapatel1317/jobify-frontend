@@ -217,7 +217,7 @@ const EditJob = () => {
             <div className="w-full">
               <label className="block text-black font-medium mb-1 text-sm sm:text-base">Experience</label>
               <input
-                type="text"
+                type="number"
                 name="experience"
                 value={formData.experience}
                 onChange={handleChange}

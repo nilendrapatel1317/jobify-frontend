@@ -227,7 +227,7 @@ const EditInternship = () => {
             <div className="w-full">
               <label className="block text-black font-medium mb-1 text-sm sm:text-base">Duration (in months)</label>
               <input
-                type="text"
+                type="number"
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
