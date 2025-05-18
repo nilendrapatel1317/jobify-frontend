@@ -15,7 +15,7 @@ export const skillsList = [
   "Kotlin",
   "Rust",
   "Scala",
-  
+
   // Frontend
   "React",
   "Angular",
@@ -30,7 +30,7 @@ export const skillsList = [
   "Material UI",
   "Sass",
   "Less",
-  
+
   // Backend
   "Node.js",
   "Express.js",
@@ -42,7 +42,7 @@ export const skillsList = [
   "ASP.NET",
   "GraphQL",
   "REST API",
-  
+
   // Databases
   "MySQL",
   "PostgreSQL",
@@ -51,7 +51,7 @@ export const skillsList = [
   "SQLite",
   "Oracle",
   "Microsoft SQL Server",
-  
+
   // DevOps & Cloud
   "Docker",
   "Kubernetes",
@@ -60,13 +60,13 @@ export const skillsList = [
   "Google Cloud",
   "CI/CD",
   "Jenkins",
-  
+
   // Mobile
   "React Native",
   "Flutter",
   "Android Development",
   "iOS Development",
-  
+
   // Others
   "Git",
   "Linux",
@@ -154,39 +154,19 @@ export const perksList = [
 ];
 
 export const assessmentsList = [
+  "Resume screening",
+  "Online assessment",
+  "Technical interview",
+  "HR interview",
+
+  "Assignment submission",
+  "Coding test",
   "Aptitude Test",
   "Technical Interview",
   "Coding Challenge",
-  "System Design Round",
   "Behavioral Interview",
-  "Take-home Assignment",
-  "Whiteboard Session",
-  "Pair Programming",
-  "Debugging Test",
-  "Algorithm Challenge",
   "Data Structures Test",
-  "Database Design Test",
   "API Design Assessment",
-  "Frontend Implementation",
-  "Backend Implementation",
-  "Full-stack Project",
-  "Problem Solving Test",
   "Code Review Exercise",
-  "Technical Presentation",
-  "Case Study Analysis",
   "Live Coding Session",
-  "Architecture Design",
-  "Security Assessment",
-  "Performance Optimization",
-  "Cloud Deployment Test",
-  "DevOps Challenge",
-  "Machine Learning Problem",
-  "Data Analysis Task",
-  "Mobile App Challenge",
-  "UI/UX Evaluation",
-  "Accessibility Audit",
-  "Agile Methodology Quiz",
-  "Git Challenge",
-  "CI/CD Implementation",
-  "Containerization Task"
 ];

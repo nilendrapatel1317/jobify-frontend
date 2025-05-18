@@ -145,7 +145,7 @@ const Page = () => {
       </header>
 
       {/* Main Top  */}
-      <section className="text-center py-8 sm:py-16 px-4 sm:px-6">
+            <section className={`text-center py-8 sm:py-16 px-4 sm:px-6 flex items-center justify-center flex-col ${mounted && isEmployeeLoggedIn ? "h-[88vh]":" sm:h-auto"}`}>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800">Jobify Portal</h2>
         <p className="mt-4 text-base sm:text-lg lg:text-xl text-gray-600">
           Find internships and jobs that launch your career 🚀
