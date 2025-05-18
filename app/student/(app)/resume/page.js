@@ -35,7 +35,7 @@ const ResumePage = () => {
         </div>
 
         <div className="mb-8 sm:mb-12">
-          <h1 className="text-xl sm:text-2xl text-red-500">Coming Soon... (Work under construction)</h1>
+          <h1 className="text-xl sm:text-2xl text-red-500">Coming Soon... <br /> (Work under construction)</h1>
         </div>
       </main>
     </div>

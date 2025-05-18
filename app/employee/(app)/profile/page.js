@@ -37,7 +37,7 @@ const DashboardPage = () => {
         <div className="relative w-full rounded-xl shadow-md mb-8 sm:mb-20">
           {/* Banner Placeholder */}
           <div className="h-32 sm:h-48 bg-gradient-to-r from-blue-600 to-purple-600 rounded-t-xl"></div>
-          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 px-4 sm:px-10 -mt-16 sm:-mt-12 mb-4 sm:mb-0 relative sm:absolute sm:top-36">
+          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 px-4 sm:px-10 -mt-16 sm:-mt-0 mb-4 sm:mb-0 relative sm:absolute sm:top-36">
             <img
               src={employee?.organizationLogo?.url}
               alt="Avatar"

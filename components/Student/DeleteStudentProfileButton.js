@@ -48,7 +48,7 @@ const DeleteStudentProfileButton = () => {
 
   return (
     <button onClick={handleDelete}>
-      <div className="flex items-center justify-center gap-5 bg-red-500  text-white text-2xl py-20 rounded-xl shadow-md cursor-pointer">
+      <div className="flex items-center justify-center gap-5 bg-red-500  text-white text-2xl py-16 sm:py-20 rounded-xl shadow-md cursor-pointer">
         <Trash2 className="w-8 h-8" />
         Delete Profile
       </div>

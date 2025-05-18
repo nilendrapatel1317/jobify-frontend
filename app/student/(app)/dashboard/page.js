@@ -69,7 +69,7 @@ const DashboardPage = () => {
               <p className="text-2xl lg:text-3xl font-bold">{jobCount}</p>
             </div>
           </Link>
-          <div className="bg-yellow-400 text-white p-4 lg:p-6 rounded-lg shadow-lg">
+          {/* <div className="bg-yellow-400 text-white p-4 lg:p-6 rounded-lg shadow-lg">
             <h2 className="text-xl lg:text-2xl">Resume</h2>
             <button
               className="mt-2 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 w-full sm:w-auto"
@@ -77,7 +77,7 @@ const DashboardPage = () => {
             >
               {hasResume ? "View Resume" : "Create Resume"}
             </button>
-          </div>
+          </div> */}
         </div>
 
         <section className="mb-6 lg:mb-10">

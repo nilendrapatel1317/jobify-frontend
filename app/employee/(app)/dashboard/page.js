@@ -53,13 +53,13 @@ const DashboardPage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 text-center text-2xl lg:text-3xl">
           <Link href={"/employee/internships"}>
-            <div className="bg-blue-500 flex flex-col gap-3 lg:gap-5 text-white py-8 lg:py-16 px-4 lg:px-6 rounded-lg shadow-lg">
+            <div className="bg-blue-500 flex flex-col gap-3 lg:gap-5 text-white py-12 lg:py-16 px-4 lg:px-6 rounded-lg shadow-lg">
               <h2>Total Internships Added</h2>
               <p className="font-bold">{internshipCount}</p>
             </div>
           </Link>
           <Link href={"/employee/jobs"}>
-            <div className="bg-green-500 flex flex-col gap-3 lg:gap-5 text-white py-8 lg:py-16 px-4 lg:px-6 rounded-lg shadow-lg">
+            <div className="bg-green-500 flex flex-col gap-3 lg:gap-5 text-white py-12 lg:py-16 px-4 lg:px-6 rounded-lg shadow-lg">
               <h2>Total Jobs Added</h2>
               <p className="font-bold">{jobCount}</p>
             </div>

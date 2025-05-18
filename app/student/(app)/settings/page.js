@@ -40,7 +40,7 @@ const SettingPage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto px-2 sm:px-4">
           <Link
-            className="flex items-center justify-center gap-3 sm:gap-5 bg-yellow-500 hover:bg-yellow-600 transition-colors text-white text-xl sm:text-2xl py-12 sm:py-20 rounded-xl shadow-md"
+            className="flex items-center justify-center gap-3 sm:gap-5 bg-yellow-500 hover:bg-yellow-600 transition-colors text-white text-xl sm:text-2xl py-16 sm:py-20 rounded-xl shadow-md"
             href={`/student/profile/edit/${student.id}`}
           >
             <Edit className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -48,7 +48,7 @@ const SettingPage = () => {
           </Link>
 
           <Link
-            className="flex items-center justify-center gap-3 sm:gap-5 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xl sm:text-2xl py-12 sm:py-20 rounded-xl shadow-md"
+            className="flex items-center justify-center gap-3 sm:gap-5 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xl sm:text-2xl py-16 sm:py-20 rounded-xl shadow-md"
             href="/student/settings/password"
           >
             <Lock className="w-6 h-6 sm:w-8 sm:h-8" />
