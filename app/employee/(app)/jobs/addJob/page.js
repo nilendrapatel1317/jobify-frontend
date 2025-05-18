@@ -219,7 +219,7 @@ const page = () => {
                 name="jobType"
                 value={formData.jobType}
                 onChange={handleChange}
-                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
                 <option value="" className="text-black">Select Job Type</option>
                 {["Full_Time", "Part_Time"].map((type) => (
@@ -239,7 +239,7 @@ const page = () => {
                 name="salaryStatus"
                 value={formData.salaryStatus}
                 onChange={handleChange}
-                className="w-full border text-black border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
+                className="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base text-black"
               >
                 <option value="" className="text-black">Select Salary Status</option>
                 {["Fixed", "Negotiable", "Company_Standard"].map((status) => (
