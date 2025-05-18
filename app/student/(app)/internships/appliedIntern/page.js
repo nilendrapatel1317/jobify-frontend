@@ -101,14 +101,14 @@ const page = () => {
                           key={internship?.id}
                           className={`hover:bg-gray-50 transition ${
                             internship?.isActive
-                              ? ""
+                              ? "text-black"
                               : "line-through opacity-60 text-red-500 italic font-semibold"
                           }`}
                         >
-                          <td className="py-2 px-3 text-sm sm:text-base text-black">
+                          <td className="py-2 px-3 text-sm sm:text-base">
                             {index + 1}
                           </td>
-                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">
+                          <td className="py-2 px-3 text-sm sm:text-base font-medium">
                             {internship?.profile}
                           </td>
                           <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">

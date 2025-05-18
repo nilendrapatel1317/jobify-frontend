@@ -118,14 +118,14 @@ const page = () => {
                     key={job?.id}
                     className={`hover:bg-gray-50 transition ${
                       job?.isActive
-                        ? ""
+                        ? "text-black"
                         : "line-through opacity-60 text-red-500 italic font-semibold"
                     }`}
                   >
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.id}</td>
-                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-black text-nowrap">{job?.profile}</td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.openings}</td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.id}</td>
+                    <td className="py-2 px-2 sm:px-4 text-xs sm:text-sm text-nowrap">{job?.profile}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.openings}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">
                       {job?.experience}{" "}
                       {job?.experience > 0
                         ? job?.experience == 1
@@ -133,10 +133,10 @@ const page = () => {
                           : "Years"
                         : ""}
                     </td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">₹{job?.salary}</td>
-                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm text-black">{job?.location}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">₹{job?.salary}</td>
+                    <td className="hidden sm:table-cell py-2 px-2 sm:px-4 text-xs sm:text-sm">{job?.location}</td>
                     <td className="py-2 px-2 sm:px-4">
-                      <div className="flex flex-row gap-2 sm:gap-3 items-start sm:items-center text-black">
+                      <div className="flex flex-row gap-2 sm:gap-3 items-start sm:items-center">
                         <ActivateDeactivateButton
                           jobId={job?.id}
                           isActive={job?.isActive}
