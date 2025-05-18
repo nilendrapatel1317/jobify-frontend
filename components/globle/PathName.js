@@ -27,7 +27,7 @@ const PathName = () => {
           <span key={index}>
             <span
               onClick={() => handleClick(index)}
-              className="cursor-pointer hover:underline"
+              className="cursor-pointer hover:underline hover:text-blue-600"
             >
               {formatted}
             </span>
