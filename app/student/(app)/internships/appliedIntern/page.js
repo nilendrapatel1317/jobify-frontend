@@ -69,58 +69,107 @@ const page = () => {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gradient-to-r from-blue-500 to-purple-500">
                       <tr>
-                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">S.No</th>
-                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Profile</th>
-                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Intern Type</th>
-                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Openings</th>
-                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Duration</th>
-                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Stipend Amount</th>
-                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">Status</th>
-                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">Action</th>
+                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          S.No
+                        </th>
+                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Profile
+                        </th>
+                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Intern Type
+                        </th>
+                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Openings
+                        </th>
+                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Duration
+                        </th>
+                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Stipend Amount
+                        </th>
+                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">
+                          Status
+                        </th>
+                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">
+                          Action
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredInternship.map((internship, index) => (
-                        <tr key={internship?.id} className="hover:bg-gray-50">
-                          <td className="py-2 px-3 text-sm sm:text-base text-black">{index + 1}</td>
-                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">{internship?.profile}</td>
-                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{internship?.internshipType}</td>
-                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{internship?.openings}</td>
-                          <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">
-                            {internship?.duration} {internship?.duration > 1 ? "Months" : "Month"}
+                        <tr
+                          key={internship?.id}
+                          className={`hover:bg-gray-50 transition ${
+                            internship?.isActive
+                              ? ""
+                              : "line-through opacity-60 text-red-500 italic font-semibold"
+                          }`}
+                        >
+                          <td className="py-2 px-3 text-sm sm:text-base text-black">
+                            {index + 1}
+                          </td>
+                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">
+                            {internship?.profile}
+                          </td>
+                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">
+                            {internship?.internshipType}
+                          </td>
+                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">
+                            {internship?.openings}
                           </td>
                           <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">
-                            {internship?.stipendStatus === "UNPAID" ? "Unpaid" : `₹${internship?.stipendAmount}`}
+                            {internship?.duration}{" "}
+                            {internship?.duration > 1 ? "Months" : "Month"}
+                          </td>
+                          <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">
+                            {internship?.stipendStatus === "UNPAID"
+                              ? "Unpaid"
+                              : `₹${internship?.stipendAmount}`}
                           </td>
                           <td className="py-2 px-3">
                             <div className="flex items-center justify-center">
-                              <span className={`px-2 py-1 text-xs sm:text-sm rounded-full font-medium ${internship?.isActive
-                                ? "bg-green-100 text-green-800"
-                                : "bg-red-100 text-red-800"
-                                }`}>
+                              <span
+                                className={`px-2 py-1 text-xs sm:text-sm rounded-full font-medium ${
+                                  internship?.isActive
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-red-100 text-red-800"
+                                }`}
+                              >
                                 {internship?.isActive ? "Active" : "Inactive"}
                               </span>
                             </div>
                           </td>
-                          <td className="py-2 px-3 min-w-[180px]">                            <div className="flex flex-row items-center justify-center gap-2">                              <Link href={`/student/internships/viewInternship?internshipId=${internship?.id}`}>                                <button className="whitespace-nowrap bg-blue-600 text-white text-xs sm:text-sm px-3 py-1 rounded-full hover:bg-blue-700 transition-colors">                                  Details                                </button>                              </Link>
-                            <WithdrawInternButton
-                              internshipId={internship?.id}
-                              onWithdraw={(id) => {
-                                setInternships((prev) =>
-                                  prev.map((intern) =>
-                                    intern?.id === id
-                                      ? {
-                                        ...intern,
-                                        students: intern?.students?.filter(
-                                          (s) => s?.id !== student?.id
-                                        )
-                                      }
-                                      : intern
-                                  )
-                                );
-                              }}
-                            />
-                          </div>
+                          <td className="py-2 px-3 min-w-[180px]">
+                            {" "}
+                            <div className="flex flex-row items-center justify-center gap-2">
+                              {" "}
+                              <Link
+                                href={`/student/internships/viewInternship?internshipId=${internship?.id}`}
+                              >
+                                {" "}
+                                <button className="whitespace-nowrap bg-blue-600 text-white text-xs sm:text-sm px-3 py-1 rounded-full hover:bg-blue-700 transition-colors">
+                                  {" "}
+                                  Details{" "}
+                                </button>{" "}
+                              </Link>
+                              <WithdrawInternButton
+                                internshipId={internship?.id}
+                                onWithdraw={(id) => {
+                                  setInternships((prev) =>
+                                    prev.map((intern) =>
+                                      intern?.id === id
+                                        ? {
+                                            ...intern,
+                                            students: intern?.students?.filter(
+                                              (s) => s?.id !== student?.id
+                                            )
+                                          }
+                                        : intern
+                                    )
+                                  );
+                                }}
+                              />
+                            </div>
                           </td>
                         </tr>
                       ))}

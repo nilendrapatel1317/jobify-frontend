@@ -69,24 +69,57 @@ const page = () => {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gradient-to-r from-blue-500 to-purple-500">
                       <tr>
-                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">S.No</th>
-                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Profile</th>
-                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Job Type</th>
-                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Openings</th>
-                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Experience</th>
-                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Location</th>
-                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">Salary (PM)</th>
-                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">Status</th>
-                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">Action</th>
+                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          S.No
+                        </th>
+                        <th className="py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Profile
+                        </th>
+                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Job Type
+                        </th>
+                        <th className="hidden sm:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Openings
+                        </th>
+                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Experience
+                        </th>
+                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Location
+                        </th>
+                        <th className="hidden lg:table-cell py-3 px-3 text-left text-xs sm:text-sm text-white font-semibold">
+                          Salary (PM)
+                        </th>
+                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">
+                          Status
+                        </th>
+                        <th className="py-3 px-3 text-center text-xs sm:text-sm text-white font-semibold">
+                          Action
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {filteredJobs.map((job, index) => (
-                        <tr key={job.id} className="hover:bg-gray-50">
-                          <td className="py-2 px-3 text-sm sm:text-base text-black">{index + 1}</td>
-                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">{job.profile}</td>
-                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{job.jobType}</td>
-                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">{job.openings}</td>
+                        <tr
+                          key={job.id}
+                          className={`hover:bg-gray-50 transition ${
+                            internship?.isActive
+                              ? ""
+                              : "line-through opacity-60 text-red-500 italic font-semibold"
+                          }`}
+                        >
+                          <td className="py-2 px-3 text-sm sm:text-base text-black">
+                            {index + 1}
+                          </td>
+                          <td className="py-2 px-3 text-sm sm:text-base font-medium text-black">
+                            {job.profile}
+                          </td>
+                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">
+                            {job.jobType}
+                          </td>
+                          <td className="hidden sm:table-cell py-2 px-3 text-sm sm:text-base">
+                            {job.openings}
+                          </td>
                           <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">
                             {job.experience}{" "}
                             {job?.experience > 0
@@ -95,22 +128,30 @@ const page = () => {
                                 : "Years"
                               : ""}
                           </td>
-                          <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">{job.location}</td>
-                          <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">₹{job.salary}</td>
+                          <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">
+                            {job.location}
+                          </td>
+                          <td className="hidden lg:table-cell py-2 px-3 text-sm sm:text-base">
+                            ₹{job.salary}
+                          </td>
                           <td className="py-2 px-3">
                             <div className="flex items-center justify-center">
-                              <span className={`px-2 py-1 text-xs sm:text-sm rounded-full font-medium ${
-                                job?.isActive
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-red-100 text-red-800"
-                              }`}>
+                              <span
+                                className={`px-2 py-1 text-xs sm:text-sm rounded-full font-medium ${
+                                  job?.isActive
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-red-100 text-red-800"
+                                }`}
+                              >
                                 {job?.isActive ? "Active" : "Inactive"}
                               </span>
                             </div>
                           </td>
                           <td className="py-2 px-3 min-w-[180px]">
                             <div className="flex flex-row items-center justify-center gap-2">
-                              <Link href={`/student/jobs/viewJob?jobId=${job.id}`}>
+                              <Link
+                                href={`/student/jobs/viewJob?jobId=${job.id}`}
+                              >
                                 <button className="whitespace-nowrap bg-blue-600 text-white text-xs sm:text-sm px-3 py-1 rounded-full hover:bg-blue-700 transition-colors">
                                   Details
                                 </button>

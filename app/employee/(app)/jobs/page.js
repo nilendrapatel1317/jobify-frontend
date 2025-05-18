@@ -112,7 +112,7 @@ const page = () => {
                   <th className="py-3 px-2 sm:px-4 text-center text-xs sm:text-sm font-medium">Action</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200 text-black">
+              <tbody className="bg-white divide-y divide-gray-200">
                 {jobs?.map((job) => (
                   <tr
                     key={job?.id}
