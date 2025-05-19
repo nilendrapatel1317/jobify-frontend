@@ -108,7 +108,7 @@ const ViewJobByStudent = () => {
                   <h2 className="text-2xl md:text-3xl font-bold text-purple-700 flex items-top gap-2">
                     <Terminal className="text-black w-8 h-8 md:w-10 md:h-10" /> {job.profile}
                   </h2>
-                  <p className="text-md bg-gray-200 px-3 py-1 rounded-full text-black">
+                  <p className="text-base md:text-lg bg-gray-200 px-3 py-1 rounded-full text-black">
                     <strong>{job.jobType}</strong>
                   </p>
                 </div>
