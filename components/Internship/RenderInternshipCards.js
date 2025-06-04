@@ -16,8 +16,15 @@ const RenderInternshipCards = ({ from }) => {
       try {
         const response = await getAllInternships();
         const data = response?.data?.data;
-        console.log(response)
-        console.log(data)
+        if (typeof data === "string") {
+          data = JSON.parse(data);
+          console.log(typeof response.data.data);
+
+        }
+        console.log(typeof response.data.data);
+
+        console.log(response);
+        console.log(data);
 
         dispatch({ type: "ALL_INTERNSHIPS_FETCHED_SUCCESS", payload: data });
 
@@ -27,8 +34,7 @@ const RenderInternshipCards = ({ from }) => {
             !internship?.students?.some((s) => s?.id === student?.id)
         );
 
-        console.log(notAppliedInternships)
-        
+
         // Step 2: Show 3 or 6 based on 'from'
         const count = from === "student" ? 3 : 6;
         setInternships(notAppliedInternships?.slice(0, count));
@@ -42,7 +48,6 @@ const RenderInternshipCards = ({ from }) => {
 
     fetchInternships();
   }, [from, dispatch, student?.id]);
-  console.log(internships)
 
   return (
     <section className="py-4 lg:py-8">
