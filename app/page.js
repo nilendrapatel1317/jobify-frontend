@@ -46,7 +46,9 @@ const Page = () => {
       <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 shadow-md bg-white/10 gap-4 sm:gap-0">
         <div className="flex items-center space-x-3">
           <Link href={"/"}>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Jobify Portal</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
+              Jobify Portal
+            </h1>
           </Link>
         </div>
         <div className="flex space-x-2 sm:space-x-4 relative">
@@ -145,8 +147,14 @@ const Page = () => {
       </header>
 
       {/* Main Top  */}
-            <section className={`text-center py-8 sm:py-16 px-4 sm:px-6 flex items-center justify-center flex-col ${mounted && isEmployeeLoggedIn ? "h-[88vh]":" sm:h-auto"}`}>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800">Jobify Portal</h2>
+      <section
+        className={`text-center py-8 sm:py-16 px-4 sm:px-6 flex items-center justify-center flex-col ${
+          mounted && isEmployeeLoggedIn ? "h-[88vh]" : " sm:h-auto"
+        }`}
+      >
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800">
+          Jobify Portal
+        </h2>
         <p className="mt-4 text-base sm:text-lg lg:text-xl text-gray-600">
           Find internships and jobs that launch your career 🚀
         </p>
@@ -154,9 +162,11 @@ const Page = () => {
 
       {/* Main Middle - Internships */}
       <div className="px-0 sm:px-6 lg:px-40">
-        {mounted && !isEmployeeLoggedIn && <RenderInternshipCards from="home" />}
+        {mounted && !isEmployeeLoggedIn && (
+          <RenderInternshipCards from="home" />
+        )}
       </div>
-      
+
       {/* Main Bottom - Jobs */}
       <div className="px-0 sm:px-6 lg:px-40">
         {mounted && !isEmployeeLoggedIn && <RenderJobCards from="home" />}
