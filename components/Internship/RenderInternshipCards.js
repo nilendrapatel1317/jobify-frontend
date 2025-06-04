@@ -16,6 +16,7 @@ const RenderInternshipCards = ({ from }) => {
       try {
         const response = await getAllInternships();
         const data = response?.data?.data;
+        console.log(response)
         console.log(data)
 
         dispatch({ type: "ALL_INTERNSHIPS_FETCHED_SUCCESS", payload: data });
