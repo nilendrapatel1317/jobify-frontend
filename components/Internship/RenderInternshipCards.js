@@ -23,8 +23,8 @@ const RenderInternshipCards = ({ from }) => {
         }
         console.log(typeof data);
 
-        console.log(response);
-        console.log(data);
+        console.log(response?.data);
+        console.log(response?.data?.data);
 
         dispatch({ type: "ALL_INTERNSHIPS_FETCHED_SUCCESS", payload: data });
 
