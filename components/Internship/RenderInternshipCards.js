@@ -18,10 +18,10 @@ const RenderInternshipCards = ({ from }) => {
         const data = response?.data?.data;
         if (typeof data === "string") {
           data = JSON.parse(data);
-          console.log(typeof response.data.data);
+          console.log(typeof data);
 
         }
-        console.log(typeof response.data.data);
+        console.log(typeof data);
 
         console.log(response);
         console.log(data);
