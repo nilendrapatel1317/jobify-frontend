@@ -27,12 +27,12 @@ const jobReducer = (state = initialState, action) => {
     case "ALL_JOBS_FETCHED_FAILED":
       return {
         ...state,
-        error: action.payload
+        error: action?.payload
       };
 
     case "JOB_DELETED_SUCCESS":
-      const updatedJobs = state.job.filter(
-        (job) => job.id !== action.payload
+      const updatedJobs = state?.job?.filter(
+        (job) => job?.id !== action?.payload
       );
       if (typeof window !== "undefined") {
         localStorage.setItem("job", JSON.stringify(updatedJobs));

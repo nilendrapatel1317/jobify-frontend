@@ -31,11 +31,11 @@ const internshipReducer = (state = initialState, action) => {
       };
 
     case "INTERNSHIP_DELETED_SUCCESS":
-      const updatedInternships = state.internship.filter(
-        (internship) => internship.id !== action.payload
+      const updatedInternships = state?.internship?.filter(
+        (internship) => internship?.id !== action?.payload
       );
       if (typeof window !== "undefined") {
-        localStorage.setItem("internship", JSON.stringify(updatedInternships));
+        localStorage?.setItem("internship", JSON.stringify(updatedInternships));
       }
       return {
         ...state,

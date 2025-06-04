@@ -9,25 +9,25 @@ import TimeAgo from "../globle/TimeAgo";
 const RenderInternshipCards = ({ from }) => {
   const [internships, setInternships] = useState([]);
   const dispatch = useDispatch();
-  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
+  const { isStudentLoggedIn, student } = useSelector((state) => state?.student);
 
   useEffect(() => {
     const fetchInternships = async () => {
       try {
         const response = await getAllInternships();
-        const data = response?.data.data;
+        const data = response?.data?.data;
 
         dispatch({ type: "ALL_INTERNSHIPS_FETCHED_SUCCESS", payload: data });
 
         // Step 1: Filter internships not applied by the current student
-        const notAppliedInternships = data.filter(
+        const notAppliedInternships = data?.filter(
           (internship) =>
             !internship?.students?.some((s) => s?.id === student?.id)
         );
 
         // Step 2: Show 3 or 6 based on 'from'
         const count = from === "student" ? 3 : 6;
-        setInternships(notAppliedInternships.slice(0, count));
+        setInternships(notAppliedInternships?.slice(0, count));
       } catch (error) {
         dispatch({
           type: "ALL_INTERNSHIPS_FETCHED_FAILED",
@@ -56,7 +56,7 @@ const RenderInternshipCards = ({ from }) => {
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl lg:text-2xl font-bold text-black">
                     {internship?.profile?.length > 15
-                      ? `${internship.profile.substring(0, 15)}...`
+                      ? `${internship?.profile.substring(0, 15)}...`
                       : internship?.profile}
                   </h3>
                   <p

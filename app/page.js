@@ -16,9 +16,9 @@ const Page = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const { isStudentLoggedIn, student } = useSelector((state) => state.student);
+  const { isStudentLoggedIn, student } = useSelector((state) => state?.student);
   const { isEmployeeLoggedIn, employee } = useSelector(
-    (state) => state.employee
+    (state) => state?.employee
   );
 
   useEffect(() => {
@@ -29,11 +29,11 @@ const Page = () => {
     const fetchJobs = async () => {
       try {
         const response = await getAllJobs();
-        const data = response.data.data;
+        const data = response?.data?.data;
         dispatch({ type: "ALL_JOBS_FETCHED_SUCCESS", payload: data });
-        setJobs(data.slice(0, 6));
+        setJobs(data?.slice(0, 6));
       } catch (error) {
-        dispatch({ type: "ALL_JOBS_FETCHED_FAILED", payload: error.message });
+        dispatch({ type: "ALL_JOBS_FETCHED_FAILED", payload: error?.message });
       }
     };
 
