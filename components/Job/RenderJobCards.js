@@ -16,6 +16,7 @@ const RenderJobCards = ({ from }) => {
       try {
         const response = await getAllJobs();
         const data = response?.data.data;
+        console.log(response)
 
         dispatch({ type: "ALL_JOBS_FETCHED_SUCCESS", payload: data });
 
